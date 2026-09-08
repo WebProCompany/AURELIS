@@ -3278,21 +3278,21 @@ h2 {
   border-radius: 50%;
   pointer-events: none;
   z-index: 2;
-  filter: blur(100px);
+  filter: blur(80px);
 }
 
 .hero::before {
-  width: 380px;
-  height: 380px;
-  top: -120px;
-  left: -100px;
-  background: rgba(242, 196, 206, 0.32);
+  width: 500px;
+  height: 500px;
+  top: -200px;
+  left: -150px;
+  background: rgba(255, 170, 215, 0.65);
 }
 
 .hero::after {
-  width: 320px;
-  height: 320px;
-  right: -90px;
-  bottom: -100px;
-  background: rgba(201, 168, 199, 0.28);
+  width: 450px;
+  height: 450px;
+  right: -150px;
+  bottom: -180px;
+  background: rgba(190, 150, 255, 0.55);
 }
