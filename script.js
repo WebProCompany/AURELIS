@@ -691,82 +691,140 @@ function setupPremiumHeroAnimation() {
     return;
   }
 
-  const label = hero.querySelector(".hero-label");
-  const title = hero.querySelector("h1");
-  const description = hero.querySelector(".hero-description");
-  const buttons = hero.querySelectorAll(".category-button");
+  /*
+    Убираем CSS-анимации только у Hero-элементов.
+    Теперь их анимацией управляет только GSAP.
+  */
 
-  const timeline = gsap.timeline({
-    defaults: {
-      ease: "power3.out"
-    }
+  const label =
+    hero.querySelector(".hero-label");
+
+  const title =
+    hero.querySelector("h1");
+
+  const description =
+    hero.querySelector(".hero-description");
+
+  const buttons =
+    hero.querySelectorAll(".category-button");
+
+
+  const elements = [
+    label,
+    title,
+    description,
+    ...buttons
+  ].filter(Boolean);
+
+
+  if (!elements.length) {
+    return;
+  }
+
+
+  /*
+    Полностью отключаем старые CSS animations
+    и задаём начальное состояние.
+  */
+
+  gsap.set(elements, {
+    animation: "none",
+    opacity: 0
   });
 
+
+  /*
+    Единая Premium-анимация Hero
+  */
+
+  const timeline =
+    gsap.timeline({
+      defaults: {
+        ease: "power3.out"
+      }
+    });
+
+
+  /* COLLECTION 2026 */
+
   if (label) {
-    timeline.fromTo(
+
+    timeline.to(
       label,
-      {
-        opacity: 0,
-        y: 25
-      },
       {
         opacity: 1,
         y: 0,
-        duration: 0.8
+        duration: 0.7
       }
     );
+
   }
 
+
+  /* AURÉLIS */
+
   if (title) {
+
     timeline.fromTo(
       title,
       {
-        opacity: 0,
-        y: 40,
-        scale: 0.96
+        y: 35,
+        scale: 0.97
       },
       {
         opacity: 1,
         y: 0,
         scale: 1,
-        duration: 1
+        duration: 0.9
       },
-      "-=0.45"
+      "-=0.4"
     );
+
   }
 
+
+  /* DESCRIPTION */
+
   if (description) {
+
     timeline.fromTo(
       description,
       {
-        opacity: 0,
-        y: 25
-      },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.8
-      },
-      "-=0.55"
-    );
-  }
-
-  if (buttons.length) {
-    timeline.fromTo(
-      buttons,
-      {
-        opacity: 0,
         y: 20
       },
       {
         opacity: 1,
         y: 0,
-        duration: 0.7,
-        stagger: 0.12
+        duration: 0.7
       },
       "-=0.45"
     );
+
   }
+
+
+  /* BUTTONS */
+
+  if (buttons.length) {
+
+    timeline.fromTo(
+      buttons,
+      {
+        y: 18,
+        scale: 0.97
+      },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.6,
+        stagger: 0.12
+      },
+      "-=0.35"
+    );
+
+  }
+
 }
 
 /* ==================================================
