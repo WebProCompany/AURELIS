@@ -791,5 +791,7 @@ document.addEventListener(
 
     setupOrders();
 
+   setupPremiumHeroAnimation();
+     
   }
 );
