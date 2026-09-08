@@ -675,6 +675,99 @@ function setupMobileMenu() {
   );
 }
 
+/* ==================================================
+   PREMIUM HERO ANIMATION — GSAP
+================================================== */
+
+function setupPremiumHeroAnimation() {
+
+  if (typeof gsap === "undefined") {
+    return;
+  }
+
+  const hero = document.querySelector(".hero");
+
+  if (!hero) {
+    return;
+  }
+
+  const label = hero.querySelector(".hero-label");
+  const title = hero.querySelector("h1");
+  const description = hero.querySelector(".hero-description");
+  const buttons = hero.querySelectorAll(".category-button");
+
+  const timeline = gsap.timeline({
+    defaults: {
+      ease: "power3.out"
+    }
+  });
+
+  if (label) {
+    timeline.fromTo(
+      label,
+      {
+        opacity: 0,
+        y: 25
+      },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8
+      }
+    );
+  }
+
+  if (title) {
+    timeline.fromTo(
+      title,
+      {
+        opacity: 0,
+        y: 40,
+        scale: 0.96
+      },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 1
+      },
+      "-=0.45"
+    );
+  }
+
+  if (description) {
+    timeline.fromTo(
+      description,
+      {
+        opacity: 0,
+        y: 25
+      },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8
+      },
+      "-=0.55"
+    );
+  }
+
+  if (buttons.length) {
+    timeline.fromTo(
+      buttons,
+      {
+        opacity: 0,
+        y: 20
+      },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.7,
+        stagger: 0.12
+      },
+      "-=0.45"
+    );
+  }
+}
 
 /* ==================================================
    INITIALIZE
