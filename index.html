@@ -1,778 +1,864 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0"
-    >
-
+    />
     <meta
         name="description"
-        content="AURÉLIS — Maison de Parfum. Авторская коллекция премиальных ароматов."
-    >
-
-    <meta name="theme-color" content="#0a0a09">
+        content="AURÉLIS — Maison de Parfum. Нишевая парфюмерия с характером."
+    />
+    <meta name="theme-color" content="#0a0a09" />
 
     <title>AURÉLIS — Maison de Parfum</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    />
 
     <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap"
         rel="stylesheet"
-    >
+    />
 
-    <link rel="stylesheet" href="style.css">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: [
+                            "Cormorant Garamond",
+                            "Georgia",
+                            "serif"
+                        ],
+                        sans: [
+                            "Inter",
+                            "Arial",
+                            "sans-serif"
+                        ]
+                    },
+                    colors: {
+                        aurBlack: "#0a0a09",
+                        aurGraphite: "#171714",
+                        aurIvory: "#eee9df",
+                        aurCream: "#dcd2c0",
+                        aurBeige: "#b7a991",
+                        aurStone: "#7c7468"
+                    }
+                }
+            }
+        };
+    </script>
+
+    <link rel="stylesheet" href="style.css" />
 </head>
 
-<body>
+<body class="bg-aurBlack text-aurIvory font-sans antialiased">
 
-    <!-- =========================================
+    <!-- =========================================================
          PRELOADER
-    ========================================== -->
-    <div class="preloader" id="preloader">
-        <div class="preloader__content">
-            <span class="preloader__brand">AURÉLIS</span>
-
-            <div class="preloader__bar">
-                <span></span>
+    ========================================================== -->
+    <div
+        id="preloader"
+        class="fixed inset-0 z-[9999] flex items-center justify-center bg-aurBlack transition-all duration-700 ease-in-out"
+    >
+        <div class="flex flex-col items-center">
+            <div
+                class="font-serif text-4xl tracking-[0.22em] sm:text-5xl"
+            >
+                AURÉLIS
             </div>
 
-            <small>MAISON DE PARFUM</small>
+            <div
+                class="mt-6 h-px w-28 overflow-hidden bg-white/10"
+            >
+                <span
+                    id="preloaderBar"
+                    class="block h-full w-full -translate-x-full bg-aurIvory"
+                ></span>
+            </div>
+
+            <div
+                class="mt-4 text-[8px] tracking-[0.35em] text-white/30"
+            >
+                MAISON DE PARFUM
+            </div>
         </div>
     </div>
 
 
-    <!-- =========================================
+    <!-- =========================================================
          HEADER
-    ========================================== -->
-    <header class="header" id="header">
-
-        <a href="#home" class="logo" aria-label="AURÉLIS">
-            AURÉLIS
-        </a>
-
-        <nav class="desktop-nav" aria-label="Главная навигация">
-
-            <a href="#collection">
-                Коллекция
-            </a>
-
-            <a href="#discovery">
-                Discovery Set
-            </a>
-
-            <a href="#story">
-                О бренде
-            </a>
-
-            <a href="#reviews">
-                Отзывы
-            </a>
-
-            <a href="#contact">
-                Контакты
-            </a>
-
-        </nav>
-
-        <button
-            class="menu-button"
-            id="menuButton"
-            aria-label="Открыть меню"
-            aria-expanded="false"
+    ========================================================== -->
+    <header
+        id="header"
+        class="fixed inset-x-0 top-0 z-[1000] h-20 transition-all duration-500 ease-in-out sm:h-[88px]"
+    >
+        <div
+            class="mx-auto flex h-full w-full max-w-[1440px] items-center justify-between px-5 sm:px-8 lg:px-10"
         >
-            <span></span>
-            <span></span>
-        </button>
 
-    </header>
+            <a
+                href="#home"
+                class="relative z-[1100] font-serif text-[24px] tracking-[0.18em] transition-all duration-500 ease-in-out hover:text-aurCream sm:text-[26px]"
+            >
+                AURÉLIS
+            </a>
 
-
-    <!-- =========================================
-         MOBILE MENU
-    ========================================== -->
-    <aside class="mobile-menu" id="mobileMenu">
-
-        <div class="mobile-menu__inner">
-
-            <span class="mobile-menu__eyebrow">
-                NAVIGATION
-            </span>
-
-            <nav>
-
-                <a href="#home">
-                    Главная
-                </a>
-
-                <a href="#collection">
+            <!-- Desktop -->
+            <nav
+                class="hidden items-center gap-6 lg:flex xl:gap-9"
+                aria-label="Главная навигация"
+            >
+                <a href="#collection" class="nav-link">
                     Коллекция
                 </a>
 
-                <a href="#discovery">
+                <a href="#discovery" class="nav-link">
                     Discovery Set
                 </a>
 
-                <a href="#story">
+                <a href="#story" class="nav-link">
                     О бренде
                 </a>
 
-                <a href="#reviews">
+                <a href="#reviews" class="nav-link">
                     Отзывы
                 </a>
 
-                <a href="#contact">
+                <a href="#contact" class="nav-link">
                     Контакты
                 </a>
-
             </nav>
 
-            <div class="mobile-menu__footer">
+            <!-- Mobile -->
+            <button
+                id="menuButton"
+                type="button"
+                class="relative z-[1100] flex h-11 w-11 flex-col items-center justify-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-sm transition-all duration-500 ease-in-out hover:border-white/20 hover:bg-white/[0.06] lg:hidden"
+                aria-label="Открыть меню"
+                aria-expanded="false"
+            >
+                <span class="menu-line block h-px w-6 bg-aurIvory transition-all duration-500 ease-in-out"></span>
+                <span class="menu-line block h-px w-6 bg-aurIvory transition-all duration-500 ease-in-out"></span>
+                <span class="menu-line block h-px w-6 bg-aurIvory transition-all duration-500 ease-in-out"></span>
+            </button>
+        </div>
+    </header>
+
+
+    <!-- =========================================================
+         MOBILE MENU
+    ========================================================== -->
+    <aside
+        id="mobileMenu"
+        class="fixed inset-0 z-[900] invisible translate-x-full bg-aurBlack/90 opacity-0 backdrop-blur-2xl transition-all duration-700 ease-in-out lg:hidden"
+        aria-hidden="true"
+    >
+        <div class="flex h-full flex-col justify-center px-7 pb-8 pt-24 sm:px-10">
+
+            <div
+                class="text-[8px] tracking-[0.3em] text-aurBeige"
+            >
+                NAVIGATION
+            </div>
+
+            <nav class="mt-7 flex flex-col">
+                <a href="#home" class="mobile-nav-link">Главная</a>
+                <a href="#collection" class="mobile-nav-link">Коллекция</a>
+                <a href="#discovery" class="mobile-nav-link">Discovery Set</a>
+                <a href="#story" class="mobile-nav-link">О бренде</a>
+                <a href="#reviews" class="mobile-nav-link">Отзывы</a>
+                <a href="#contact" class="mobile-nav-link">Контакты</a>
+            </nav>
+
+            <div
+                class="mt-auto flex items-center justify-between border-t border-white/10 pt-5 text-[8px] tracking-[0.25em] text-white/30"
+            >
                 <span>AURÉLIS</span>
                 <span>2026</span>
             </div>
-
         </div>
-
     </aside>
 
 
     <main>
 
-        <!-- =========================================
+        <!-- =========================================================
              HERO
-        ========================================== -->
-        <section class="hero" id="home">
+        ========================================================== -->
+        <section
+            id="home"
+            class="hero relative isolate flex min-h-[100svh] items-center justify-center overflow-hidden"
+        >
 
             <!-- Optional local video:
                  assets/aurelis-smoke.mp4
             -->
             <video
-                class="hero__video"
                 id="heroVideo"
-                autoplay
+                class="absolute inset-0 -z-20 h-full w-full object-cover opacity-0 grayscale contrast-125 brightness-[0.42] transition-opacity duration-1000 ease-in-out"
                 muted
+                autoplay
                 loop
                 playsinline
                 preload="metadata"
-                aria-hidden="true"
             ></video>
 
-            <div class="hero__cinematic"></div>
-            <div class="hero__smoke hero__smoke--one"></div>
-            <div class="hero__smoke hero__smoke--two"></div>
-            <div class="hero__smoke hero__smoke--three"></div>
-            <div class="hero__grain"></div>
+            <!-- Cinematic background -->
+            <div
+                class="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_45%,rgba(191,175,151,0.16),transparent_30%),linear-gradient(120deg,#090908_0%,#171612_50%,#080807_100%)]"
+            ></div>
 
-            <div class="hero__light hero__light--left"></div>
-            <div class="hero__light hero__light--right"></div>
+            <div
+                class="hero-smoke hero-smoke-1"
+            ></div>
 
-            <div class="hero__content">
+            <div
+                class="hero-smoke hero-smoke-2"
+            ></div>
 
-                <div class="hero__eyebrow">
+            <div
+                class="hero-smoke hero-smoke-3"
+            ></div>
 
-                    <span></span>
+            <div
+                class="absolute inset-0 -z-5 bg-black/40 backdrop-blur-[2px]"
+            ></div>
 
-                    MAISON DE PARFUM
-                    ·
-                    DUSHANBE
+            <div
+                class="absolute inset-0 -z-[1] opacity-[0.045] hero-grain"
+            ></div>
 
-                    <span></span>
+            <div
+                class="relative z-10 mx-auto w-full max-w-5xl px-5 pt-14 text-center sm:px-8 md:pt-20"
+            >
 
+                <div
+                    class="hero-reveal hero-delay-1 flex items-center justify-center gap-3 text-[7px] tracking-[0.28em] text-aurBeige sm:text-[8px] sm:tracking-[0.36em]"
+                >
+                    <span class="h-px w-6 bg-aurBeige/50 sm:w-9"></span>
+
+                    <span>
+                        MAISON DE PARFUM · DUSHANBE
+                    </span>
+
+                    <span class="h-px w-6 bg-aurBeige/50 sm:w-9"></span>
                 </div>
 
-                <h1 class="hero__title">
+                <h1
+                    class="hero-reveal hero-delay-2 mt-6 font-serif text-[19vw] font-light leading-[0.76] tracking-[-0.055em] sm:text-[15vw] md:text-[11vw] lg:text-[10rem]"
+                >
+                    <span class="block">
+                        Искусство
+                    </span>
 
-                    <span>Искусство</span>
-
-                    <em>аромата.</em>
-
+                    <em
+                        class="block translate-x-[0.06em] text-aurCream"
+                    >
+                        аромата.
+                    </em>
                 </h1>
 
-                <p class="hero__description">
+                <p
+                    class="hero-reveal hero-delay-3 mx-auto mt-8 max-w-[350px] text-[10px] leading-7 tracking-[0.09em] text-white/55 sm:max-w-[430px] sm:text-[11px]"
+                >
                     Ароматы с характером,
                     созданные не для всех.
                 </p>
 
-                <div class="hero__actions">
-
+                <div
+                    class="hero-reveal hero-delay-4 mt-7 flex flex-col items-center justify-center gap-2.5 sm:flex-row"
+                >
                     <a
                         href="#collection"
-                        class="button button--light"
+                        class="premium-button premium-button-light"
                     >
                         <span>Открыть коллекцию</span>
-                        <i>↗</i>
+                        <span class="text-sm">↗</span>
                     </a>
 
                     <a
                         href="#discovery"
-                        class="button button--ghost"
+                        class="premium-button premium-button-glass"
                     >
-                        Discovery Set
+                        <span>Discovery Set</span>
                     </a>
-
                 </div>
-
             </div>
 
-            <div class="hero__vertical">
+            <div
+                class="absolute right-4 top-1/2 hidden -translate-y-1/2 rotate-180 text-[7px] tracking-[0.3em] text-white/25 [writing-mode:vertical-rl] sm:block lg:right-7"
+            >
                 ESSENCE · IDENTITY · MEMORY
             </div>
 
-            <div class="hero__bottom">
+            <div
+                class="absolute inset-x-5 bottom-5 flex items-center justify-between text-[7px] tracking-[0.25em] text-white/25 sm:inset-x-8 sm:bottom-7"
+            >
+                <span>COLLECTION 2026</span>
 
-                <span>
-                    COLLECTION 2026
-                </span>
+                <div class="flex items-center gap-3 text-aurBeige">
+                    <span>SCROLL</span>
 
-                <div class="hero__scroll">
-
-                    <small>SCROLL</small>
-
-                    <span></span>
-
+                    <span class="scroll-line relative block h-8 w-px overflow-hidden bg-white/15"></span>
                 </div>
 
-                <span>
-                    01 — 05
-                </span>
-
+                <span class="hidden sm:block">01 — 05</span>
             </div>
-
         </section>
 
 
-        <!-- =========================================
+        <!-- =========================================================
              INTRO
-        ========================================== -->
-        <section class="intro section">
+        ========================================================== -->
+        <section
+            class="bg-aurIvory py-24 text-aurBlack sm:py-32 lg:py-40"
+        >
+            <div class="mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-10">
 
-            <div class="container">
-
-                <div class="section-label">
+                <div class="section-label light-section-label">
                     <span>01</span>
                     THE AURÉLIS PHILOSOPHY
                 </div>
 
-                <div class="intro__grid">
+                <div class="mt-12 grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:gap-24">
 
-                    <h2 class="reveal">
+                    <h2
+                        class="reveal max-w-4xl font-serif text-[15vw] font-light leading-[0.9] tracking-[-0.045em] sm:text-[11vw] md:text-[8vw] lg:text-[6rem]"
+                    >
                         Аромат —
-                        <em>это память,</em>
+                        <em class="text-stone-600">
+                            это память,
+                        </em>
                         которую невозможно увидеть.
                     </h2>
 
-                    <div class="intro__copy reveal">
-
-                        <p>
+                    <div
+                        class="reveal reveal-delay-1 max-w-md pt-2"
+                    >
+                        <p
+                            class="text-[10px] leading-7 tracking-[0.06em] text-stone-600 sm:text-[11px]"
+                        >
                             AURÉLIS создаёт композиции,
-                            которые раскрываются медленно.
+                            которые раскрываются постепенно.
                         </p>
 
-                        <p>
-                            Каждый аромат становится частью
-                            образа, а не просто ещё одним
-                            аксессуаром.
+                        <p
+                            class="mt-5 text-[10px] leading-7 tracking-[0.06em] text-stone-600 sm:text-[11px]"
+                        >
+                            Не ради трендов.
+                            Не ради шума.
+                            А ради ощущения, которое
+                            остаётся после вас.
                         </p>
 
-                        <div class="intro__signature">
+                        <div
+                            class="mt-12 font-serif text-4xl tracking-[0.16em] text-stone-400 sm:text-5xl"
+                        >
                             AURÉLIS
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
-
         </section>
 
 
-        <!-- =========================================
+        <!-- =========================================================
              COLLECTION
-        ========================================== -->
+        ========================================================== -->
         <section
-            class="collection section"
             id="collection"
+            class="bg-aurGraphite py-24 sm:py-32 lg:py-40"
         >
+            <div class="mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-10">
 
-            <div class="container">
-
-                <div class="section-heading reveal">
-
+                <div class="reveal max-w-2xl">
                     <div class="section-label">
                         <span>02</span>
                         SIGNATURE ESSENCES
                     </div>
 
-                    <h2>
+                    <h2
+                        class="mt-6 font-serif text-[17vw] font-light leading-[0.83] tracking-[-0.05em] sm:text-[12vw] md:text-[8vw] lg:text-[7rem]"
+                    >
                         The
-                        <em>Collection</em>
+                        <em class="text-aurBeige">
+                            Collection
+                        </em>
                     </h2>
 
-                    <p>
+                    <p
+                        class="mt-7 max-w-md text-[10px] leading-7 tracking-[0.07em] text-white/45 sm:text-[11px]"
+                    >
                         Четыре композиции.
                         Четыре разных состояния.
                     </p>
-
                 </div>
 
 
-                <div class="products-grid">
+                <div
+                    class="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2"
+                >
 
-                    <!-- PRODUCT 01 -->
+                    <!-- =================================================
+                         PRODUCT 1
+                    ================================================== -->
                     <article
-                        class="product-card product-card--noir reveal"
-                        data-product-theme="noir"
+                        class="product-card product-noir reveal"
+                        data-theme="noir"
                     >
+                        <div class="product-ambient"></div>
+                        <div class="product-smoke"></div>
 
-                        <div class="product-card__ambient"></div>
-                        <div class="product-card__smoke"></div>
-
-                        <span class="product-card__number">
+                        <span
+                            class="product-number"
+                        >
                             01
                         </span>
 
-                        <span class="product-card__category">
+                        <span
+                            class="product-category"
+                        >
                             EDP · 50 ML
                         </span>
 
-                        <div class="bottle bottle--black">
+                        <div class="perfume-bottle bottle-black">
+                            <div class="bottle-cap"></div>
+                            <div class="bottle-neck"></div>
 
-                            <div class="bottle__cap"></div>
-
-                            <div class="bottle__neck"></div>
-
-                            <div class="bottle__body">
-
+                            <div class="bottle-body">
                                 <span>AURÉLIS</span>
                                 <small>NOIR</small>
-
                             </div>
-
                         </div>
 
-                        <div class="product-card__info">
-
-                            <div>
-
-                                <h3>
-                                    Noir Élégance
-                                </h3>
-
-                                <div class="notes-row">
-
-                                    <button
-                                        class="note-badge"
-                                        type="button"
-                                        data-note="oud"
+                        <div class="relative z-10">
+                            <div
+                                class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between"
+                            >
+                                <div>
+                                    <h3
+                                        class="font-serif text-3xl font-normal leading-none sm:text-4xl"
                                     >
-                                        Oud
-                                    </button>
+                                        Noir Élégance
+                                    </h3>
 
-                                    <button
-                                        class="note-badge"
-                                        type="button"
-                                        data-note="amber"
-                                    >
-                                        Amber
-                                    </button>
+                                    <div class="notes-row">
+                                        <button
+                                            type="button"
+                                            class="note-badge"
+                                            data-note="oud"
+                                        >
+                                            Oud
+                                        </button>
 
-                                    <button
-                                        class="note-badge"
-                                        type="button"
-                                        data-note="wood"
-                                    >
-                                        Woods
-                                    </button>
+                                        <button
+                                            type="button"
+                                            class="note-badge"
+                                            data-note="amber"
+                                        >
+                                            Amber
+                                        </button>
 
+                                        <button
+                                            type="button"
+                                            class="note-badge"
+                                            data-note="wood"
+                                        >
+                                            Woods
+                                        </button>
+                                    </div>
                                 </div>
 
+                                <span
+                                    class="product-price"
+                                >
+                                    1 200 TJS
+                                </span>
                             </div>
 
-                            <span class="product-card__price">
-                                1 200 TJS
-                            </span>
-
+                            <button
+                                type="button"
+                                class="order-button"
+                                data-product="Noir Élégance"
+                                data-price="1 200 TJS"
+                            >
+                                <span>Выбрать аромат</span>
+                                <span>↗</span>
+                            </button>
                         </div>
-
-                        <button
-                            class="order-button"
-                            type="button"
-                            data-product="Noir Élégance"
-                            data-price="1 200 TJS"
-                        >
-                            <span>Выбрать аромат</span>
-                            <i>↗</i>
-                        </button>
-
                     </article>
 
 
-                    <!-- PRODUCT 02 -->
+                    <!-- =================================================
+                         PRODUCT 2
+                    ================================================== -->
                     <article
-                        class="product-card product-card--ivory reveal"
-                        data-product-theme="ivory"
+                        class="product-card product-ivory reveal reveal-delay-1"
+                        data-theme="ivory"
                     >
+                        <div class="product-ambient"></div>
+                        <div class="product-smoke"></div>
 
-                        <div class="product-card__ambient"></div>
-                        <div class="product-card__smoke"></div>
-
-                        <span class="product-card__number">
+                        <span class="product-number">
                             02
                         </span>
 
-                        <span class="product-card__category">
+                        <span class="product-category">
                             EDP · 50 ML
                         </span>
 
-                        <div class="bottle bottle--ivory">
+                        <div class="perfume-bottle bottle-ivory">
+                            <div class="bottle-cap"></div>
+                            <div class="bottle-neck"></div>
 
-                            <div class="bottle__cap"></div>
-
-                            <div class="bottle__neck"></div>
-
-                            <div class="bottle__body">
-
+                            <div class="bottle-body">
                                 <span>AURÉLIS</span>
                                 <small>IVORY</small>
-
                             </div>
-
                         </div>
 
-                        <div class="product-card__info">
-
-                            <div>
-
-                                <h3>
-                                    Ivory Skin
-                                </h3>
-
-                                <div class="notes-row">
-
-                                    <button
-                                        class="note-badge"
-                                        type="button"
-                                        data-note="musk"
+                        <div class="relative z-10 text-aurBlack">
+                            <div
+                                class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between"
+                            >
+                                <div>
+                                    <h3
+                                        class="font-serif text-3xl font-normal leading-none sm:text-4xl"
                                     >
-                                        Musk
-                                    </button>
+                                        Ivory Skin
+                                    </h3>
 
-                                    <button
-                                        class="note-badge"
-                                        type="button"
-                                        data-note="jasmine"
-                                    >
-                                        Jasmine
-                                    </button>
+                                    <div class="notes-row">
+                                        <button
+                                            type="button"
+                                            class="note-badge light-badge"
+                                            data-note="musk"
+                                        >
+                                            Musk
+                                        </button>
 
-                                    <button
-                                        class="note-badge"
-                                        type="button"
-                                        data-note="iris"
-                                    >
-                                        Iris
-                                    </button>
+                                        <button
+                                            type="button"
+                                            class="note-badge light-badge"
+                                            data-note="jasmine"
+                                        >
+                                            Jasmine
+                                        </button>
 
+                                        <button
+                                            type="button"
+                                            class="note-badge light-badge"
+                                            data-note="iris"
+                                        >
+                                            Iris
+                                        </button>
+                                    </div>
                                 </div>
 
+                                <span class="product-price">
+                                    1 200 TJS
+                                </span>
                             </div>
 
-                            <span class="product-card__price">
-                                1 200 TJS
-                            </span>
-
+                            <button
+                                type="button"
+                                class="order-button order-button-light"
+                                data-product="Ivory Skin"
+                                data-price="1 200 TJS"
+                            >
+                                <span>Выбрать аромат</span>
+                                <span>↗</span>
+                            </button>
                         </div>
-
-                        <button
-                            class="order-button"
-                            type="button"
-                            data-product="Ivory Skin"
-                            data-price="1 200 TJS"
-                        >
-                            <span>Выбрать аромат</span>
-                            <i>↗</i>
-                        </button>
-
                     </article>
 
 
-                    <!-- PRODUCT 03 -->
+                    <!-- =================================================
+                         PRODUCT 3
+                    ================================================== -->
                     <article
-                        class="product-card product-card--ombre reveal"
-                        data-product-theme="ombre"
+                        class="product-card product-ombre reveal"
+                        data-theme="ombre"
                     >
+                        <div class="product-ambient"></div>
+                        <div class="product-smoke"></div>
 
-                        <div class="product-card__ambient"></div>
-                        <div class="product-card__smoke"></div>
-
-                        <span class="product-card__number">
+                        <span class="product-number">
                             03
                         </span>
 
-                        <span class="product-card__category">
+                        <span class="product-category">
                             EDP · 50 ML
                         </span>
 
-                        <div class="bottle bottle--graphite">
+                        <div class="perfume-bottle bottle-ombre">
+                            <div class="bottle-cap"></div>
+                            <div class="bottle-neck"></div>
 
-                            <div class="bottle__cap"></div>
-
-                            <div class="bottle__neck"></div>
-
-                            <div class="bottle__body">
-
+                            <div class="bottle-body">
                                 <span>AURÉLIS</span>
                                 <small>OMBRE</small>
-
                             </div>
-
                         </div>
 
-                        <div class="product-card__info">
-
-                            <div>
-
-                                <h3>
-                                    Ombre Noire
-                                </h3>
-
-                                <div class="notes-row">
-
-                                    <button
-                                        class="note-badge"
-                                        type="button"
-                                        data-note="spice"
+                        <div class="relative z-10">
+                            <div
+                                class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between"
+                            >
+                                <div>
+                                    <h3
+                                        class="font-serif text-3xl font-normal leading-none sm:text-4xl"
                                     >
-                                        Spice
-                                    </button>
+                                        Ombre Noire
+                                    </h3>
 
-                                    <button
-                                        class="note-badge"
-                                        type="button"
-                                        data-note="cedar"
-                                    >
-                                        Cedar
-                                    </button>
+                                    <div class="notes-row">
+                                        <button
+                                            type="button"
+                                            class="note-badge"
+                                            data-note="spice"
+                                        >
+                                            Spice
+                                        </button>
 
-                                    <button
-                                        class="note-badge"
-                                        type="button"
-                                        data-note="leather"
-                                    >
-                                        Leather
-                                    </button>
+                                        <button
+                                            type="button"
+                                            class="note-badge"
+                                            data-note="cedar"
+                                        >
+                                            Cedar
+                                        </button>
 
+                                        <button
+                                            type="button"
+                                            class="note-badge"
+                                            data-note="leather"
+                                        >
+                                            Leather
+                                        </button>
+                                    </div>
                                 </div>
 
+                                <span class="product-price">
+                                    1 500 TJS
+                                </span>
                             </div>
 
-                            <span class="product-card__price">
-                                1 500 TJS
-                            </span>
-
+                            <button
+                                type="button"
+                                class="order-button"
+                                data-product="Ombre Noire"
+                                data-price="1 500 TJS"
+                            >
+                                <span>Выбрать аромат</span>
+                                <span>↗</span>
+                            </button>
                         </div>
-
-                        <button
-                            class="order-button"
-                            type="button"
-                            data-product="Ombre Noire"
-                            data-price="1 500 TJS"
-                        >
-                            <span>Выбрать аромат</span>
-                            <i>↗</i>
-                        </button>
-
                     </article>
 
 
-                    <!-- PRODUCT 04 -->
+                    <!-- =================================================
+                         PRODUCT 4
+                    ================================================== -->
                     <article
-                        class="product-card product-card--eclat reveal"
-                        data-product-theme="eclat"
+                        class="product-card product-eclat reveal reveal-delay-1"
+                        data-theme="eclat"
                     >
+                        <div class="product-ambient"></div>
+                        <div class="product-smoke"></div>
 
-                        <div class="product-card__ambient"></div>
-                        <div class="product-card__smoke"></div>
-
-                        <span class="product-card__number">
+                        <span class="product-number">
                             04
                         </span>
 
-                        <span class="product-card__category">
+                        <span class="product-category">
                             EDP · 50 ML
                         </span>
 
-                        <div class="bottle bottle--sand">
+                        <div class="perfume-bottle bottle-eclat">
+                            <div class="bottle-cap"></div>
+                            <div class="bottle-neck"></div>
 
-                            <div class="bottle__cap"></div>
-
-                            <div class="bottle__neck"></div>
-
-                            <div class="bottle__body">
-
+                            <div class="bottle-body">
                                 <span>AURÉLIS</span>
                                 <small>ÉCLAT</small>
-
                             </div>
-
                         </div>
 
-                        <div class="product-card__info">
-
-                            <div>
-
-                                <h3>
-                                    Éclat Blanc
-                                </h3>
-
-                                <div class="notes-row">
-
-                                    <button
-                                        class="note-badge"
-                                        type="button"
-                                        data-note="bergamot"
+                        <div class="relative z-10 text-aurBlack">
+                            <div
+                                class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between"
+                            >
+                                <div>
+                                    <h3
+                                        class="font-serif text-3xl font-normal leading-none sm:text-4xl"
                                     >
-                                        Bergamot
-                                    </button>
+                                        Éclat Blanc
+                                    </h3>
 
-                                    <button
-                                        class="note-badge"
-                                        type="button"
-                                        data-note="neroli"
-                                    >
-                                        Neroli
-                                    </button>
+                                    <div class="notes-row">
+                                        <button
+                                            type="button"
+                                            class="note-badge light-badge"
+                                            data-note="bergamot"
+                                        >
+                                            Bergamot
+                                        </button>
 
-                                    <button
-                                        class="note-badge"
-                                        type="button"
-                                        data-note="citrus"
-                                    >
-                                        Citrus
-                                    </button>
+                                        <button
+                                            type="button"
+                                            class="note-badge light-badge"
+                                            data-note="neroli"
+                                        >
+                                            Neroli
+                                        </button>
 
+                                        <button
+                                            type="button"
+                                            class="note-badge light-badge"
+                                            data-note="citrus"
+                                        >
+                                            Citrus
+                                        </button>
+                                    </div>
                                 </div>
 
+                                <span class="product-price">
+                                    1 100 TJS
+                                </span>
                             </div>
 
-                            <span class="product-card__price">
-                                1 100 TJS
-                            </span>
-
+                            <button
+                                type="button"
+                                class="order-button order-button-light"
+                                data-product="Éclat Blanc"
+                                data-price="1 100 TJS"
+                            >
+                                <span>Выбрать аромат</span>
+                                <span>↗</span>
+                            </button>
                         </div>
-
-                        <button
-                            class="order-button"
-                            type="button"
-                            data-product="Éclat Blanc"
-                            data-price="1 100 TJS"
-                        >
-                            <span>Выбрать аромат</span>
-                            <i>↗</i>
-                        </button>
-
                     </article>
 
                 </div>
-
             </div>
-
         </section>
 
 
-        <!-- =========================================
+        <!-- =========================================================
              DISCOVERY SET
-        ========================================== -->
+        ========================================================== -->
         <section
-            class="discovery section"
             id="discovery"
+            class="bg-aurBlack py-24 sm:py-32 lg:py-40"
         >
+            <div class="mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-10">
 
-            <div class="container">
-
-                <div class="discovery__top reveal">
-
+                <div
+                    class="flex items-center justify-between"
+                >
                     <div class="section-label">
                         <span>02.5</span>
                         DISCOVERY SET
                     </div>
 
-                    <span class="discovery__availability">
+                    <span
+                        class="text-[7px] tracking-[0.25em] text-white/25"
+                    >
                         3 × 3 ML
                     </span>
-
                 </div>
 
+                <div
+                    class="mt-12 grid gap-12 lg:grid-cols-[0.82fr_1.18fr] lg:gap-20"
+                >
 
-                <div class="discovery__grid">
-
-                    <div class="discovery__copy reveal">
-
-                        <h2>
+                    <!-- LEFT -->
+                    <div class="reveal">
+                        <h2
+                            class="max-w-2xl font-serif text-[14vw] font-light leading-[0.86] tracking-[-0.045em] sm:text-[10vw] md:text-[7vw] lg:text-[5.5rem]"
+                        >
                             Познакомьтесь
-                            <em>с ароматом</em>
+                            <em class="text-aurBeige">
+                                с ароматом
+                            </em>
                             прежде чем выбрать флакон.
                         </h2>
 
-                        <p>
+                        <p
+                            class="mt-7 max-w-md text-[10px] leading-7 tracking-[0.06em] text-white/45 sm:text-[11px]"
+                        >
                             Соберите собственный Discovery Set
-                            из трёх мини-композиций по 3 мл.
+                            из трёх мини-композиций по 3 мл
+                            и попробуйте их перед покупкой
+                            полноразмерного флакона.
                         </p>
 
-                        <div class="discovery__steps">
-
-                            <div>
-                                <span>01</span>
+                        <div class="mt-10 space-y-3">
+                            <div class="flex items-center gap-4 text-[8px] tracking-[0.14em] text-white/55">
+                                <span class="font-serif text-lg text-aurBeige">01</span>
                                 Выберите аромат
                             </div>
 
-                            <div>
-                                <span>02</span>
+                            <div class="flex items-center gap-4 text-[8px] tracking-[0.14em] text-white/55">
+                                <span class="font-serif text-lg text-aurBeige">02</span>
                                 Соберите три
                             </div>
 
-                            <div>
-                                <span>03</span>
-                                Оформите Set
+                            <div class="flex items-center gap-4 text-[8px] tracking-[0.14em] text-white/55">
+                                <span class="font-serif text-lg text-aurBeige">03</span>
+                                Закажите Set
                             </div>
-
                         </div>
-
                     </div>
 
 
-                    <div class="discovery__builder reveal">
+                    <!-- BUILDER -->
+                    <div
+                        class="reveal reveal-delay-1 rounded-[2px] border border-white/10 bg-white/[0.025] p-4 backdrop-blur-xl sm:p-6"
+                    >
 
-                        <div class="builder__header">
+                        <div class="flex items-center justify-between">
 
-                            <div>
-                                <span>
+                            <div class="flex items-center gap-3">
+                                <span
+                                    class="text-[7px] tracking-[0.22em] text-white/30"
+                                >
                                     YOUR SELECTION
                                 </span>
 
-                                <strong id="selectionCount">
+                                <strong
+                                    id="selectionCount"
+                                    class="font-serif text-2xl font-normal"
+                                >
                                     0 / 3
                                 </strong>
                             </div>
 
                             <button
-                                type="button"
                                 id="clearSelection"
+                                type="button"
+                                class="text-[7px] tracking-[0.15em] text-white/30 transition-all duration-500 ease-in-out hover:text-white"
                             >
                                 Очистить
                             </button>
-
                         </div>
 
 
+                        <!-- Slots -->
                         <div
-                            class="builder__slots"
                             id="builderSlots"
+                            class="mt-6 grid grid-cols-1 gap-2 sm:grid-cols-3"
                         >
 
                             <div
@@ -780,7 +866,9 @@
                                 data-slot="0"
                             >
                                 <span>01</span>
-                                <small>Перетащите аромат</small>
+                                <small>
+                                    Нажмите, чтобы добавить
+                                </small>
                             </div>
 
                             <div
@@ -788,7 +876,9 @@
                                 data-slot="1"
                             >
                                 <span>02</span>
-                                <small>Перетащите аромат</small>
+                                <small>
+                                    Нажмите, чтобы добавить
+                                </small>
                             </div>
 
                             <div
@@ -796,180 +886,231 @@
                                 data-slot="2"
                             >
                                 <span>03</span>
-                                <small>Перетащите аромат</small>
+                                <small>
+                                    Нажмите, чтобы добавить
+                                </small>
                             </div>
 
                         </div>
 
 
-                        <div class="builder__products">
+                        <!-- Products -->
+                        <div
+                            class="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2"
+                        >
 
                             <button
-                                class="builder-product"
                                 type="button"
+                                class="builder-product"
                                 draggable="true"
                                 data-scent="Noir Élégance"
-                                data-short="NOIR"
                             >
                                 <span>01</span>
-                                <strong>Noir</strong>
-                                <small>Oud · Amber</small>
+
+                                <span>
+                                    <strong>Noir</strong>
+                                    <small>
+                                        Oud · Amber
+                                    </small>
+                                </span>
+
                                 <i>+</i>
                             </button>
 
+
                             <button
-                                class="builder-product"
                                 type="button"
+                                class="builder-product"
                                 draggable="true"
                                 data-scent="Ivory Skin"
-                                data-short="IVORY"
                             >
                                 <span>02</span>
-                                <strong>Ivory</strong>
-                                <small>Musk · Jasmine</small>
+
+                                <span>
+                                    <strong>Ivory</strong>
+                                    <small>
+                                        Musk · Jasmine
+                                    </small>
+                                </span>
+
                                 <i>+</i>
                             </button>
 
+
                             <button
-                                class="builder-product"
                                 type="button"
+                                class="builder-product"
                                 draggable="true"
                                 data-scent="Ombre Noire"
-                                data-short="OMBRE"
                             >
                                 <span>03</span>
-                                <strong>Ombre</strong>
-                                <small>Cedar · Spice</small>
+
+                                <span>
+                                    <strong>Ombre</strong>
+                                    <small>
+                                        Cedar · Spice
+                                    </small>
+                                </span>
+
                                 <i>+</i>
                             </button>
 
+
                             <button
-                                class="builder-product"
                                 type="button"
+                                class="builder-product"
                                 draggable="true"
                                 data-scent="Éclat Blanc"
-                                data-short="ÉCLAT"
                             >
                                 <span>04</span>
-                                <strong>Éclat</strong>
-                                <small>Bergamot · Neroli</small>
+
+                                <span>
+                                    <strong>Éclat</strong>
+                                    <small>
+                                        Bergamot · Neroli
+                                    </small>
+                                </span>
+
                                 <i>+</i>
                             </button>
 
                         </div>
 
 
-                        <div class="builder__summary">
+                        <!-- Summary -->
+                        <div
+                            class="mt-5 flex flex-col gap-4 border-t border-white/10 pt-5 sm:flex-row sm:items-center sm:justify-between"
+                        >
 
                             <div>
-                                <span>DISCOVERY SET</span>
-                                <strong>300 TJS</strong>
+                                <span
+                                    class="block text-[7px] tracking-[0.2em] text-white/25"
+                                >
+                                    DISCOVERY SET
+                                </span>
+
+                                <strong
+                                    class="font-serif text-3xl font-normal"
+                                >
+                                    300 TJS
+                                </strong>
                             </div>
 
                             <button
-                                type="button"
-                                class="button button--light"
                                 id="discoveryOrder"
+                                type="button"
                                 disabled
+                                class="premium-button premium-button-light w-full opacity-30 sm:w-auto"
                             >
                                 <span>Заказать Set</span>
-                                <i>↗</i>
+                                <span>↗</span>
                             </button>
 
                         </div>
 
                     </div>
-
                 </div>
-
             </div>
-
         </section>
 
 
-        <!-- =========================================
+        <!-- =========================================================
              STATEMENT
-        ========================================== -->
-        <section class="statement">
+        ========================================================== -->
+        <section
+            class="relative isolate flex min-h-[70svh] items-center justify-center overflow-hidden bg-aurGraphite px-5 py-24 sm:px-8"
+        >
+            <div class="statement-glow"></div>
+            <div class="statement-smoke statement-smoke-a"></div>
+            <div class="statement-smoke statement-smoke-b"></div>
 
-            <div class="statement__backdrop"></div>
-
-            <div class="statement__mist statement__mist--one"></div>
-            <div class="statement__mist statement__mist--two"></div>
-
-            <div class="statement__content reveal">
-
-                <span>
+            <div class="relative z-10 text-center reveal">
+                <span
+                    class="text-[7px] tracking-[0.34em] text-aurBeige"
+                >
                     AURÉLIS · COLLECTION 2026
                 </span>
 
-                <h2>
+                <h2
+                    class="mt-7 font-serif text-[16vw] font-light leading-[0.84] tracking-[-0.05em] sm:text-[11vw] md:text-[8vw] lg:text-[7rem]"
+                >
                     Не просто аромат.
-                    <br>
-                    <em>Ваш почерк.</em>
+                    <br />
+                    <em class="text-aurBeige">
+                        Ваш почерк.
+                    </em>
                 </h2>
-
             </div>
-
         </section>
 
 
-        <!-- =========================================
+        <!-- =========================================================
              STORY
-        ========================================== -->
+        ========================================================== -->
         <section
-            class="story section"
             id="story"
+            class="bg-aurIvory py-24 text-aurBlack sm:py-32 lg:py-40"
         >
+            <div class="mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-10">
 
-            <div class="container">
+                <div
+                    class="grid items-center gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-28"
+                >
 
-                <div class="story__grid">
+                    <div class="relative reveal">
+                        <div
+                            class="story-visual relative mx-auto aspect-[4/5] max-w-[560px] overflow-hidden"
+                        >
+                            <div class="story-halo"></div>
 
-                    <div class="story__visual reveal">
+                            <div class="story-bottle">
+                                <div class="story-cap"></div>
 
-                        <div class="story__frame">
-
-                            <div class="story__halo"></div>
-
-                            <div class="story__bottle">
-
-                                <div class="story__cap"></div>
-
-                                <div class="story__glass">
+                                <div class="story-glass">
                                     <span>A</span>
                                 </div>
-
                             </div>
 
+                            <div
+                                class="absolute inset-5 border border-black/10"
+                            ></div>
                         </div>
 
-                        <span class="story__vertical">
+                        <span
+                            class="absolute -right-4 top-1/2 hidden -translate-y-1/2 rotate-180 text-[7px] tracking-[0.25em] text-stone-500 [writing-mode:vertical-rl] sm:block"
+                        >
                             CRAFTED WITH INTENTION
                         </span>
-
                     </div>
 
 
-                    <div class="story__content reveal">
+                    <div class="reveal reveal-delay-1">
 
-                        <div class="section-label">
+                        <div class="section-label light-section-label">
                             <span>03</span>
                             OUR STORY
                         </div>
 
-                        <h2>
+                        <h2
+                            class="mt-7 max-w-2xl font-serif text-[15vw] font-light leading-[0.86] tracking-[-0.045em] sm:text-[11vw] md:text-[8vw] lg:text-[6.3rem]"
+                        >
                             Тишина,
-                            <em>которую</em>
+                            <em class="text-stone-500">
+                                которую
+                            </em>
                             запоминают.
                         </h2>
 
-                        <p>
+                        <p
+                            class="mt-8 max-w-lg text-[10px] leading-7 tracking-[0.05em] text-stone-600 sm:text-[11px]"
+                        >
                             AURÉLIS создан вокруг простой идеи:
                             роскошь не должна быть громкой.
                         </p>
 
-                        <p>
+                        <p
+                            class="mt-5 max-w-lg text-[10px] leading-7 tracking-[0.05em] text-stone-600 sm:text-[11px]"
+                        >
                             Чистые формы, глубокие композиции
                             и внимание к каждой детали создают
                             аромат, который становится частью
@@ -978,53 +1119,52 @@
 
                         <a
                             href="#contact"
-                            class="text-link"
+                            class="mt-9 inline-flex items-center gap-4 border-b border-black/30 pb-2 text-[8px] tracking-[0.18em] transition-all duration-500 ease-in-out hover:gap-6"
                         >
                             Познакомиться с AURÉLIS
                             <span>↗</span>
                         </a>
 
                     </div>
-
                 </div>
-
             </div>
-
         </section>
 
 
-        <!-- =========================================
+        <!-- =========================================================
              REVIEWS
-        ========================================== -->
+        ========================================================== -->
         <section
-            class="reviews section"
             id="reviews"
+            class="bg-aurGraphite py-24 sm:py-32 lg:py-40"
         >
+            <div class="mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-10">
 
-            <div class="container">
-
-                <div class="section-heading section-heading--center reveal">
-
-                    <div class="section-label">
+                <div class="reveal text-center">
+                    <div class="section-label justify-center">
                         <span>04</span>
                         VOICES
                     </div>
 
-                    <h2>
+                    <h2
+                        class="mt-6 font-serif text-[16vw] font-light leading-[0.86] tracking-[-0.05em] sm:text-[11vw] md:text-[8vw] lg:text-[6.5rem]"
+                    >
                         Что говорят
-                        <em>о нас</em>
+                        <em class="text-aurBeige">
+                            о нас
+                        </em>
                     </h2>
-
                 </div>
 
 
-                <div class="reviews-grid">
+                <div
+                    class="mt-12 grid grid-cols-1 gap-4 md:grid-cols-3"
+                >
 
                     <article class="review-card reveal">
-
-                        <div class="review-card__top">
+                        <div class="review-top">
                             <span>01</span>
-                            <div>★★★★★</div>
+                            <span>★★★★★</span>
                         </div>
 
                         <blockquote>
@@ -1032,7 +1172,7 @@
                             В нём нет ничего лишнего.»
                         </blockquote>
 
-                        <div class="review-card__author">
+                        <div class="review-author">
                             <span>А</span>
 
                             <div>
@@ -1040,15 +1180,13 @@
                                 <small>Душанбе</small>
                             </div>
                         </div>
-
                     </article>
 
 
-                    <article class="review-card reveal">
-
-                        <div class="review-card__top">
+                    <article class="review-card reveal reveal-delay-1">
+                        <div class="review-top">
                             <span>02</span>
-                            <div>★★★★★</div>
+                            <span>★★★★★</span>
                         </div>
 
                         <blockquote>
@@ -1056,7 +1194,7 @@
                             ароматом. Глубокий и уверенный.»
                         </blockquote>
 
-                        <div class="review-card__author">
+                        <div class="review-author">
                             <span>М</span>
 
                             <div>
@@ -1064,15 +1202,13 @@
                                 <small>Душанбе</small>
                             </div>
                         </div>
-
                     </article>
 
 
-                    <article class="review-card reveal">
-
-                        <div class="review-card__top">
+                    <article class="review-card reveal reveal-delay-2">
+                        <div class="review-top">
                             <span>03</span>
-                            <div>★★★★★</div>
+                            <span>★★★★★</span>
                         </div>
 
                         <blockquote>
@@ -1080,7 +1216,7 @@
                             спокойно, дорого и очень современно.»
                         </blockquote>
 
-                        <div class="review-card__author">
+                        <div class="review-author">
                             <span>С</span>
 
                             <div>
@@ -1088,37 +1224,39 @@
                                 <small>Душанбе</small>
                             </div>
                         </div>
-
                     </article>
 
                 </div>
-
             </div>
-
         </section>
 
 
-        <!-- =========================================
+        <!-- =========================================================
              CTA
-        ========================================== -->
+        ========================================================== -->
         <section
-            class="cta"
             id="contact"
+            class="bg-aurIvory px-5 py-28 text-center text-aurBlack sm:px-8 sm:py-40"
         >
+            <div class="reveal mx-auto max-w-4xl">
 
-            <div class="cta__inner reveal">
-
-                <div class="section-label">
+                <div class="section-label justify-center light-section-label">
                     <span>05</span>
                     PRIVATE SELECTION
                 </div>
 
-                <h2>
+                <h2
+                    class="mt-7 font-serif text-[16vw] font-light leading-[0.86] tracking-[-0.045em] sm:text-[11vw] md:text-[8vw] lg:text-[7rem]"
+                >
                     Найдите аромат,
-                    <em>который станет вашим.</em>
+                    <em class="text-stone-500">
+                        который станет вашим.
+                    </em>
                 </h2>
 
-                <p>
+                <p
+                    class="mx-auto mt-8 max-w-md text-[10px] leading-7 tracking-[0.05em] text-stone-600 sm:text-[11px]"
+                >
                     Напишите нам, чтобы подобрать композицию
                     или оформить персональный заказ.
                 </p>
@@ -1127,131 +1265,132 @@
                     href="https://wa.me/992974008118"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="button button--dark"
+                    class="premium-button premium-button-dark mt-8"
                 >
                     <span>Связаться в WhatsApp</span>
-                    <i>↗</i>
+                    <span>↗</span>
                 </a>
 
             </div>
-
         </section>
 
     </main>
 
 
-    <!-- =========================================
+    <!-- =========================================================
          FOOTER
-    ========================================== -->
-    <footer class="footer">
+    ========================================================== -->
+    <footer class="bg-aurBlack px-5 pb-5 pt-16 sm:px-8 lg:px-10">
 
-        <div class="footer__top">
+        <div class="mx-auto w-full max-w-[1440px]">
 
-            <div class="footer__brand">
+            <div
+                class="flex flex-col gap-12 border-b border-white/10 pb-14 md:flex-row md:items-start md:justify-between"
+            >
+
+                <div>
+                    <a
+                        href="#home"
+                        class="font-serif text-[25px] tracking-[0.18em]"
+                    >
+                        AURÉLIS
+                    </a>
+
+                    <p
+                        class="mt-2 text-[7px] tracking-[0.3em] text-white/25"
+                    >
+                        MAISON DE PARFUM
+                    </p>
+                </div>
+
+
+                <div class="flex gap-16 sm:gap-24">
+
+                    <div class="flex flex-col gap-2.5">
+                        <span class="footer-title">EXPLORE</span>
+
+                        <a href="#collection" class="footer-link">
+                            Коллекция
+                        </a>
+
+                        <a href="#discovery" class="footer-link">
+                            Discovery Set
+                        </a>
+
+                        <a href="#story" class="footer-link">
+                            О бренде
+                        </a>
+                    </div>
+
+
+                    <div class="flex flex-col gap-2.5">
+                        <span class="footer-title">CONTACT</span>
+
+                        <a
+                            href="https://wa.me/992974008118"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="footer-link"
+                        >
+                            WhatsApp
+                        </a>
+
+                        <a
+                            href="https://t.me/WebProCompany"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="footer-link"
+                        >
+                            Telegram
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div
+                class="flex flex-wrap items-center justify-between gap-4 pt-5 text-[6px] tracking-[0.22em] text-white/20"
+            >
+                <span>© 2026 AURÉLIS</span>
+                <span>DUSHANBE · TAJIKISTAN</span>
 
                 <a
                     href="#home"
-                    class="logo"
+                    class="transition-all duration-500 ease-in-out hover:text-white"
                 >
-                    AURÉLIS
+                    BACK TO TOP ↑
                 </a>
-
-                <p>
-                    Maison de Parfum
-                </p>
-
-            </div>
-
-
-            <div class="footer__links">
-
-                <div>
-
-                    <span>EXPLORE</span>
-
-                    <a href="#collection">
-                        Коллекция
-                    </a>
-
-                    <a href="#discovery">
-                        Discovery Set
-                    </a>
-
-                    <a href="#story">
-                        О бренде
-                    </a>
-
-                </div>
-
-
-                <div>
-
-                    <span>CONTACT</span>
-
-                    <a
-                        href="https://wa.me/992974008118"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        WhatsApp
-                    </a>
-
-                    <a
-                        href="https://t.me/WebProCompany"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Telegram
-                    </a>
-
-                </div>
-
             </div>
 
         </div>
-
-
-        <div class="footer__bottom">
-
-            <span>
-                © 2026 AURÉLIS
-            </span>
-
-            <span>
-                DUSHANBE · TAJIKISTAN
-            </span>
-
-            <a href="#home">
-                BACK TO TOP ↑
-            </a>
-
-        </div>
-
     </footer>
 
 
-    <!-- =========================================
-         NOTE MODAL
-    ========================================== -->
+    <!-- =========================================================
+         SCENT NOTE MODAL
+    ========================================================== -->
     <div
-        class="note-modal"
         id="noteModal"
+        class="modal-overlay"
         aria-hidden="true"
     >
-
-        <div class="note-modal__backdrop"></div>
+        <div
+            class="modal-backdrop"
+            data-close-note
+        ></div>
 
         <div
-            class="note-modal__window"
+            class="modal-content note-modal-content"
             role="dialog"
             aria-modal="true"
             aria-labelledby="noteTitle"
         >
 
             <button
+                id="noteClose"
                 type="button"
                 class="modal-close"
-                id="noteModalClose"
                 aria-label="Закрыть"
             >
                 ×
@@ -1261,70 +1400,79 @@
                 SCENT NOTE
             </span>
 
-            <h2 id="noteTitle">
+            <h2
+                id="noteTitle"
+                class="font-serif text-6xl font-light leading-[0.9] tracking-[-0.035em]"
+            >
                 Note
             </h2>
 
-            <p id="noteDescription">
+            <p
+                id="noteDescription"
+                class="mt-6 max-w-md text-[10px] leading-7 tracking-[0.035em] text-stone-600"
+            >
                 Description
             </p>
 
-            <div class="note-modal__meta">
-
-                <span>
+            <div
+                class="mt-10 flex items-end justify-between gap-5 border-t border-black/10 pt-4"
+            >
+                <span class="text-[7px] tracking-[0.18em] text-stone-500">
                     OLFACTIVE PROFILE
                 </span>
 
-                <strong id="noteMood">
+                <strong
+                    id="noteMood"
+                    class="text-right text-[8px] font-medium tracking-[0.12em]"
+                >
                     —
                 </strong>
-
             </div>
-
         </div>
-
     </div>
 
 
-    <!-- =========================================
-         ORDER / RITUAL MODAL
-    ========================================== -->
+    <!-- =========================================================
+         PRIVATE RITUAL MODAL
+    ========================================================== -->
     <div
-        class="ritual-modal"
         id="ritualModal"
+        class="modal-overlay"
         aria-hidden="true"
     >
-
-        <div class="ritual-modal__backdrop"></div>
+        <div
+            class="modal-backdrop"
+            data-close-ritual
+        ></div>
 
         <div
-            class="ritual"
+            class="modal-content ritual-content"
             role="dialog"
             aria-modal="true"
         >
 
             <button
-                class="modal-close"
                 id="ritualClose"
                 type="button"
+                class="modal-close"
                 aria-label="Закрыть"
             >
                 ×
             </button>
 
-
-            <div class="ritual__head">
-
+            <div class="flex items-center justify-between">
                 <span class="modal-eyebrow">
                     PRIVATE RITUAL
                 </span>
 
-                <div class="ritual__progress">
-                    <span class="is-active"></span>
-                    <span></span>
-                    <span></span>
+                <div
+                    id="ritualProgress"
+                    class="flex items-center gap-1"
+                >
+                    <span class="ritual-progress-item active"></span>
+                    <span class="ritual-progress-item"></span>
+                    <span class="ritual-progress-item"></span>
                 </div>
-
             </div>
 
 
@@ -1333,21 +1481,17 @@
                 class="ritual-step is-active"
                 data-step="1"
             >
-
-                <p class="ritual__kicker">
+                <p class="ritual-kicker">
                     YOUR SELECTION
                 </p>
 
-                <h2>
+                <h2 class="ritual-title">
                     Ваш аромат
                     <em>выбран.</em>
                 </h2>
 
-                <div class="ritual__selected">
-
-                    <span>
-                        SELECTED ESSENCE
-                    </span>
+                <div class="ritual-selection-box">
+                    <span>SELECTED ESSENCE</span>
 
                     <strong id="ritualProduct">
                         —
@@ -1356,18 +1500,16 @@
                     <small id="ritualPrice">
                         —
                     </small>
-
                 </div>
 
                 <button
                     type="button"
-                    class="button button--dark ritual-next"
-                    data-next="2"
+                    class="premium-button premium-button-dark w-full"
+                    data-ritual-next="2"
                 >
                     <span>Продолжить</span>
-                    <i>↗</i>
+                    <span>↗</span>
                 </button>
-
             </div>
 
 
@@ -1376,53 +1518,53 @@
                 class="ritual-step"
                 data-step="2"
             >
-
-                <p class="ritual__kicker">
+                <p class="ritual-kicker">
                     PERSONAL DETAILS
                 </p>
 
-                <h2>
+                <h2 class="ritual-title">
                     Оставьте
                     <em>контакт.</em>
                 </h2>
 
-                <form
-                    class="ritual-form"
-                    id="ritualForm"
-                >
+                <form id="ritualForm" class="mt-9 space-y-5">
 
-                    <label>
+                    <label class="ritual-label">
                         Имя
+
                         <input
-                            type="text"
                             id="ritualName"
-                            required
+                            type="text"
                             minlength="2"
+                            required
+                            autocomplete="name"
                             placeholder="Ваше имя"
-                        >
+                            class="ritual-input"
+                        />
                     </label>
 
-                    <label>
+                    <label class="ritual-label">
                         Телефон
+
                         <input
-                            type="tel"
                             id="ritualPhone"
-                            required
+                            type="tel"
                             minlength="7"
+                            required
+                            autocomplete="tel"
                             placeholder="+992 ..."
-                        >
+                            class="ritual-input"
+                        />
                     </label>
 
                     <button
                         type="submit"
-                        class="button button--dark"
+                        class="premium-button premium-button-dark w-full"
                     >
                         <span>Подтвердить выбор</span>
-                        <i>↗</i>
+                        <span>↗</span>
                     </button>
-
                 </form>
-
             </div>
 
 
@@ -1431,45 +1573,41 @@
                 class="ritual-step"
                 data-step="3"
             >
-
-                <p class="ritual__kicker">
+                <p class="ritual-kicker">
                     AURÉLIS
                 </p>
 
-                <h2>
+                <h2 class="ritual-title">
                     Ваш выбор
                     <em>принят.</em>
                 </h2>
 
-                <div class="ritual__confirmation">
-
-                    <span class="confirmation__mark">
+                <div class="mt-9 flex items-center gap-4 border-y border-black/10 py-5">
+                    <div class="grid h-11 w-11 place-items-center rounded-full border border-black/15 text-sm">
                         ✓
-                    </span>
+                    </div>
 
-                    <p id="ritualConfirmation">
+                    <p
+                        id="ritualConfirmation"
+                        class="text-[9px] leading-6 text-stone-600"
+                    >
                         Спасибо.
                     </p>
-
                 </div>
 
                 <button
-                    type="button"
-                    class="button button--light"
                     id="ritualDone"
+                    type="button"
+                    class="premium-button premium-button-light-dark w-full"
                 >
                     <span>Закрыть</span>
-                    <i>×</i>
+                    <span>×</span>
                 </button>
-
             </div>
-
         </div>
-
     </div>
 
 
     <script src="script.js"></script>
-
 </body>
 </html>
