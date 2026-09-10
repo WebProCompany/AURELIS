@@ -1,20 +1,20 @@
 "use strict";
 
-/* ==================================================
-   AURÉLIS — PREMIUM INTERACTION ENGINE
-================================================== */
+/* =========================================================
+   AURÉLIS — INTERACTION ENGINE
+========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
     try {
-        initializePreloader();
-        initializeHeader();
-        initializeMobileMenu();
-        initializeRevealAnimations();
-        initializeHeroVideo();
-        initializeNoteBadges();
-        initializeRitualOrder();
-        initializeDiscoveryBuilder();
-        initializeSmoothLinks();
+        initPreloader();
+        initHeader();
+        initMobileMenu();
+        initHeroVideo();
+        initRevealAnimations();
+        initNoteModal();
+        initRitualModal();
+        initDiscoveryBuilder();
+        initSmoothLinks();
     } catch (error) {
         console.error(
             "AURÉLIS initialization error:",
@@ -24,11 +24,11 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-/* ==================================================
+/* =========================================================
    HELPERS
-================================================== */
+========================================================= */
 
-function safeQuery(selector, root = document) {
+function query(selector, root = document) {
     try {
         return root.querySelector(selector);
     } catch (error) {
@@ -42,7 +42,7 @@ function safeQuery(selector, root = document) {
 }
 
 
-function safeQueryAll(selector, root = document) {
+function queryAll(selector, root = document) {
     try {
         return Array.from(
             root.querySelectorAll(selector)
@@ -58,117 +58,159 @@ function safeQueryAll(selector, root = document) {
 }
 
 
-/* ==================================================
+/* =========================================================
    PRELOADER
-================================================== */
+========================================================= */
 
-function initializePreloader() {
-    const preloader = safeQuery("#preloader");
+function initPreloader() {
+    const preloader = query("#preloader");
+    const bar = query("#preloaderBar");
 
-    if (!preloader) {
+    if (!preloader || !bar) {
         return;
     }
 
-    const hidePreloader = () => {
+    requestAnimationFrame(() => {
+        bar.style.transition =
+            "transform 1500ms cubic-bezier(0.16, 1, 0.3, 1)";
+
+        bar.style.transform =
+            "translateX(0)";
+    });
+
+    const hide = () => {
         window.setTimeout(() => {
-            preloader.classList.add("is-hidden");
+            preloader.style.opacity = "0";
+            preloader.style.visibility = "hidden";
+            preloader.style.pointerEvents = "none";
         }, 1550);
     };
 
     if (document.readyState === "complete") {
-        hidePreloader();
-        return;
+        hide();
+    } else {
+        window.addEventListener(
+            "load",
+            hide,
+            { once: true }
+        );
     }
-
-    window.addEventListener(
-        "load",
-        hidePreloader,
-        { once: true }
-    );
 }
 
 
-/* ==================================================
+/* =========================================================
    HEADER
-================================================== */
+========================================================= */
 
-function initializeHeader() {
-    const header = safeQuery("#header");
+function initHeader() {
+    const header = query("#header");
 
     if (!header) {
         return;
     }
 
-    const updateHeader = () => {
-        if (window.scrollY > 45) {
-            header.classList.add("scrolled");
+    const update = () => {
+        if (window.scrollY > 35) {
+            header.classList.add(
+                "header-scrolled"
+            );
         } else {
-            header.classList.remove("scrolled");
+            header.classList.remove(
+                "header-scrolled"
+            );
         }
     };
 
-    updateHeader();
+    update();
 
     window.addEventListener(
         "scroll",
-        updateHeader,
+        update,
         { passive: true }
     );
 }
 
 
-/* ==================================================
+/* =========================================================
    MOBILE MENU
-================================================== */
+========================================================= */
 
-function initializeMobileMenu() {
-    const button = safeQuery("#menuButton");
-    const menu = safeQuery("#mobileMenu");
+function initMobileMenu() {
+    const button = query("#menuButton");
+    const menu = query("#mobileMenu");
 
     if (!button || !menu) {
         return;
     }
 
-    const links = safeQueryAll(
-        "a",
+    const links = queryAll(
+        ".mobile-nav-link",
         menu
     );
 
-    const openMenu = () => {
-        menu.classList.add("open");
-        button.classList.add("active");
+    const open = () => {
+        button.classList.add("menu-open");
+
+        menu.classList.remove(
+            "invisible",
+            "translate-x-full",
+            "opacity-0"
+        );
+
+        menu.classList.add(
+            "mobile-menu-visible"
+        );
+
+        menu.setAttribute(
+            "aria-hidden",
+            "false"
+        );
 
         button.setAttribute(
             "aria-expanded",
             "true"
         );
 
-        document.body.classList.add(
-            "menu-open"
-        );
+        document.body.style.overflow = "hidden";
     };
 
-    const closeMenu = () => {
-        menu.classList.remove("open");
-        button.classList.remove("active");
+    const close = () => {
+        button.classList.remove("menu-open");
+
+        menu.classList.remove(
+            "mobile-menu-visible"
+        );
+
+        menu.classList.add(
+            "invisible",
+            "translate-x-full",
+            "opacity-0"
+        );
+
+        menu.setAttribute(
+            "aria-hidden",
+            "true"
+        );
 
         button.setAttribute(
             "aria-expanded",
             "false"
         );
 
-        document.body.classList.remove(
-            "menu-open"
-        );
+        document.body.style.overflow = "";
     };
 
     button.addEventListener(
         "click",
         () => {
-            if (menu.classList.contains("open")) {
-                closeMenu();
+            if (
+                menu.classList.contains(
+                    "mobile-menu-visible"
+                )
+            ) {
+                close();
             } else {
-                openMenu();
+                open();
             }
         }
     );
@@ -176,37 +218,116 @@ function initializeMobileMenu() {
     links.forEach((link) => {
         link.addEventListener(
             "click",
-            closeMenu
+            close
         );
     });
 
     document.addEventListener(
         "keydown",
         (event) => {
-            if (event.key === "Escape") {
-                closeMenu();
+            if (event.key !== "Escape") {
+                return;
+            }
+
+            if (
+                menu.classList.contains(
+                    "mobile-menu-visible"
+                )
+            ) {
+                close();
             }
         }
     );
 }
 
 
-/* ==================================================
-   SCROLL REVEAL
-================================================== */
+/* =========================================================
+   HERO VIDEO
+========================================================= */
 
-function initializeRevealAnimations() {
-    const elements = safeQueryAll(
-        ".reveal"
+function initHeroVideo() {
+    const hero = query("#home");
+    const video = query("#heroVideo");
+
+    if (!hero || !video) {
+        return;
+    }
+
+    /*
+     * Put your video here:
+     *
+     * /assets/aurelis-smoke.mp4
+     */
+
+    const source = document.createElement(
+        "source"
     );
+
+    source.src =
+        "assets/aurelis-smoke.mp4";
+
+    source.type = "video/mp4";
+
+    video.appendChild(source);
+
+    video.addEventListener(
+        "loadeddata",
+        () => {
+            video.classList.remove(
+                "opacity-0"
+            );
+
+            video.classList.add(
+                "opacity-100"
+            );
+
+            video.play().catch(() => {
+                /*
+                 * Autoplay may be blocked by
+                 * browser policy.
+                 *
+                 * CSS cinematic background
+                 * remains active.
+                 */
+            });
+        },
+        { once: true }
+    );
+
+    video.addEventListener(
+        "error",
+        () => {
+            video.classList.remove(
+                "opacity-100"
+            );
+
+            video.classList.add(
+                "opacity-0"
+            );
+        },
+        { once: true }
+    );
+}
+
+
+/* =========================================================
+   SCROLL REVEAL
+========================================================= */
+
+function initRevealAnimations() {
+    const elements = queryAll(".reveal");
 
     if (!elements.length) {
         return;
     }
 
-    if (!("IntersectionObserver" in window)) {
+    if (
+        !("IntersectionObserver" in window)
+    ) {
         elements.forEach((element) => {
-            element.classList.add("visible");
+            element.classList.add(
+                "visible"
+            );
         });
 
         return;
@@ -216,7 +337,9 @@ function initializeRevealAnimations() {
         new IntersectionObserver(
             (entries, currentObserver) => {
                 entries.forEach((entry) => {
-                    if (!entry.isIntersecting) {
+                    if (
+                        !entry.isIntersecting
+                    ) {
                         return;
                     }
 
@@ -242,104 +365,20 @@ function initializeRevealAnimations() {
 }
 
 
-/* ==================================================
-   HERO VIDEO
-================================================== */
+/* =========================================================
+   SCENT NOTE MODAL
+========================================================= */
 
-function initializeHeroVideo() {
-    const hero = safeQuery(".hero");
-    const video = safeQuery("#heroVideo");
-
-    if (!hero || !video) {
-        return;
-    }
-
-    /*
-     * Local video support.
-     *
-     * Add this later:
-     *
-     * /assets/aurelis-smoke.mp4
-     *
-     * The site remains fully functional without it.
-     */
-
-    const localVideoSource =
-        "assets/aurelis-smoke.mp4";
-
-    const source =
-        document.createElement("source");
-
-    source.src = localVideoSource;
-    source.type = "video/mp4";
-
-    video.appendChild(source);
-
-    video.addEventListener(
-        "loadeddata",
-        () => {
-            hero.classList.add("has-video");
-
-            video.play().catch(() => {
-                /*
-                 * Browser may block autoplay.
-                 * Muted inline playback usually works.
-                 * CSS cinematic background remains active.
-                 */
-            });
-        },
-        { once: true }
-    );
-
-    video.addEventListener(
-        "error",
-        () => {
-            /*
-             * No external asset is required.
-             * CSS smoke remains as fallback.
-             */
-            hero.classList.remove("has-video");
-        },
-        { once: true }
-    );
-}
-
-
-/* ==================================================
-   SCENT NOTES
-================================================== */
-
-function initializeNoteBadges() {
-    const buttons = safeQueryAll(
-        ".note-badge"
-    );
-
-    const modal = safeQuery(
-        "#noteModal"
-    );
-
-    const closeButton = safeQuery(
-        "#noteModalClose"
-    );
-
-    const backdrop = safeQuery(
-        ".note-modal__backdrop"
-    );
-
-    const title = safeQuery(
-        "#noteTitle"
-    );
-
-    const description = safeQuery(
+function initNoteModal() {
+    const modal = query("#noteModal");
+    const closeButton = query("#noteClose");
+    const title = query("#noteTitle");
+    const description = query(
         "#noteDescription"
     );
-
-    const mood = safeQuery(
-        "#noteMood"
-    );
+    const mood = query("#noteMood");
 
     if (
-        !buttons.length ||
         !modal ||
         !closeButton ||
         !title ||
@@ -349,11 +388,15 @@ function initializeNoteBadges() {
         return;
     }
 
+    const buttons = queryAll(
+        ".note-badge"
+    );
+
     const notes = {
         oud: {
             title: "Oud",
             description:
-                "Тёмная, сухая и глубокая древесная нота с дорогим восточным характером.",
+                "Тёмная, сухая и глубокая древесная нота с восточным характером.",
             mood:
                 "DEEP · WARM · MYSTERIOUS"
         },
@@ -361,7 +404,7 @@ function initializeNoteBadges() {
         amber: {
             title: "Amber",
             description:
-                "Тёплое смолистое звучание, которое создаёт ощущение мягкого света и глубины.",
+                "Тёплое смолистое звучание, создающее ощущение мягкого света и глубины.",
             mood:
                 "WARM · LUMINOUS · SENSUAL"
         },
@@ -369,7 +412,7 @@ function initializeNoteBadges() {
         wood: {
             title: "Woods",
             description:
-                "Сухая древесная структура, добавляющая композиции уверенность и чистую силу.",
+                "Сухая древесная структура, которая добавляет композиции уверенность и чистую силу.",
             mood:
                 "DRY · CLEAN · CONFIDENT"
         },
@@ -377,7 +420,7 @@ function initializeNoteBadges() {
         musk: {
             title: "Musk",
             description:
-                "Мягкий, чистый и почти бархатный аккорд, близкий к ощущению кожи.",
+                "Мягкий и чистый аккорд, близкий к ощущению тёплой кожи.",
             mood:
                 "SOFT · SKIN · INTIMATE"
         },
@@ -393,7 +436,7 @@ function initializeNoteBadges() {
         iris: {
             title: "Iris",
             description:
-                "Пудровая, сухая и утончённая нота, создающая ощущение холодной элегантности.",
+                "Пудровая и сухая нота, создающая ощущение спокойной холодной элегантности.",
             mood:
                 "POWDERY · COOL · REFINED"
         },
@@ -401,7 +444,7 @@ function initializeNoteBadges() {
         spice: {
             title: "Spice",
             description:
-                "Пряный акцент, который добавляет композиции темперамент и тёплую энергетику.",
+                "Пряный акцент, который добавляет аромату тепло и выразительный темперамент.",
             mood:
                 "WARM · SPICED · BOLD"
         },
@@ -417,7 +460,7 @@ function initializeNoteBadges() {
         leather: {
             title: "Leather",
             description:
-                "Глубокая текстура кожи с тёмным, чувственным и уверенным оттенком.",
+                "Тёмная текстура кожи с чувственным, глубоким и уверенным характером.",
             mood:
                 "DARK · TEXTURED · MAGNETIC"
         },
@@ -433,7 +476,7 @@ function initializeNoteBadges() {
         neroli: {
             title: "Neroli",
             description:
-                "Цветочно-цитрусовый аккорд с чистым, солнечным и немного зелёным характером.",
+                "Цветочно-цитрусовый аккорд с чистым и солнечным характером.",
             mood:
                 "SOLAR · GREEN · ELEGANT"
         },
@@ -441,16 +484,16 @@ function initializeNoteBadges() {
         citrus: {
             title: "Citrus",
             description:
-                "Светлая и искристая свежесть, создающая ощущение чистоты и лёгкости.",
+                "Искристая свежесть, создающая ощущение чистоты и лёгкости.",
             mood:
                 "BRIGHT · FRESH · AIRY"
         }
     };
 
-    const openModal = (key) => {
-        const data = notes[key];
+    const open = (key) => {
+        const note = notes[key];
 
-        if (!data) {
+        if (!note) {
             console.error(
                 "Unknown scent note:",
                 key
@@ -459,26 +502,32 @@ function initializeNoteBadges() {
             return;
         }
 
-        title.textContent = data.title;
-        description.textContent =
-            data.description;
-        mood.textContent =
-            data.mood;
+        title.textContent =
+            note.title;
 
-        modal.classList.add("open");
+        description.textContent =
+            note.description;
+
+        mood.textContent =
+            note.mood;
+
+        modal.classList.add(
+            "is-active"
+        );
 
         modal.setAttribute(
             "aria-hidden",
             "false"
         );
 
-        document.body.classList.add(
-            "modal-open"
-        );
+        document.body.style.overflow =
+            "hidden";
     };
 
-    const closeModal = () => {
-        modal.classList.remove("open");
+    const close = () => {
+        modal.classList.remove(
+            "is-active"
+        );
 
         modal.setAttribute(
             "aria-hidden",
@@ -486,11 +535,12 @@ function initializeNoteBadges() {
         );
 
         if (
-            !safeQuery(".ritual-modal.open")
+            !document.querySelector(
+                ".modal-overlay.is-active"
+            )
         ) {
-            document.body.classList.remove(
-                "modal-open"
-            );
+            document.body.style.overflow =
+                "";
         }
     };
 
@@ -501,22 +551,25 @@ function initializeNoteBadges() {
                 const key =
                     button.dataset.note;
 
-                openModal(key);
+                open(key);
             }
         );
     });
 
     closeButton.addEventListener(
         "click",
-        closeModal
+        close
     );
 
-    if (backdrop) {
-        backdrop.addEventListener(
+    queryAll(
+        "[data-close-note]",
+        modal
+    ).forEach((element) => {
+        element.addEventListener(
             "click",
-            closeModal
+            close
         );
-    }
+    });
 
     document.addEventListener(
         "keydown",
@@ -524,62 +577,54 @@ function initializeNoteBadges() {
             if (
                 event.key === "Escape" &&
                 modal.classList.contains(
-                    "open"
+                    "is-active"
                 )
             ) {
-                closeModal();
+                close();
             }
         }
     );
 }
 
 
-/* ==================================================
-   PRIVATE RITUAL ORDER
-================================================== */
+/* =========================================================
+   PRIVATE RITUAL MODAL
+========================================================= */
 
-function initializeRitualOrder() {
-    const modal = safeQuery(
+function initRitualModal() {
+    const modal = query(
         "#ritualModal"
     );
 
-    const closeButton = safeQuery(
+    const closeButton = query(
         "#ritualClose"
     );
 
-    const backdrop = safeQuery(
-        ".ritual-modal__backdrop"
-    );
-
-    const productElement = safeQuery(
+    const product = query(
         "#ritualProduct"
     );
 
-    const priceElement = safeQuery(
+    const price = query(
         "#ritualPrice"
     );
 
-    const form = safeQuery(
+    const form = query(
         "#ritualForm"
     );
 
-    const confirmation = safeQuery(
+    const confirmation = query(
         "#ritualConfirmation"
     );
 
-    const doneButton = safeQuery(
+    const doneButton = query(
         "#ritualDone"
-    );
-
-    const orderButtons = safeQueryAll(
-        ".order-button"
     );
 
     if (
         !modal ||
         !closeButton ||
-        !productElement ||
-        !priceElement ||
+        !product ||
+        !price ||
         !form ||
         !confirmation ||
         !doneButton
@@ -587,43 +632,35 @@ function initializeRitualOrder() {
         return;
     }
 
+    const orderButtons = queryAll(
+        ".order-button"
+    );
+
+    const steps = queryAll(
+        ".ritual-step",
+        modal
+    );
+
+    const progressItems = queryAll(
+        ".ritual-progress-item",
+        modal
+    );
+
     let selectedProduct = "";
     let selectedPrice = "";
 
-    const updateProgress = (step) => {
-        const progress = safeQueryAll(
-            ".ritual__progress span",
-            modal
-        );
-
-        progress.forEach(
-            (element, index) => {
-                element.classList.toggle(
-                    "is-active",
-                    index < step
-                );
-            }
-        );
-    };
-
-    const goToStep = (stepNumber) => {
-        const steps = safeQueryAll(
-            ".ritual-step",
-            modal
-        );
-
+    const setStep = (stepNumber) => {
         if (
+            !Number.isInteger(stepNumber) ||
             stepNumber < 1 ||
-            stepNumber > steps.length
+            stepNumber > 3
         ) {
             return;
         }
 
         steps.forEach((step) => {
             const current =
-                Number(
-                    step.dataset.step
-                );
+                Number(step.dataset.step);
 
             step.classList.toggle(
                 "is-active",
@@ -631,16 +668,23 @@ function initializeRitualOrder() {
             );
         });
 
-        updateProgress(stepNumber);
+        progressItems.forEach(
+            (item, index) => {
+                item.classList.toggle(
+                    "active",
+                    index < stepNumber
+                );
+            }
+        );
     };
 
-    const openRitual = (
-        product,
-        price
+    const open = (
+        productName,
+        productPrice
     ) => {
         if (
-            typeof product !== "string" ||
-            product.trim().length < 2
+            typeof productName !== "string" ||
+            productName.trim().length < 2
         ) {
             console.error(
                 "Invalid product."
@@ -650,35 +694,38 @@ function initializeRitualOrder() {
         }
 
         selectedProduct =
-            product.trim();
+            productName.trim();
 
         selectedPrice =
-            typeof price === "string"
-                ? price.trim()
+            typeof productPrice === "string"
+                ? productPrice.trim()
                 : "";
 
-        productElement.textContent =
+        product.textContent =
             selectedProduct;
 
-        priceElement.textContent =
+        price.textContent =
             selectedPrice;
 
-        goToStep(1);
+        setStep(1);
 
-        modal.classList.add("open");
+        modal.classList.add(
+            "is-active"
+        );
 
         modal.setAttribute(
             "aria-hidden",
             "false"
         );
 
-        document.body.classList.add(
-            "modal-open"
-        );
+        document.body.style.overflow =
+            "hidden";
     };
 
-    const closeRitual = () => {
-        modal.classList.remove("open");
+    const close = () => {
+        modal.classList.remove(
+            "is-active"
+        );
 
         modal.setAttribute(
             "aria-hidden",
@@ -686,11 +733,12 @@ function initializeRitualOrder() {
         );
 
         if (
-            !safeQuery(".note-modal.open")
+            !document.querySelector(
+                ".modal-overlay.is-active"
+            )
         ) {
-            document.body.classList.remove(
-                "modal-open"
-            );
+            document.body.style.overflow =
+                "";
         }
     };
 
@@ -698,45 +746,28 @@ function initializeRitualOrder() {
         button.addEventListener(
             "click",
             () => {
-                const product =
-                    button.dataset.product;
-
-                const price =
-                    button.dataset.price;
-
-                openRitual(
-                    product,
-                    price
+                open(
+                    button.dataset.product,
+                    button.dataset.price
                 );
             }
         );
     });
 
-    closeButton.addEventListener(
-        "click",
-        closeRitual
-    );
-
-    if (backdrop) {
-        backdrop.addEventListener(
-            "click",
-            closeRitual
-        );
-    }
-
-    safeQueryAll(
-        ".ritual-next",
+    queryAll(
+        "[data-ritual-next]",
         modal
     ).forEach((button) => {
         button.addEventListener(
             "click",
             () => {
-                const nextStep =
+                const next =
                     Number(
-                        button.dataset.next
+                        button.dataset
+                            .ritualNext
                     );
 
-                goToStep(nextStep);
+                setStep(next);
             }
         );
     });
@@ -748,21 +779,17 @@ function initializeRitualOrder() {
 
             try {
                 const nameInput =
-                    safeQuery(
-                        "#ritualName"
-                    );
+                    query("#ritualName");
 
                 const phoneInput =
-                    safeQuery(
-                        "#ritualPhone"
-                    );
+                    query("#ritualPhone");
 
                 if (
                     !nameInput ||
                     !phoneInput
                 ) {
                     throw new Error(
-                        "Order fields are missing."
+                        "Ritual inputs not found."
                     );
                 }
 
@@ -784,7 +811,7 @@ function initializeRitualOrder() {
 
                 if (phone.length < 7) {
                     alert(
-                        "Пожалуйста, введите корректный номер."
+                        "Пожалуйста, введите корректный номер телефона."
                     );
 
                     phoneInput.focus();
@@ -799,16 +826,15 @@ function initializeRitualOrder() {
 
                 form.reset();
 
-                goToStep(3);
+                setStep(3);
             } catch (error) {
                 console.error(
-                    "Ritual form error:",
+                    "Ritual submit error:",
                     error
                 );
 
                 alert(
-                    "Не удалось обработать заявку. " +
-                    "Попробуйте ещё раз."
+                    "Не удалось обработать заявку. Попробуйте ещё раз."
                 );
             }
         }
@@ -816,8 +842,23 @@ function initializeRitualOrder() {
 
     doneButton.addEventListener(
         "click",
-        closeRitual
+        close
     );
+
+    closeButton.addEventListener(
+        "click",
+        close
+    );
+
+    queryAll(
+        "[data-close-ritual]",
+        modal
+    ).forEach((element) => {
+        element.addEventListener(
+            "click",
+            close
+        );
+    });
 
     document.addEventListener(
         "keydown",
@@ -825,42 +866,40 @@ function initializeRitualOrder() {
             if (
                 event.key === "Escape" &&
                 modal.classList.contains(
-                    "open"
+                    "is-active"
                 )
             ) {
-                closeRitual();
+                close();
             }
         }
     );
 }
 
 
-/* ==================================================
-   DISCOVERY BUILDER
-================================================== */
+/* =========================================================
+   DISCOVERY SET
+========================================================= */
 
-function initializeDiscoveryBuilder() {
-    const productButtons =
-        safeQueryAll(
-            ".builder-product"
-        );
+function initDiscoveryBuilder() {
+    const products = queryAll(
+        ".builder-product"
+    );
 
-    const slots =
-        safeQueryAll(
-            ".builder-slot"
-        );
+    const slots = queryAll(
+        ".builder-slot"
+    );
 
     const countElement =
-        safeQuery("#selectionCount");
+        query("#selectionCount");
 
     const clearButton =
-        safeQuery("#clearSelection");
+        query("#clearSelection");
 
     const orderButton =
-        safeQuery("#discoveryOrder");
+        query("#discoveryOrder");
 
     if (
-        !productButtons.length ||
+        !products.length ||
         !slots.length ||
         !countElement ||
         !clearButton ||
@@ -870,6 +909,7 @@ function initializeDiscoveryBuilder() {
     }
 
     const selection = [];
+    let draggedScent = "";
 
     const updateUI = () => {
         countElement.textContent =
@@ -877,118 +917,199 @@ function initializeDiscoveryBuilder() {
 
         slots.forEach(
             (slot, index) => {
-                const value =
+                const selected =
                     selection[index];
+
+                const label =
+                    slot.querySelector(
+                        "small"
+                    );
 
                 slot.classList.toggle(
                     "has-item",
-                    Boolean(value)
+                    Boolean(selected)
                 );
 
-                const label =
-                    slot.querySelector("small");
-
-                if (!label) {
-                    return;
+                if (label) {
+                    label.textContent =
+                        selected ||
+                        "Нажмите, чтобы добавить";
                 }
-
-                label.textContent =
-                    value ||
-                    "Перетащите аромат";
             }
         );
 
         orderButton.disabled =
             selection.length !== 3;
 
-        productButtons.forEach(
+        if (
+            selection.length === 3
+        ) {
+            orderButton.classList.remove(
+                "opacity-30"
+            );
+        } else {
+            orderButton.classList.add(
+                "opacity-30"
+            );
+        }
+
+        products.forEach(
             (button) => {
                 const scent =
                     button.dataset.scent;
 
-                const isSelected =
+                if (!scent) {
+                    return;
+                }
+
+                const selected =
                     selection.includes(
                         scent
                     );
 
                 button.classList.toggle(
                     "is-selected",
-                    isSelected
+                    selected
                 );
 
-                button.setAttribute(
-                    "aria-pressed",
-                    String(isSelected)
-                );
+                const icon =
+                    button.querySelector(
+                        "i"
+                    );
+
+                if (icon) {
+                    icon.textContent =
+                        selected
+                            ? "✓"
+                            : "+";
+                }
             }
         );
     };
 
-    const addSelection = (scent) => {
+
+    const add = (scent) => {
         if (
             typeof scent !== "string" ||
             scent.trim().length < 2
         ) {
-            return;
+            return false;
         }
 
         const normalized =
             scent.trim();
 
+        /*
+         * Do not add duplicates.
+         */
         if (
-            selection.length >= 3 ||
-            selection.includes(normalized)
+            selection.includes(
+                normalized
+            )
         ) {
-            return;
+            return false;
         }
 
-        selection.push(normalized);
+        /*
+         * Maximum 3.
+         */
+        if (
+            selection.length >= 3
+        ) {
+            return false;
+        }
+
+        selection.push(
+            normalized
+        );
 
         updateUI();
+
+        return true;
     };
 
-    const removeSelection = (
-        index
-    ) => {
+
+    const remove = (index) => {
         if (
+            !Number.isInteger(index) ||
             index < 0 ||
             index >= selection.length
         ) {
             return;
         }
 
-        selection.splice(index, 1);
+        selection.splice(
+            index,
+            1
+        );
 
         updateUI();
     };
 
-    productButtons.forEach(
-        (button) => {
-            button.addEventListener(
-                "click",
-                () => {
-                    addSelection(
-                        button.dataset.scent
-                    );
+
+    /*
+     * Mobile / desktop click interaction.
+     *
+     * Tap once  -> add.
+     * Tap again -> remove.
+     */
+    products.forEach((button) => {
+        button.addEventListener(
+            "click",
+            () => {
+                const scent =
+                    button.dataset.scent;
+
+                if (!scent) {
+                    return;
                 }
-            );
 
-            button.addEventListener(
-                "dragstart",
-                (event) => {
-                    const scent =
-                        button.dataset.scent;
+                if (
+                    selection.includes(
+                        scent
+                    )
+                ) {
+                    const index =
+                        selection.indexOf(
+                            scent
+                        );
 
-                    if (!scent) {
-                        event.preventDefault();
+                    remove(index);
 
-                        return;
-                    }
+                    return;
+                }
 
-                    button.classList.add(
-                        "dragging"
-                    );
+                add(scent);
+            }
+        );
+    });
 
+
+    /*
+     * Desktop drag-and-drop.
+     */
+    products.forEach((button) => {
+        button.addEventListener(
+            "dragstart",
+            (event) => {
+                const scent =
+                    button.dataset.scent;
+
+                if (!scent) {
+                    event.preventDefault();
+
+                    return;
+                }
+
+                draggedScent =
+                    scent;
+
+                button.style.opacity =
+                    "0.45";
+
+                if (
+                    event.dataTransfer
+                ) {
                     event.dataTransfer.effectAllowed =
                         "copy";
 
@@ -997,85 +1118,102 @@ function initializeDiscoveryBuilder() {
                         scent
                     );
                 }
-            );
+            }
+        );
 
-            button.addEventListener(
-                "dragend",
-                () => {
-                    button.classList.remove(
-                        "dragging"
-                    );
-                }
-            );
-        }
-    );
+        button.addEventListener(
+            "dragend",
+            () => {
+                button.style.opacity =
+                    "";
+                draggedScent = "";
+            }
+        );
+    });
 
-    slots.forEach(
-        (slot) => {
-            slot.addEventListener(
-                "dragover",
-                (event) => {
-                    event.preventDefault();
 
-                    slot.classList.add(
-                        "is-over"
-                    );
+    slots.forEach((slot) => {
 
-                    event.dataTransfer.dropEffect =
-                        "copy";
-                }
-            );
+        slot.addEventListener(
+            "dragover",
+            (event) => {
+                event.preventDefault();
 
-            slot.addEventListener(
-                "dragleave",
-                () => {
-                    slot.classList.remove(
-                        "is-over"
-                    );
-                }
-            );
+                slot.classList.add(
+                    "is-over"
+                );
+            }
+        );
 
-            slot.addEventListener(
-                "drop",
-                (event) => {
-                    event.preventDefault();
 
-                    slot.classList.remove(
-                        "is-over"
-                    );
+        slot.addEventListener(
+            "dragleave",
+            () => {
+                slot.classList.remove(
+                    "is-over"
+                );
+            }
+        );
 
-                    const scent =
+
+        slot.addEventListener(
+            "drop",
+            (event) => {
+                event.preventDefault();
+
+                slot.classList.remove(
+                    "is-over"
+                );
+
+                let scent =
+                    draggedScent;
+
+                if (
+                    event.dataTransfer
+                ) {
+                    scent =
                         event.dataTransfer.getData(
                             "text/plain"
-                        );
-
-                    addSelection(scent);
+                        ) || scent;
                 }
-            );
 
-            slot.addEventListener(
-                "click",
-                () => {
-                    const slotIndex =
-                        Number(
-                            slot.dataset.slot
-                        );
+                add(scent);
 
-                    if (
-                        !Number.isInteger(
-                            slotIndex
-                        )
-                    ) {
-                        return;
-                    }
+                draggedScent = "";
+            }
+        );
 
-                    removeSelection(
+
+        /*
+         * Tap selected slot to remove.
+         */
+        slot.addEventListener(
+            "click",
+            () => {
+                const slotIndex =
+                    Number(
+                        slot.dataset.slot
+                    );
+
+                if (
+                    !Number.isInteger(
+                        slotIndex
+                    )
+                ) {
+                    return;
+                }
+
+                if (
+                    selection[slotIndex]
+                ) {
+                    remove(
                         slotIndex
                     );
                 }
-            );
-        }
-    );
+            }
+        );
+    });
+
 
     clearButton.addEventListener(
         "click",
@@ -1086,6 +1224,10 @@ function initializeDiscoveryBuilder() {
         }
     );
 
+
+    /*
+     * Discovery Set order.
+     */
     orderButton.addEventListener(
         "click",
         () => {
@@ -1095,33 +1237,24 @@ function initializeDiscoveryBuilder() {
                 return;
             }
 
-            const joined =
-                selection.join(" · ");
-
             const ritualModal =
-                safeQuery(
-                    "#ritualModal"
-                );
+                query("#ritualModal");
 
             const ritualProduct =
-                safeQuery(
-                    "#ritualProduct"
-                );
+                query("#ritualProduct");
 
             const ritualPrice =
-                safeQuery(
-                    "#ritualPrice"
-                );
+                query("#ritualPrice");
 
-            const progress =
-                safeQueryAll(
-                    ".ritual__progress span",
+            const steps =
+                queryAll(
+                    ".ritual-step",
                     ritualModal
                 );
 
-            const ritualSteps =
-                safeQueryAll(
-                    ".ritual-step",
+            const progress =
+                queryAll(
+                    ".ritual-progress-item",
                     ritualModal
                 );
 
@@ -1134,31 +1267,34 @@ function initializeDiscoveryBuilder() {
             }
 
             ritualProduct.textContent =
-                joined;
+                selection.join(
+                    " · "
+                );
 
             ritualPrice.textContent =
                 "DISCOVERY SET · 300 TJS";
 
-            ritualSteps.forEach(
+            steps.forEach(
                 (step) => {
                     step.classList.toggle(
                         "is-active",
-                        step.dataset.step === "1"
+                        step.dataset.step ===
+                            "1"
                     );
                 }
             );
 
             progress.forEach(
-                (element, index) => {
-                    element.classList.toggle(
-                        "is-active",
+                (item, index) => {
+                    item.classList.toggle(
+                        "active",
                         index === 0
                     );
                 }
             );
 
             ritualModal.classList.add(
-                "open"
+                "is-active"
             );
 
             ritualModal.setAttribute(
@@ -1166,22 +1302,22 @@ function initializeDiscoveryBuilder() {
                 "false"
             );
 
-            document.body.classList.add(
-                "modal-open"
-            );
+            document.body.style.overflow =
+                "hidden";
         }
     );
+
 
     updateUI();
 }
 
 
-/* ==================================================
+/* =========================================================
    SMOOTH LINKS
-================================================== */
+========================================================= */
 
-function initializeSmoothLinks() {
-    const links = safeQueryAll(
+function initSmoothLinks() {
+    const links = queryAll(
         'a[href^="#"]'
     );
 
