@@ -2,7 +2,7 @@
 
 /* ==================================================
    AURÉLIS
-   PREMIUM HERO ANIMATION
+   PREMIUM CINEMATIC HERO
 ================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -18,23 +18,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 function initializeHero() {
-  const hero = document.querySelector(".hero");
+  const hero =
+    document.querySelector(".hero");
 
   if (!hero) {
     return;
   }
 
-  if (typeof gsap === "undefined") {
+  if (
+    typeof gsap === "undefined"
+  ) {
     console.warn(
-      "GSAP is not available."
+      "GSAP is not available. CSS fallback remains active."
     );
 
     return;
   }
 
+  const reducedMotion =
+    window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+  if (reducedMotion) {
+    setReducedMotionState(hero);
+    return;
+  }
+
   setupHeroEntrance(hero);
   setupHeroButtons(hero);
-  setupHeroParallax(hero);
+
+  if (window.innerWidth > 700) {
+    setupHeroParallax(hero);
+    setupHeroMouseGlow(hero);
+  }
 }
 
 
@@ -70,29 +87,32 @@ function setupHeroEntrance(hero) {
     return;
   }
 
+  gsap.killTweensOf(elements);
+
   gsap.set(elements, {
     opacity: 0
   });
 
-  const timeline = gsap.timeline({
-    defaults: {
-      ease: "power3.out"
-    }
-  });
+  const timeline =
+    gsap.timeline({
+      defaults: {
+        ease: "power3.out"
+      }
+    });
 
   if (eyebrow) {
     timeline.fromTo(
       eyebrow,
       {
         opacity: 0,
-        y: 18,
-        filter: "blur(6px)"
+        y: 16,
+        filter: "blur(7px)"
       },
       {
         opacity: 1,
         y: 0,
         filter: "blur(0px)",
-        duration: 0.7
+        duration: 0.75
       }
     );
   }
@@ -103,17 +123,25 @@ function setupHeroEntrance(hero) {
       {
         opacity: 0,
         y: 38,
-        scale: 0.97,
-        filter: "blur(8px)"
+        scale: 0.965,
+        letterSpacing:
+          window.innerWidth <= 700
+            ? "0.22em"
+            : "0.18em",
+        filter: "blur(9px)"
       },
       {
         opacity: 1,
         y: 0,
         scale: 1,
+        letterSpacing:
+          window.innerWidth <= 700
+            ? "0.11em"
+            : "0.10em",
         filter: "blur(0px)",
-        duration: 1.05
+        duration: 1.15
       },
-      "-=0.35"
+      "-=0.34"
     );
   }
 
@@ -122,16 +150,16 @@ function setupHeroEntrance(hero) {
       description,
       {
         opacity: 0,
-        y: 16,
-        filter: "blur(4px)"
+        y: 17,
+        filter: "blur(5px)"
       },
       {
         opacity: 1,
         y: 0,
         filter: "blur(0px)",
-        duration: 0.75
+        duration: 0.80
       },
-      "-=0.5"
+      "-=0.52"
     );
   }
 
@@ -140,14 +168,14 @@ function setupHeroEntrance(hero) {
       actions,
       {
         opacity: 0,
-        y: 15
+        y: 16
       },
       {
         opacity: 1,
         y: 0,
-        duration: 0.65
+        duration: 0.70
       },
-      "-=0.4"
+      "-=0.43"
     );
   }
 
@@ -156,12 +184,12 @@ function setupHeroEntrance(hero) {
       meta,
       {
         opacity: 0,
-        y: 8
+        y: 9
       },
       {
         opacity: 1,
         y: 0,
-        duration: 0.55
+        duration: 0.60
       },
       "-=0.25"
     );
@@ -170,53 +198,71 @@ function setupHeroEntrance(hero) {
 
 
 /* ==================================================
-   BUTTON MICRO INTERACTION
+   BUTTON MICRO-INTERACTIONS
 ================================================== */
 
 function setupHeroButtons(hero) {
   const buttons =
-    hero.querySelectorAll(".hero-button");
+    hero.querySelectorAll(
+      ".hero-button"
+    );
 
   if (!buttons.length) {
     return;
   }
 
+  const hoverSupported =
+    window.matchMedia(
+      "(hover: hover)"
+    ).matches;
+
+  if (!hoverSupported) {
+    return;
+  }
+
   buttons.forEach((button) => {
+    const arrow =
+      button.querySelector(
+        ".hero-button-arrow"
+      );
+
     button.addEventListener(
       "mouseenter",
       () => {
-        if (
-          !window.matchMedia(
-            "(hover: hover)"
-          ).matches
-        ) {
-          return;
-        }
-
         gsap.to(button, {
           y: -4,
-          duration: 0.35,
-          ease: "power2.out"
+          duration: 0.38,
+          ease: "power3.out"
         });
+
+        if (arrow) {
+          gsap.to(arrow, {
+            x: 2,
+            y: -2,
+            duration: 0.38,
+            ease: "power3.out"
+          });
+        }
       }
     );
 
     button.addEventListener(
       "mouseleave",
       () => {
-        if (
-          !window.matchMedia(
-            "(hover: hover)"
-          ).matches
-        ) {
-          return;
-        }
-
         gsap.to(button, {
           y: 0,
-          duration: 0.4,
+          duration: 0.42,
           ease: "power3.out"
         });
+
+        if (arrow) {
+          gsap.to(arrow, {
+            x: 0,
+            y: 0,
+            duration: 0.42,
+            ease: "power3.out"
+          });
+        }
       }
     );
   });
@@ -242,20 +288,6 @@ function setupHeroParallax(hero) {
     return;
   }
 
-  const reducedMotion =
-    window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-
-  const touchDevice =
-    window.matchMedia(
-      "(hover: none)"
-    ).matches;
-
-  if (reducedMotion || touchDevice) {
-    return;
-  }
-
   let targetX = 0;
   let targetY = 0;
 
@@ -270,13 +302,13 @@ function setupHeroParallax(hero) {
       (targetY - currentY) * 0.045;
 
     gsap.set(background, {
-      x: currentX * 0.20,
-      y: currentY * 0.15
+      x: currentX * 0.18,
+      y: currentY * 0.14
     });
 
     gsap.set(silk, {
-      x: currentX * 0.45,
-      y: currentY * 0.30
+      x: currentX * 0.38,
+      y: currentY * 0.26
     });
 
     requestAnimationFrame(
@@ -290,23 +322,26 @@ function setupHeroParallax(hero) {
       const rect =
         hero.getBoundingClientRect();
 
-      if (!rect.width || !rect.height) {
+      if (
+        !rect.width ||
+        !rect.height
+      ) {
         return;
       }
 
-      const x =
+      const normalizedX =
         (event.clientX - rect.left) /
         rect.width;
 
-      const y =
+      const normalizedY =
         (event.clientY - rect.top) /
         rect.height;
 
       targetX =
-        (x - 0.5) * 20;
+        (normalizedX - 0.5) * 18;
 
       targetY =
-        (y - 0.5) * 20;
+        (normalizedY - 0.5) * 18;
     }
   );
 
@@ -321,4 +356,100 @@ function setupHeroParallax(hero) {
   requestAnimationFrame(
     animateParallax
   );
+}
+
+
+/* ==================================================
+   DESKTOP MOUSE LIGHT
+================================================== */
+
+function setupHeroMouseGlow(hero) {
+  if (
+    !hero ||
+    window.innerWidth <= 700
+  ) {
+    return;
+  }
+
+  let targetX = 50;
+  let targetY = 50;
+
+  let currentX = 50;
+  let currentY = 50;
+
+  const updateGlow = () => {
+    currentX +=
+      (targetX - currentX) * 0.08;
+
+    currentY +=
+      (targetY - currentY) * 0.08;
+
+    hero.style.setProperty(
+      "--hero-mouse-x",
+      `${currentX}%`
+    );
+
+    hero.style.setProperty(
+      "--hero-mouse-y",
+      `${currentY}%`
+    );
+
+    requestAnimationFrame(
+      updateGlow
+    );
+  };
+
+  hero.addEventListener(
+    "mousemove",
+    (event) => {
+      const rect =
+        hero.getBoundingClientRect();
+
+      if (
+        !rect.width ||
+        !rect.height
+      ) {
+        return;
+      }
+
+      targetX =
+        ((event.clientX - rect.left) /
+          rect.width) *
+        100;
+
+      targetY =
+        ((event.clientY - rect.top) /
+          rect.height) *
+        100;
+    }
+  );
+
+  hero.addEventListener(
+    "mouseleave",
+    () => {
+      targetX = 50;
+      targetY = 50;
+    }
+  );
+
+  requestAnimationFrame(
+    updateGlow
+  );
+}
+
+
+/* ==================================================
+   REDUCED MOTION
+================================================== */
+
+function setReducedMotionState(hero) {
+  const elements =
+    hero.querySelectorAll(
+      ".hero-eyebrow, .hero-title, .hero-description, .hero-actions, .hero-meta"
+    );
+
+  elements.forEach((element) => {
+    element.style.opacity = "1";
+    element.style.transform = "none";
+  });
 }
