@@ -1,1 +1,350 @@
+/* ==================================================
+   AURÉLIS
+   PREMIUM PERFUME WEBSITE
+   BASE / DESIGN SYSTEM
+================================================== */
 
+:root {
+
+  /* Brand colors */
+  --color-ivory: #f7f3ee;
+  --color-cream: #f2ece5;
+  --color-warm-white: #fcfaf7;
+
+  --color-charcoal: #171417;
+  --color-graphite: #2b272b;
+  --color-stone: #716a70;
+
+  --color-rose: #a87882;
+  --color-rose-soft: #d8bfc4;
+
+  --color-white: #ffffff;
+
+
+  /* Borders */
+  --border-subtle:
+    rgba(23, 20, 23, 0.10);
+
+  --border-light:
+    rgba(255, 255, 255, 0.35);
+
+
+  /* Shadows */
+  --shadow-soft:
+    0 12px 40px rgba(23, 20, 23, 0.06);
+
+  --shadow-medium:
+    0 24px 70px rgba(23, 20, 23, 0.10);
+
+  --shadow-strong:
+    0 32px 90px rgba(23, 20, 23, 0.16);
+
+
+  /* Typography */
+  --font-display:
+    "Times New Roman",
+    Georgia,
+    serif;
+
+  --font-body:
+    Inter,
+    Arial,
+    Helvetica,
+    sans-serif;
+
+
+  /* Layout */
+  --container:
+    1440px;
+
+  --page-padding:
+    clamp(18px, 4vw, 64px);
+
+
+  /* Radius */
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 28px;
+  --radius-xl: 40px;
+  --radius-pill: 999px;
+
+
+  /* Motion */
+  --ease-smooth:
+    cubic-bezier(0.22, 1, 0.36, 1);
+
+  --ease-soft:
+    cubic-bezier(0.4, 0, 0.2, 1);
+
+  --duration-fast:
+    220ms;
+
+  --duration-medium:
+    420ms;
+
+  --duration-slow:
+    700ms;
+}
+
+
+/* ==================================================
+   RESET
+================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  margin: 0;
+  padding: 0;
+
+  scroll-behavior: smooth;
+
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+
+  margin: 0;
+  padding: 0;
+
+  font-family: var(--font-body);
+
+  color: var(--color-charcoal);
+  background: var(--color-ivory);
+
+  text-rendering: optimizeLegibility;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  overflow-x: hidden;
+}
+
+main,
+section,
+header,
+footer,
+nav,
+article,
+aside {
+  display: block;
+}
+
+img,
+picture,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+img,
+video {
+  height: auto;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  border: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+
+/* ==================================================
+   TYPOGRAPHY
+================================================== */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: var(--color-charcoal);
+}
+
+p {
+  color: var(--color-stone);
+}
+
+
+/* ==================================================
+   ACCESSIBILITY
+================================================== */
+
+:focus-visible {
+  outline: 2px solid var(--color-rose);
+  outline-offset: 4px;
+}
+
+
+/* ==================================================
+   TEXT SELECTION
+================================================== */
+
+::selection {
+  color: var(--color-white);
+  background: var(--color-charcoal);
+}
+
+
+/* ==================================================
+   GLOBAL CONTAINER
+================================================== */
+
+.container {
+  width:
+    min(
+      calc(100% - (var(--page-padding) * 2)),
+      var(--container)
+    );
+
+  margin-inline: auto;
+}
+
+
+/* ==================================================
+   GLOBAL BUTTON FOUNDATION
+================================================== */
+
+.ui-button {
+  position: relative;
+
+  min-height: 48px;
+
+  padding:
+    0 22px;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  border:
+    1px solid
+    var(--border-subtle);
+
+  border-radius:
+    var(--radius-pill);
+
+  cursor: pointer;
+
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+
+  transition:
+    transform
+      var(--duration-medium)
+      var(--ease-smooth),
+
+    background
+      var(--duration-medium)
+      var(--ease-soft),
+
+    color
+      var(--duration-medium)
+      var(--ease-soft),
+
+    box-shadow
+      var(--duration-medium)
+      var(--ease-smooth),
+
+    border-color
+      var(--duration-medium)
+      var(--ease-soft);
+}
+
+.ui-button:active {
+  transform: scale(0.98);
+}
+
+
+/* ==================================================
+   REDUCED MOTION
+================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+
+    transition-duration: 0.01ms !important;
+
+    scroll-behavior: auto !important;
+  }
+}
+
+
+/* ==================================================
+   SMALL MOBILE
+================================================== */
+
+@media (max-width: 480px) {
+
+  :root {
+    --page-padding: 16px;
+  }
+
+  body {
+    font-size: 14px;
+  }
+}
+
+
+/* ==================================================
+   LARGE SCREENS
+================================================== */
+
+@media (min-width: 1600px) {
+
+  :root {
+    --page-padding: 72px;
+  }
+}
