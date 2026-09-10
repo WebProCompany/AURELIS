@@ -60,142 +60,142 @@ function initializeHero() {
 ================================================== */
 
 function setupHeroEntrance(hero) {
-  const eyebrow =
-    hero.querySelector(".hero-eyebrow");
+  try {
+    const eyebrow =
+      hero.querySelector(".hero-eyebrow");
 
-  const title =
-    hero.querySelector(".hero-title");
+    const title =
+      hero.querySelector(".hero-title");
 
-  const description =
-    hero.querySelector(".hero-description");
+    const description =
+      hero.querySelector(".hero-description");
 
-  const actions =
-    hero.querySelector(".hero-actions");
+    const actions =
+      hero.querySelector(".hero-actions");
 
-  const meta =
-    hero.querySelector(".hero-meta");
+    const meta =
+      hero.querySelector(".hero-meta");
 
-  const elements = [
-    eyebrow,
-    title,
-    description,
-    actions,
-    meta
-  ].filter(Boolean);
+    const elements = [
+      eyebrow,
+      title,
+      description,
+      actions,
+      meta
+    ].filter(Boolean);
 
-  if (!elements.length) {
-    return;
-  }
+    if (!elements.length) {
+      return;
+    }
 
-  gsap.killTweensOf(elements);
+    gsap.killTweensOf(elements);
 
-  gsap.set(elements, {
-    opacity: 0
-  });
+    gsap.set(elements, {
+      clearProps: "animation,filter,letterSpacing",
+      opacity: 0
+    });
 
-  const timeline =
-    gsap.timeline({
+    const timeline = gsap.timeline({
       defaults: {
         ease: "power3.out"
       }
     });
 
-  if (eyebrow) {
-    timeline.fromTo(
-      eyebrow,
-      {
-        opacity: 0,
-        y: 16,
-        filter: "blur(7px)"
-      },
-      {
-        opacity: 1,
-        y: 0,
-        filter: "blur(0px)",
-        duration: 0.75
-      }
-    );
-  }
+    /* COLLECTION 2026 */
 
-  if (title) {
-    timeline.fromTo(
-      title,
-      {
-        opacity: 0,
-        y: 38,
-        scale: 0.965,
-        letterSpacing:
-          window.innerWidth <= 700
-            ? "0.22em"
-            : "0.18em",
-        filter: "blur(9px)"
-      },
-      {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        letterSpacing:
-          window.innerWidth <= 700
-            ? "0.11em"
-            : "0.10em",
-        filter: "blur(0px)",
-        duration: 1.15
-      },
-      "-=0.34"
-    );
-  }
+    if (eyebrow) {
+      timeline.fromTo(
+        eyebrow,
+        {
+          opacity: 0,
+          y: 12
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.65
+        }
+      );
+    }
 
-  if (description) {
-    timeline.fromTo(
-      description,
-      {
-        opacity: 0,
-        y: 17,
-        filter: "blur(5px)"
-      },
-      {
-        opacity: 1,
-        y: 0,
-        filter: "blur(0px)",
-        duration: 0.80
-      },
-      "-=0.52"
-    );
-  }
+    /* AURÉLIS */
 
-  if (actions) {
-    timeline.fromTo(
-      actions,
-      {
-        opacity: 0,
-        y: 16
-      },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.70
-      },
-      "-=0.43"
-    );
-  }
+    if (title) {
+      timeline.fromTo(
+        title,
+        {
+          opacity: 0,
+          y: 24
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.9
+        },
+        "-=0.25"
+      );
+    }
 
-  if (meta) {
-    timeline.fromTo(
-      meta,
-      {
-        opacity: 0,
-        y: 9
-      },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.60
-      },
-      "-=0.25"
+    /* DESCRIPTION */
+
+    if (description) {
+      timeline.fromTo(
+        description,
+        {
+          opacity: 0,
+          y: 12
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.65
+        },
+        "-=0.35"
+      );
+    }
+
+    /* BUTTONS */
+
+    if (actions) {
+      timeline.fromTo(
+        actions,
+        {
+          opacity: 0,
+          y: 12
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6
+        },
+        "-=0.28"
+      );
+    }
+
+    /* META */
+
+    if (meta) {
+      timeline.fromTo(
+        meta,
+        {
+          opacity: 0,
+          y: 7
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5
+        },
+        "-=0.20"
+      );
+    }
+  } catch (error) {
+    console.error(
+      "AURÉLIS Hero entrance error:",
+      error
     );
   }
 }
-
 
 /* ==================================================
    BUTTON MICRO-INTERACTIONS
