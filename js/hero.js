@@ -18,18 +18,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 function initializeHero() {
-  const hero =
-    document.querySelector(".hero");
+  const hero = document.querySelector(".hero");
 
   if (!hero) {
     return;
   }
 
-  if (
-    typeof gsap === "undefined"
-  ) {
+  if (typeof gsap === "undefined") {
     console.warn(
-      "GSAP is not available. Hero fallback animation remains active."
+      "GSAP is not available."
     );
 
     return;
@@ -42,7 +39,7 @@ function initializeHero() {
 
 
 /* ==================================================
-   ENTRANCE ANIMATION
+   HERO ENTRANCE
 ================================================== */
 
 function setupHeroEntrance(hero) {
@@ -73,18 +70,15 @@ function setupHeroEntrance(hero) {
     return;
   }
 
-  gsap.killTweensOf(elements);
-
   gsap.set(elements, {
     opacity: 0
   });
 
-  const timeline =
-    gsap.timeline({
-      defaults: {
-        ease: "power3.out"
-      }
-    });
+  const timeline = gsap.timeline({
+    defaults: {
+      ease: "power3.out"
+    }
+  });
 
   if (eyebrow) {
     timeline.fromTo(
@@ -98,7 +92,7 @@ function setupHeroEntrance(hero) {
         opacity: 1,
         y: 0,
         filter: "blur(0px)",
-        duration: 0.75
+        duration: 0.7
       }
     );
   }
@@ -108,21 +102,16 @@ function setupHeroEntrance(hero) {
       title,
       {
         opacity: 0,
-        y: 42,
-        scale: 0.965,
-        letterSpacing: "0.22em",
+        y: 38,
+        scale: 0.97,
         filter: "blur(8px)"
       },
       {
         opacity: 1,
         y: 0,
         scale: 1,
-        letterSpacing:
-          window.innerWidth <= 700
-            ? "0.11em"
-            : "0.10em",
         filter: "blur(0px)",
-        duration: 1.15
+        duration: 1.05
       },
       "-=0.35"
     );
@@ -133,16 +122,16 @@ function setupHeroEntrance(hero) {
       description,
       {
         opacity: 0,
-        y: 18,
-        filter: "blur(5px)"
+        y: 16,
+        filter: "blur(4px)"
       },
       {
         opacity: 1,
         y: 0,
         filter: "blur(0px)",
-        duration: 0.8
+        duration: 0.75
       },
-      "-=0.55"
+      "-=0.5"
     );
   }
 
@@ -151,14 +140,14 @@ function setupHeroEntrance(hero) {
       actions,
       {
         opacity: 0,
-        y: 18
+        y: 15
       },
       {
         opacity: 1,
         y: 0,
-        duration: 0.7
+        duration: 0.65
       },
-      "-=0.45"
+      "-=0.4"
     );
   }
 
@@ -167,14 +156,14 @@ function setupHeroEntrance(hero) {
       meta,
       {
         opacity: 0,
-        y: 10
+        y: 8
       },
       {
         opacity: 1,
         y: 0,
-        duration: 0.65
+        duration: 0.55
       },
-      "-=0.30"
+      "-=0.25"
     );
   }
 }
@@ -186,9 +175,7 @@ function setupHeroEntrance(hero) {
 
 function setupHeroButtons(hero) {
   const buttons =
-    hero.querySelectorAll(
-      ".hero-button"
-    );
+    hero.querySelectorAll(".hero-button");
 
   if (!buttons.length) {
     return;
@@ -199,16 +186,18 @@ function setupHeroButtons(hero) {
       "mouseenter",
       () => {
         if (
-          window.matchMedia(
+          !window.matchMedia(
             "(hover: hover)"
           ).matches
         ) {
-          gsap.to(button, {
-            y: -4,
-            duration: 0.35,
-            ease: "power2.out"
-          });
+          return;
         }
+
+        gsap.to(button, {
+          y: -4,
+          duration: 0.35,
+          ease: "power2.out"
+        });
       }
     );
 
@@ -216,16 +205,18 @@ function setupHeroButtons(hero) {
       "mouseleave",
       () => {
         if (
-          window.matchMedia(
+          !window.matchMedia(
             "(hover: hover)"
           ).matches
         ) {
-          gsap.to(button, {
-            y: 0,
-            duration: 0.4,
-            ease: "power3.out"
-          });
+          return;
         }
+
+        gsap.to(button, {
+          y: 0,
+          duration: 0.4,
+          ease: "power3.out"
+        });
       }
     );
   });
@@ -251,17 +242,17 @@ function setupHeroParallax(hero) {
     return;
   }
 
-  const motionAllowed =
+  const reducedMotion =
     window.matchMedia(
-      "(prefers-reduced-motion: no-preference)"
+      "(prefers-reduced-motion: reduce)"
     ).matches;
 
-  const isTouch =
+  const touchDevice =
     window.matchMedia(
       "(hover: none)"
     ).matches;
 
-  if (!motionAllowed || isTouch) {
+  if (reducedMotion || touchDevice) {
     return;
   }
 
@@ -271,7 +262,7 @@ function setupHeroParallax(hero) {
   let currentX = 0;
   let currentY = 0;
 
-  const updateParallax = () => {
+  function animateParallax() {
     currentX +=
       (targetX - currentX) * 0.045;
 
@@ -279,21 +270,19 @@ function setupHeroParallax(hero) {
       (targetY - currentY) * 0.045;
 
     gsap.set(background, {
-      x: currentX * 0.22,
-      y: currentY * 0.18
+      x: currentX * 0.20,
+      y: currentY * 0.15
     });
 
     gsap.set(silk, {
-      xPercent: -50,
-      yPercent: -50,
-      x: currentX * 0.55,
-      y: currentY * 0.42
+      x: currentX * 0.45,
+      y: currentY * 0.30
     });
 
     requestAnimationFrame(
-      updateParallax
+      animateParallax
     );
-  };
+  }
 
   hero.addEventListener(
     "mousemove",
@@ -301,19 +290,23 @@ function setupHeroParallax(hero) {
       const rect =
         hero.getBoundingClientRect();
 
-      const relativeX =
+      if (!rect.width || !rect.height) {
+        return;
+      }
+
+      const x =
         (event.clientX - rect.left) /
         rect.width;
 
-      const relativeY =
+      const y =
         (event.clientY - rect.top) /
         rect.height;
 
       targetX =
-        (relativeX - 0.5) * 20;
+        (x - 0.5) * 20;
 
       targetY =
-        (relativeY - 0.5) * 20;
+        (y - 0.5) * 20;
     }
   );
 
@@ -326,6 +319,6 @@ function setupHeroParallax(hero) {
   );
 
   requestAnimationFrame(
-    updateParallax
+    animateParallax
   );
 }
