@@ -1,6 +1,12 @@
 /* ==================================================
    AURÉLIS
    PREMIUM CINEMATIC HERO
+   VERSION 2 — EDITORIAL LUXURY
+================================================== */
+
+
+/* ==================================================
+   HERO CORE
 ================================================== */
 
 .hero {
@@ -13,172 +19,265 @@
   justify-content: center;
 
   overflow: hidden;
-
   isolation: isolate;
 
-  background:
-    #171417;
-
+  background: #242125;
   color: var(--color-white);
 }
 
 
 /* ==================================================
-   ANIMATED ATMOSPHERE
+   MAIN ANIMATED BACKGROUND
 ================================================== */
 
 .hero-background {
   position: absolute;
-  inset: -15%;
+  inset: -18%;
 
-  z-index: -3;
+  z-index: -4;
 
   overflow: hidden;
 
   background:
     radial-gradient(
-      circle at 20% 35%,
-      rgba(217, 203, 190, 0.18),
-      transparent 28%
+      70% 80% at 18% 30%,
+      rgba(232, 220, 207, 0.12),
+      transparent 56%
     ),
     radial-gradient(
-      circle at 78% 28%,
-      rgba(184, 154, 130, 0.15),
-      transparent 26%
-    ),
-    radial-gradient(
-      circle at 55% 78%,
-      rgba(255, 255, 255, 0.07),
-      transparent 30%
+      60% 70% at 82% 62%,
+      rgba(211, 191, 175, 0.10),
+      transparent 58%
     ),
     linear-gradient(
       135deg,
-      #110f11 0%,
-      #211c20 48%,
-      #141214 100%
+      #121013 0%,
+      #282329 42%,
+      #1b181c 72%,
+      #0f0d10 100%
     );
+
+  transform: scale(1.02);
+
+  will-change: transform;
 }
 
 
 /* ==================================================
-   LIQUID LIGHT
+   ATMOSPHERIC LIGHT 01
 ================================================== */
 
-.hero-background::before,
+.hero-background::before {
+  content: "";
+
+  position: absolute;
+
+  width: 72vw;
+  height: 72vw;
+
+  min-width: 500px;
+  min-height: 500px;
+
+  top: -28%;
+  left: -17%;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(247, 236, 224, 0.22) 0%,
+      rgba(219, 200, 181, 0.11) 27%,
+      rgba(219, 200, 181, 0.035) 48%,
+      transparent 72%
+    );
+
+  filter: blur(70px);
+
+  opacity: 0.72;
+
+  will-change:
+    transform,
+    opacity;
+
+  animation:
+    heroAtmosphereOne
+    18s
+    cubic-bezier(0.45, 0, 0.55, 1)
+    infinite alternate;
+}
+
+
+/* ==================================================
+   ATMOSPHERIC LIGHT 02
+================================================== */
+
 .hero-background::after {
   content: "";
 
   position: absolute;
 
-  width: 55vw;
-  height: 55vw;
+  width: 66vw;
+  height: 66vw;
 
-  min-width: 420px;
-  min-height: 420px;
+  min-width: 470px;
+  min-height: 470px;
+
+  right: -20%;
+  bottom: -28%;
 
   border-radius: 50%;
 
-  filter: blur(75px);
-
-  opacity: 0.52;
-
-  will-change: transform;
-}
-
-.hero-background::before {
-  top: -18%;
-  left: -8%;
-
   background:
     radial-gradient(
       circle,
-      rgba(238, 228, 216, 0.24) 0%,
-      rgba(193, 168, 151, 0.11) 36%,
-      transparent 72%
+      rgba(229, 210, 196, 0.16) 0%,
+      rgba(200, 181, 170, 0.06) 34%,
+      transparent 70%
     );
 
+  filter: blur(75px);
+
+  opacity: 0.58;
+
+  will-change:
+    transform,
+    opacity;
+
   animation:
-    heroLightOne
-    16s
-    ease-in-out
+    heroAtmosphereTwo
+    21s
+    cubic-bezier(0.45, 0, 0.55, 1)
     infinite alternate;
 }
 
-.hero-background::after {
-  right: -12%;
-  bottom: -20%;
+
+/* ==================================================
+   THIRD LIGHT — VERY SUBTLE
+================================================== */
+
+.hero::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  z-index: -1;
+
+  pointer-events: none;
 
   background:
     radial-gradient(
-      circle,
-      rgba(176, 148, 137, 0.18) 0%,
-      rgba(242, 227, 215, 0.08) 34%,
-      transparent 72%
+      ellipse at 50% 42%,
+      rgba(255, 248, 240, 0.055),
+      transparent 42%
     );
 
   animation:
-    heroLightTwo
-    20s
+    heroCenterBreath
+    9s
     ease-in-out
     infinite alternate;
 }
 
 
 /* ==================================================
-   FLOWING SILK SHAPE
+   FLOWING SILK / LIGHT RIBBON
 ================================================== */
 
 .hero-silk {
   position: absolute;
 
-  width: 75vw;
-  height: 24vw;
-
-  min-height: 180px;
-
-  top: 26%;
+  top: 48%;
   left: 50%;
+
+  z-index: -1;
+
+  width: 88vw;
+  height: 22vw;
+
+  min-height: 170px;
 
   border-radius: 50%;
 
   transform:
-    translateX(-50%)
-    rotate(-13deg);
+    translate(-50%, -50%)
+    rotate(-11deg)
+    skewX(-8deg);
 
   background:
     linear-gradient(
       90deg,
       transparent 0%,
-      rgba(255, 255, 255, 0.03) 25%,
-      rgba(255, 255, 255, 0.14) 48%,
-      rgba(210, 194, 181, 0.06) 68%,
+      rgba(255, 255, 255, 0.015) 15%,
+      rgba(255, 255, 255, 0.045) 32%,
+      rgba(248, 238, 228, 0.13) 49%,
+      rgba(255, 255, 255, 0.04) 66%,
+      rgba(255, 255, 255, 0.012) 80%,
       transparent 100%
     );
 
-  filter:
-    blur(10px);
+  filter: blur(12px);
 
-  opacity: 0.65;
+  opacity: 0.75;
 
   mix-blend-mode: screen;
 
+  will-change:
+    transform,
+    opacity;
+
   animation:
-    heroSilkFlow
-    13s
-    ease-in-out
+    heroSilkMotion
+    15s
+    cubic-bezier(0.45, 0, 0.55, 1)
     infinite alternate;
 }
 
 
 /* ==================================================
-   SECOND SILK LAYER
+   INNER SILK
 ================================================== */
 
 .hero-silk::before {
   content: "";
 
   position: absolute;
-  inset: 12% -12%;
+
+  inset: 18% -9%;
+
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent 5%,
+      rgba(255, 255, 255, 0.035) 28%,
+      rgba(255, 255, 255, 0.12) 48%,
+      rgba(255, 255, 255, 0.03) 68%,
+      transparent 94%
+    );
+
+  filter: blur(18px);
+
+  transform:
+    rotate(5deg)
+    scaleY(0.72);
+
+  opacity: 0.74;
+}
+
+
+/* ==================================================
+   SECONDARY SILK
+================================================== */
+
+.hero-silk::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 35% -12%;
 
   border-radius: 50%;
 
@@ -186,15 +285,17 @@
     linear-gradient(
       90deg,
       transparent,
-      rgba(255, 255, 255, 0.09),
+      rgba(238, 222, 210, 0.08),
       transparent
     );
 
-  transform:
-    rotate(6deg);
+  filter: blur(24px);
 
-  filter:
-    blur(15px);
+  transform:
+    rotate(-8deg)
+    scaleY(0.58);
+
+  opacity: 0.58;
 }
 
 
@@ -210,12 +311,12 @@
 
   pointer-events: none;
 
-  opacity: 0.055;
+  opacity: 0.035;
 
   background-image:
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='.5'/%3E%3C/svg%3E");
 
-  background-size: 170px 170px;
+  background-size: 180px 180px;
 
   mix-blend-mode: soft-light;
 }
@@ -235,9 +336,10 @@
 
   background:
     radial-gradient(
-      circle at center,
-      transparent 32%,
-      rgba(0, 0, 0, 0.20) 100%
+      ellipse at center,
+      transparent 24%,
+      rgba(4, 3, 5, 0.08) 58%,
+      rgba(4, 3, 5, 0.42) 100%
     );
 }
 
@@ -253,7 +355,7 @@
   width:
     min(
       calc(100% - 36px),
-      760px
+      820px
     );
 
   margin-inline: auto;
@@ -270,32 +372,52 @@
   display: inline-flex;
 
   align-items: center;
+  justify-content: center;
 
-  gap: 12px;
+  gap: 13px;
 
-  margin-bottom: 24px;
+  margin-bottom: 25px;
 
   color:
-    rgba(255, 255, 255, 0.68);
+    rgba(255, 255, 255, 0.67);
 
   font-size: 9px;
 
   font-weight: 700;
 
-  letter-spacing: 4px;
+  letter-spacing: 4.5px;
 
   text-transform: uppercase;
+
+  opacity: 0;
+
+  transform: translateY(12px);
+
+  animation:
+    heroReveal
+    0.85s
+    var(--ease-smooth)
+    0.25s
+    forwards;
 }
 
 .hero-eyebrow::before,
 .hero-eyebrow::after {
   content: "";
 
-  width: 28px;
+  width: 32px;
   height: 1px;
 
   background:
-    rgba(255, 255, 255, 0.28);
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.34)
+    );
+}
+
+.hero-eyebrow::after {
+  transform: scaleX(-1);
 }
 
 
@@ -304,17 +426,15 @@
 ================================================== */
 
 .hero-title {
-  max-width: 100%;
-
-  margin: 0 auto 22px;
+  margin: 0 0 25px;
 
   font-family:
     var(--font-display);
 
   font-size:
     clamp(
-      58px,
-      11vw,
+      64px,
+      10.8vw,
       150px
     );
 
@@ -325,16 +445,29 @@
   letter-spacing:
     clamp(
       7px,
-      1.25vw,
+      1.08vw,
       18px
     );
 
   color:
-    #f9f5f0;
+    #f8f3ed;
 
   text-shadow:
-    0 10px 45px
-    rgba(0, 0, 0, 0.28);
+    0 12px 46px
+    rgba(0, 0, 0, 0.30);
+
+  opacity: 0;
+
+  transform:
+    translateY(26px)
+    scale(0.985);
+
+  animation:
+    heroTitleReveal
+    1.05s
+    var(--ease-smooth)
+    0.42s
+    forwards;
 }
 
 
@@ -343,19 +476,31 @@
 ================================================== */
 
 .hero-description {
-  width: min(440px, 100%);
+  width:
+    min(450px, 100%);
 
   margin:
-    0 auto 34px;
+    0 auto 36px;
 
   color:
-    rgba(255, 255, 255, 0.69);
+    rgba(255, 255, 255, 0.68);
 
   font-size: 14px;
 
-  line-height: 1.75;
+  line-height: 1.78;
 
-  letter-spacing: 0.15px;
+  letter-spacing: 0.18px;
+
+  opacity: 0;
+
+  transform: translateY(16px);
+
+  animation:
+    heroReveal
+    0.85s
+    var(--ease-smooth)
+    0.70s
+    forwards;
 }
 
 
@@ -372,39 +517,54 @@
   gap: 10px;
 
   flex-wrap: wrap;
+
+  opacity: 0;
+
+  transform: translateY(15px);
+
+  animation:
+    heroReveal
+    0.85s
+    var(--ease-smooth)
+    0.92s
+    forwards;
 }
 
 
 /* ==================================================
-   HERO BUTTON
+   BUTTON BASE
 ================================================== */
 
 .hero-button {
-  min-width: 190px;
+  position: relative;
+
+  min-width: 196px;
   min-height: 52px;
 
   padding:
-    0 18px;
+    0 17px 0 21px;
 
   display: inline-flex;
 
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 
-  gap: 12px;
+  gap: 14px;
+
+  overflow: hidden;
 
   border:
     1px solid
-    rgba(255, 255, 255, 0.16);
+    rgba(255, 255, 255, 0.18);
 
   border-radius:
     var(--radius-pill);
 
   color:
-    var(--color-white);
+    #ffffff;
 
   background:
-    rgba(255, 255, 255, 0.07);
+    rgba(255, 255, 255, 0.055);
 
   backdrop-filter:
     blur(14px);
@@ -412,33 +572,129 @@
   -webkit-backdrop-filter:
     blur(14px);
 
+  box-shadow:
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.10),
+    0 12px 32px
+    rgba(0, 0, 0, 0.15);
+
   font-size: 10px;
 
   font-weight: 700;
 
-  letter-spacing:
-    0.8px;
+  letter-spacing: 0.55px;
 
   transition:
-    transform var(--duration-medium) var(--ease-smooth),
-    background var(--duration-medium) var(--ease-soft),
-    border-color var(--duration-medium) var(--ease-soft),
-    box-shadow var(--duration-medium) var(--ease-smooth);
+    transform 0.4s var(--ease-smooth),
+    background 0.4s var(--ease-soft),
+    border-color 0.4s var(--ease-soft),
+    box-shadow 0.4s var(--ease-smooth);
 }
+
+
+/* ==================================================
+   BUTTON SHINE
+================================================== */
+
+.hero-button::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: -125%;
+
+  width: 72%;
+  height: 100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.24),
+      transparent
+    );
+
+  transform:
+    skewX(-22deg);
+
+  transition:
+    left 0.8s var(--ease-smooth);
+
+  pointer-events: none;
+}
+
+.hero-button:hover::before {
+  left: 145%;
+}
+
+
+/* ==================================================
+   BUTTON HOVER
+================================================== */
 
 .hero-button:hover {
   transform:
-    translateY(-4px);
+    translateY(-5px);
 
   border-color:
-    rgba(255, 255, 255, 0.35);
+    rgba(255, 255, 255, 0.40);
 
   background:
-    rgba(255, 255, 255, 0.13);
+    rgba(255, 255, 255, 0.10);
 
   box-shadow:
-    0 18px 45px
-    rgba(0, 0, 0, 0.22);
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.14),
+    0 20px 46px
+    rgba(0, 0, 0, 0.24);
+}
+
+.hero-button:active {
+  transform:
+    translateY(-1px)
+    scale(0.985);
+}
+
+
+/* ==================================================
+   WOMEN
+================================================== */
+
+.women-button {
+  background:
+    rgba(247, 240, 234, 0.90);
+
+  color:
+    #201c20;
+
+  border-color:
+    rgba(255, 255, 255, 0.32);
+
+  box-shadow:
+    0 14px 34px
+    rgba(0, 0, 0, 0.13);
+}
+
+.women-button:hover {
+  background:
+    rgba(255, 250, 246, 0.98);
+
+  color:
+    #171417;
+}
+
+
+/* ==================================================
+   MEN
+================================================== */
+
+.men-button {
+  background:
+    rgba(21, 18, 23, 0.54);
+
+  color:
+    #ffffff;
 }
 
 
@@ -447,8 +703,13 @@
 ================================================== */
 
 .hero-button-arrow {
-  width: 24px;
-  height: 24px;
+  position: relative;
+  z-index: 2;
+
+  width: 25px;
+  height: 25px;
+
+  flex: 0 0 25px;
 
   display: inline-flex;
 
@@ -464,7 +725,7 @@
   font-size: 12px;
 
   transition:
-    transform var(--duration-medium) var(--ease-smooth);
+    transform 0.4s var(--ease-smooth);
 }
 
 .hero-button:hover
@@ -475,7 +736,7 @@
 
 
 /* ==================================================
-   HERO META
+   META
 ================================================== */
 
 .hero-meta {
@@ -483,13 +744,9 @@
 
   left: 0;
   right: 0;
-  bottom: 30px;
+  bottom: 28px;
 
   z-index: 10;
-
-  display: flex;
-
-  justify-content: space-between;
 
   width:
     min(
@@ -499,8 +756,13 @@
 
   margin-inline: auto;
 
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
   color:
-    rgba(255, 255, 255, 0.40);
+    rgba(255, 255, 255, 0.38);
 
   font-size: 7px;
 
@@ -509,6 +771,38 @@
   letter-spacing: 3px;
 
   text-transform: uppercase;
+
+  opacity: 0;
+
+  animation:
+    heroMetaReveal
+    0.9s
+    var(--ease-soft)
+    1.18s
+    forwards;
+}
+
+
+/* ==================================================
+   SCROLL LINE
+================================================== */
+
+.hero-meta::before {
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+  bottom: -8px;
+
+  width: 42px;
+  height: 1px;
+
+  background:
+    rgba(255, 255, 255, 0.18);
+
+  transform:
+    translateX(-50%);
 }
 
 
@@ -516,71 +810,143 @@
    ANIMATIONS
 ================================================== */
 
-@keyframes heroLightOne {
+@keyframes heroAtmosphereOne {
+
   0% {
     transform:
-      translate3d(-5%, -3%, 0)
+      translate3d(-4%, -3%, 0)
       scale(1);
+    opacity: 0.58;
   }
 
   50% {
     transform:
-      translate3d(16%, 12%, 0)
+      translate3d(7%, 8%, 0)
       scale(1.08);
+    opacity: 0.74;
   }
 
   100% {
     transform:
-      translate3d(4%, 25%, 0)
-      scale(0.95);
-  }
-}
-
-
-@keyframes heroLightTwo {
-  0% {
-    transform:
-      translate3d(8%, 4%, 0)
-      scale(1);
-  }
-
-  50% {
-    transform:
-      translate3d(-18%, -12%, 0)
-      scale(1.12);
-  }
-
-  100% {
-    transform:
-      translate3d(-5%, 10%, 0)
-      scale(0.94);
-  }
-}
-
-
-@keyframes heroSilkFlow {
-  0% {
-    transform:
-      translateX(-50%)
-      translateY(-4%)
-      rotate(-13deg)
-      scale(1);
-  }
-
-  50% {
-    transform:
-      translateX(-50%)
-      translateY(8%)
-      rotate(-8deg)
-      scale(1.08);
-  }
-
-  100% {
-    transform:
-      translateX(-50%)
-      translateY(-2%)
-      rotate(-16deg)
+      translate3d(17%, 16%, 0)
       scale(0.96);
+    opacity: 0.62;
+  }
+}
+
+
+@keyframes heroAtmosphereTwo {
+
+  0% {
+    transform:
+      translate3d(5%, 4%, 0)
+      scale(1);
+    opacity: 0.46;
+  }
+
+  50% {
+    transform:
+      translate3d(-9%, -7%, 0)
+      scale(1.11);
+    opacity: 0.64;
+  }
+
+  100% {
+    transform:
+      translate3d(-17%, -2%, 0)
+      scale(0.96);
+    opacity: 0.50;
+  }
+}
+
+
+@keyframes heroSilkMotion {
+
+  0% {
+    transform:
+      translate(-50%, -50%)
+      rotate(-11deg)
+      skewX(-8deg)
+      translateY(-2%)
+      scale(0.98);
+  }
+
+  50% {
+    transform:
+      translate(-50%, -50%)
+      rotate(-7deg)
+      skewX(-5deg)
+      translateY(4%)
+      scale(1.08);
+  }
+
+  100% {
+    transform:
+      translate(-50%, -50%)
+      rotate(-14deg)
+      skewX(-10deg)
+      translateY(-3%)
+      scale(1.01);
+  }
+}
+
+
+@keyframes heroCenterBreath {
+
+  from {
+    opacity: 0.35;
+    transform: scale(0.98);
+  }
+
+  to {
+    opacity: 0.72;
+    transform: scale(1.04);
+  }
+}
+
+
+@keyframes heroReveal {
+
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+@keyframes heroTitleReveal {
+
+  from {
+    opacity: 0;
+    transform:
+      translateY(26px)
+      scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+
+@keyframes heroMetaReveal {
+
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -599,14 +965,14 @@
   .hero-title {
     font-size:
       clamp(
-        56px,
+        60px,
         12vw,
-        96px
+        100px
       );
   }
 
   .hero-meta {
-    bottom: 22px;
+    bottom: 23px;
   }
 }
 
@@ -621,56 +987,141 @@
     min-height:
       calc(100svh - 64px);
 
+    height:
+      calc(100svh - 64px);
+
     padding:
-      50px 0 76px;
+      54px 0 72px;
 
     align-items: center;
   }
 
 
+  /* ------------------------------
+     MOBILE ATMOSPHERE
+  ------------------------------ */
+
   .hero-background {
-    inset: -10%;
+    inset: -12%;
+
+    background:
+      radial-gradient(
+        100% 80% at 15% 25%,
+        rgba(238, 224, 211, 0.13),
+        transparent 58%
+      ),
+      radial-gradient(
+        90% 80% at 90% 70%,
+        rgba(219, 198, 181, 0.10),
+        transparent 60%
+      ),
+      linear-gradient(
+        145deg,
+        #141215 0%,
+        #29242a 48%,
+        #191619 100%
+      );
   }
 
 
-  .hero-background::before,
-  .hero-background::after {
-    width: 105vw;
-    height: 105vw;
+  .hero-background::before {
+    width: 125vw;
+    height: 125vw;
 
     min-width: 0;
     min-height: 0;
 
-    filter: blur(65px);
+    top: -28%;
+    left: -35%;
 
-    opacity: 0.42;
+    filter:
+      blur(58px);
+
+    opacity: 0.64;
   }
 
+
+  .hero-background::after {
+    width: 115vw;
+    height: 115vw;
+
+    min-width: 0;
+    min-height: 0;
+
+    right: -36%;
+    bottom: -30%;
+
+    filter:
+      blur(60px);
+
+    opacity: 0.50;
+  }
+
+
+  .hero::after {
+    background:
+      radial-gradient(
+        ellipse at center 42%,
+        rgba(255, 248, 240, 0.045),
+        transparent 48%
+      );
+  }
+
+
+  /* ------------------------------
+     SILK
+  ------------------------------ */
 
   .hero-silk {
-    width: 145vw;
-    height: 50vw;
+    width: 150vw;
+    height: 48vw;
 
-    top: 31%;
+    min-height: 150px;
 
-    filter: blur(12px);
+    top: 43%;
 
-    opacity: 0.52;
+    filter:
+      blur(10px);
+
+    opacity: 0.62;
   }
 
+
+  /* ------------------------------
+     VIGNETTE
+  ------------------------------ */
+
+  .hero-vignette {
+    background:
+      radial-gradient(
+        ellipse at center,
+        transparent 22%,
+        rgba(4, 3, 5, 0.08) 50%,
+        rgba(4, 3, 5, 0.56) 100%
+      );
+  }
+
+
+  /* ------------------------------
+     CONTENT
+  ------------------------------ */
 
   .hero-content {
     width:
-      calc(100% - 30px);
+      calc(100% - 28px);
 
     max-width: 390px;
   }
 
 
+  /* ------------------------------
+     EYEBROW
+  ------------------------------ */
+
   .hero-eyebrow {
     gap: 8px;
 
-    margin-bottom: 20px;
+    margin-bottom: 21px;
 
     font-size: 7px;
 
@@ -679,37 +1130,53 @@
 
   .hero-eyebrow::before,
   .hero-eyebrow::after {
-    width: 18px;
+    width: 20px;
   }
 
+
+  /* ------------------------------
+     TITLE
+  ------------------------------ */
 
   .hero-title {
     margin-bottom: 18px;
 
     font-size:
       clamp(
-        48px,
+        47px,
         15vw,
-        65px
+        66px
       );
 
-    letter-spacing:
-      6px;
-
     line-height: 0.88;
+
+    letter-spacing:
+      clamp(
+        5px,
+        1.8vw,
+        8px
+      );
   }
 
 
+  /* ------------------------------
+     DESCRIPTION
+  ------------------------------ */
+
   .hero-description {
-    max-width: 290px;
+    width: min(290px, 100%);
 
     margin-bottom: 27px;
 
     font-size: 12px;
 
-    line-height: 1.65;
+    line-height: 1.68;
   }
 
+
+  /* ------------------------------
+     ACTIONS
+  ------------------------------ */
 
   .hero-actions {
     width: 100%;
@@ -723,21 +1190,31 @@
   }
 
 
+  /* ------------------------------
+     BUTTONS
+  ------------------------------ */
+
   .hero-button {
     width: 100%;
 
     min-width: 0;
+
     min-height: 49px;
 
     padding:
-      0 10px;
+      0 10px 0 12px;
 
     gap: 6px;
 
     font-size: 8.5px;
 
-    letter-spacing:
-      0.4px;
+    letter-spacing: 0.25px;
+
+    backdrop-filter:
+      blur(12px);
+
+    -webkit-backdrop-filter:
+      blur(12px);
   }
 
 
@@ -745,9 +1222,15 @@
     width: 20px;
     height: 20px;
 
+    flex-basis: 20px;
+
     font-size: 10px;
   }
 
+
+  /* ------------------------------
+     META
+  ------------------------------ */
 
   .hero-meta {
     left: 15px;
@@ -761,9 +1244,13 @@
     letter-spacing: 2px;
   }
 
-
   .hero-meta span:nth-child(2) {
     display: none;
+  }
+
+  .hero-meta::before {
+    width: 27px;
+    bottom: -7px;
   }
 }
 
@@ -778,28 +1265,86 @@
     min-height:
       calc(100svh - 61px);
 
+    height:
+      calc(100svh - 61px);
+
     padding:
-      44px 0 70px;
+      44px 0 68px;
   }
+
 
   .hero-content {
     width:
-      calc(100% - 24px);
+      calc(100% - 22px);
   }
 
+
   .hero-title {
-    font-size: 44px;
+    font-size: 43px;
     letter-spacing: 5px;
   }
 
+
   .hero-description {
-    max-width: 270px;
-    font-size: 11.5px;
+    width: 270px;
+
+    font-size: 11.4px;
+
+    line-height: 1.62;
   }
+
 
   .hero-button {
     min-height: 46px;
-    font-size: 8px;
+
+    padding:
+      0 8px 0 10px;
+
+    font-size: 7.7px;
+  }
+
+
+  .hero-button-arrow {
+    width: 19px;
+    height: 19px;
+
+    flex-basis: 19px;
+
+    font-size: 9px;
+  }
+
+
+  .hero-meta {
+    font-size: 5.5px;
+  }
+}
+
+
+/* ==================================================
+   TOUCH DEVICES
+================================================== */
+
+@media (hover: none) {
+
+  .hero-button:hover {
+    transform: none;
+
+    background:
+      rgba(255, 255, 255, 0.055);
+
+    border-color:
+      rgba(255, 255, 255, 0.18);
+
+    box-shadow:
+      inset 0 1px 0
+      rgba(255, 255, 255, 0.10),
+      0 12px 32px
+      rgba(0, 0, 0, 0.15);
+  }
+
+  .women-button:hover {
+    background:
+      rgba(247, 240, 234, 0.90);
   }
 }
 
@@ -810,10 +1355,26 @@
 
 @media (prefers-reduced-motion: reduce) {
 
+  .hero-background,
   .hero-background::before,
   .hero-background::after,
-  .hero-silk {
+  .hero-silk,
+  .hero::after,
+  .hero-eyebrow,
+  .hero-title,
+  .hero-description,
+  .hero-actions,
+  .hero-meta {
     animation: none;
+  }
+
+  .hero-eyebrow,
+  .hero-title,
+  .hero-description,
+  .hero-actions,
+  .hero-meta {
+    opacity: 1;
+    transform: none;
   }
 
   .hero-button,
