@@ -1,7 +1,7 @@
 "use strict";
 
 /* =========================================================
-   AURÉLIS — INTERACTION ENGINE
+   AURÉLIS — NOIR LUXURY INTERACTION ENGINE
 ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -11,9 +11,11 @@ document.addEventListener("DOMContentLoaded", () => {
         initMobileMenu();
         initHeroVideo();
         initRevealAnimations();
+        initCustomCursor();
         initNoteModal();
         initRitualModal();
         initDiscoveryBuilder();
+        initMagneticElements();
         initSmoothLinks();
     } catch (error) {
         console.error(
@@ -28,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
    HELPERS
 ========================================================= */
 
-function query(selector, root = document) {
+function $(selector, root = document) {
     try {
         return root.querySelector(selector);
     } catch (error) {
@@ -42,7 +44,7 @@ function query(selector, root = document) {
 }
 
 
-function queryAll(selector, root = document) {
+function $$(selector, root = document) {
     try {
         return Array.from(
             root.querySelectorAll(selector)
@@ -63,18 +65,18 @@ function queryAll(selector, root = document) {
 ========================================================= */
 
 function initPreloader() {
-    const preloader = query("#preloader");
-    const bar = query("#preloaderBar");
+    const preloader = $("#preloader");
+    const progress = $("#preloaderProgress");
 
-    if (!preloader || !bar) {
+    if (!preloader || !progress) {
         return;
     }
 
     requestAnimationFrame(() => {
-        bar.style.transition =
+        progress.style.transition =
             "transform 1500ms cubic-bezier(0.16, 1, 0.3, 1)";
 
-        bar.style.transform =
+        progress.style.transform =
             "translateX(0)";
     });
 
@@ -103,22 +105,17 @@ function initPreloader() {
 ========================================================= */
 
 function initHeader() {
-    const header = query("#header");
+    const header = $("#header");
 
     if (!header) {
         return;
     }
 
     const update = () => {
-        if (window.scrollY > 35) {
-            header.classList.add(
-                "header-scrolled"
-            );
-        } else {
-            header.classList.remove(
-                "header-scrolled"
-            );
-        }
+        header.classList.toggle(
+            "header-scrolled",
+            window.scrollY > 36
+        );
     };
 
     update();
@@ -136,20 +133,17 @@ function initHeader() {
 ========================================================= */
 
 function initMobileMenu() {
-    const button = query("#menuButton");
-    const menu = query("#mobileMenu");
+    const button = $("#menuButton");
+    const menu = $("#mobileMenu");
 
     if (!button || !menu) {
         return;
     }
 
-    const links = queryAll(
-        ".mobile-nav-link",
-        menu
-    );
+    const links = $$(".mobile-link", menu);
 
     const open = () => {
-        button.classList.add("menu-open");
+        button.classList.add("menu-active");
 
         menu.classList.remove(
             "invisible",
@@ -171,11 +165,15 @@ function initMobileMenu() {
             "true"
         );
 
-        document.body.style.overflow = "hidden";
+        document.body.classList.add(
+            "lock-scroll"
+        );
     };
 
     const close = () => {
-        button.classList.remove("menu-open");
+        button.classList.remove(
+            "menu-active"
+        );
 
         menu.classList.remove(
             "mobile-menu-visible"
@@ -197,7 +195,9 @@ function initMobileMenu() {
             "false"
         );
 
-        document.body.style.overflow = "";
+        document.body.classList.remove(
+            "lock-scroll"
+        );
     };
 
     button.addEventListener(
@@ -225,11 +225,8 @@ function initMobileMenu() {
     document.addEventListener(
         "keydown",
         (event) => {
-            if (event.key !== "Escape") {
-                return;
-            }
-
             if (
+                event.key === "Escape" &&
                 menu.classList.contains(
                     "mobile-menu-visible"
                 )
@@ -242,31 +239,56 @@ function initMobileMenu() {
 
 
 /* =========================================================
+   MENU ICON
+========================================================= */
+
+const menuIconStyle = document.createElement("style");
+
+menuIconStyle.textContent = `
+    .menu-active .menu-bar:nth-child(1) {
+        transform: translateY(4px) rotate(45deg);
+    }
+
+    .menu-active .menu-bar:nth-child(2) {
+        opacity: 0;
+        transform: scaleX(0);
+    }
+
+    .menu-active .menu-bar:nth-child(3) {
+        transform: translateY(-4px) rotate(-45deg);
+    }
+`;
+
+document.head.appendChild(menuIconStyle);
+
+
+/* =========================================================
    HERO VIDEO
 ========================================================= */
 
 function initHeroVideo() {
-    const hero = query("#home");
-    const video = query("#heroVideo");
+    const video = $("#heroVideo");
 
-    if (!hero || !video) {
+    if (!video) {
         return;
     }
 
     /*
-     * Put your video here:
+     * Optional local video:
      *
-     * /assets/aurelis-smoke.mp4
+     * assets/aurelis-noir.mp4
+     *
+     * The site works without this file.
      */
 
-    const source = document.createElement(
-        "source"
-    );
+    const source =
+        document.createElement("source");
 
     source.src =
-        "assets/aurelis-smoke.mp4";
+        "assets/aurelis-noir.mp4";
 
-    source.type = "video/mp4";
+    source.type =
+        "video/mp4";
 
     video.appendChild(source);
 
@@ -283,11 +305,8 @@ function initHeroVideo() {
 
             video.play().catch(() => {
                 /*
-                 * Autoplay may be blocked by
-                 * browser policy.
-                 *
-                 * CSS cinematic background
-                 * remains active.
+                 * Autoplay can be restricted
+                 * by browser policy.
                  */
             });
         },
@@ -315,7 +334,7 @@ function initHeroVideo() {
 ========================================================= */
 
 function initRevealAnimations() {
-    const elements = queryAll(".reveal");
+    const elements = $$(".reveal");
 
     if (!elements.length) {
         return;
@@ -353,7 +372,7 @@ function initRevealAnimations() {
                 });
             },
             {
-                threshold: 0.12,
+                threshold: 0.1,
                 rootMargin:
                     "0px 0px -50px 0px"
             }
@@ -366,37 +385,199 @@ function initRevealAnimations() {
 
 
 /* =========================================================
-   SCENT NOTE MODAL
+   CUSTOM CURSOR
+========================================================= */
+
+function initCustomCursor() {
+    const cursor = $("#cursor");
+    const dot = $("#cursorDot");
+
+    if (
+        !cursor ||
+        !dot ||
+        window.matchMedia(
+            "(pointer: coarse)"
+        ).matches
+    ) {
+        return;
+    }
+
+    let mouseX = 0;
+    let mouseY = 0;
+
+    let cursorX = 0;
+    let cursorY = 0;
+
+    let dotX = 0;
+    let dotY = 0;
+
+    const move = (event) => {
+        mouseX = event.clientX;
+        mouseY = event.clientY;
+    };
+
+    const animate = () => {
+        cursorX +=
+            (mouseX - cursorX) * 0.14;
+
+        cursorY +=
+            (mouseY - cursorY) * 0.14;
+
+        dotX +=
+            (mouseX - dotX) * 0.35;
+
+        dotY +=
+            (mouseY - dotY) * 0.35;
+
+        cursor.style.transform =
+            `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%)`;
+
+        dot.style.transform =
+            `translate3d(${dotX}px, ${dotY}px, 0) translate(-50%, -50%)`;
+
+        requestAnimationFrame(
+            animate
+        );
+    };
+
+    document.addEventListener(
+        "mousemove",
+        move,
+        { passive: true }
+    );
+
+    $$("[data-cursor]").forEach(
+        (element) => {
+            element.addEventListener(
+                "mouseenter",
+                () => {
+                    const type =
+                        element.dataset.cursor;
+
+                    cursor.classList.remove(
+                        "cursor-hover",
+                        "cursor-card"
+                    );
+
+                    if (
+                        type === "card"
+                    ) {
+                        cursor.classList.add(
+                            "cursor-card"
+                        );
+                    } else {
+                        cursor.classList.add(
+                            "cursor-hover"
+                        );
+                    }
+                }
+            );
+
+            element.addEventListener(
+                "mouseleave",
+                () => {
+                    cursor.classList.remove(
+                        "cursor-hover",
+                        "cursor-card"
+                    );
+                }
+            );
+        }
+    );
+
+    animate();
+}
+
+
+/* =========================================================
+   MAGNETIC ELEMENTS
+========================================================= */
+
+function initMagneticElements() {
+    if (
+        window.matchMedia(
+            "(pointer: coarse)"
+        ).matches
+    ) {
+        return;
+    }
+
+    const elements =
+        $$(".magnetic");
+
+    elements.forEach((element) => {
+        element.addEventListener(
+            "mousemove",
+            (event) => {
+                const rect =
+                    element.getBoundingClientRect();
+
+                const x =
+                    event.clientX -
+                    rect.left -
+                    rect.width / 2;
+
+                const y =
+                    event.clientY -
+                    rect.top -
+                    rect.height / 2;
+
+                const strength = 0.09;
+
+                element.style.transform =
+                    `translate(${x * strength}px, ${y * strength}px)`;
+            }
+        );
+
+        element.addEventListener(
+            "mouseleave",
+            () => {
+                element.style.transform =
+                    "";
+            }
+        );
+    });
+}
+
+
+/* =========================================================
+   NOTE MODAL
 ========================================================= */
 
 function initNoteModal() {
-    const modal = query("#noteModal");
-    const closeButton = query("#noteClose");
-    const title = query("#noteTitle");
-    const description = query(
-        "#noteDescription"
-    );
-    const mood = query("#noteMood");
+    const modal = $("#noteModal");
+
+    const closeButton =
+        $("#noteClose");
+
+    const title =
+        $("#noteTitle");
+
+    const description =
+        $("#noteDescription");
+
+    const mood =
+        $("#noteMood");
+
+    const buttons =
+        $$(".note-badge");
 
     if (
         !modal ||
         !closeButton ||
         !title ||
         !description ||
-        !mood
+        !mood ||
+        !buttons.length
     ) {
         return;
     }
-
-    const buttons = queryAll(
-        ".note-badge"
-    );
 
     const notes = {
         oud: {
             title: "Oud",
             description:
-                "Тёмная, сухая и глубокая древесная нота с восточным характером.",
+                "Глубокая древесная нота с сухим, тёмным и восточным характером.",
             mood:
                 "DEEP · WARM · MYSTERIOUS"
         },
@@ -404,7 +585,7 @@ function initNoteModal() {
         amber: {
             title: "Amber",
             description:
-                "Тёплое смолистое звучание, создающее ощущение мягкого света и глубины.",
+                "Тёплый смолистый аккорд, создающий ощущение мягкого света и глубины.",
             mood:
                 "WARM · LUMINOUS · SENSUAL"
         },
@@ -412,7 +593,7 @@ function initNoteModal() {
         wood: {
             title: "Woods",
             description:
-                "Сухая древесная структура, которая добавляет композиции уверенность и чистую силу.",
+                "Сухая древесная структура, придающая композиции силу и уверенность.",
             mood:
                 "DRY · CLEAN · CONFIDENT"
         },
@@ -428,7 +609,7 @@ function initNoteModal() {
         jasmine: {
             title: "Jasmine",
             description:
-                "Белый цветочный аккорд с чистым, воздушным и слегка кремовым характером.",
+                "Белый цветочный аккорд с воздушным, чистым и слегка кремовым характером.",
             mood:
                 "WHITE · AIRY · ELEGANT"
         },
@@ -436,7 +617,7 @@ function initNoteModal() {
         iris: {
             title: "Iris",
             description:
-                "Пудровая и сухая нота, создающая ощущение спокойной холодной элегантности.",
+                "Пудровая и сухая нота, добавляющая композиции холодную утончённость.",
             mood:
                 "POWDERY · COOL · REFINED"
         },
@@ -444,7 +625,7 @@ function initNoteModal() {
         spice: {
             title: "Spice",
             description:
-                "Пряный акцент, который добавляет аромату тепло и выразительный темперамент.",
+                "Тёплый пряный акцент с выразительным и чувственным характером.",
             mood:
                 "WARM · SPICED · BOLD"
         },
@@ -452,7 +633,7 @@ function initNoteModal() {
         cedar: {
             title: "Cedar",
             description:
-                "Сухое кедровое дерево с благородным, чистым и структурированным характером.",
+                "Сухое кедровое дерево с благородным и структурированным звучанием.",
             mood:
                 "DRY · STRUCTURED · NOBLE"
         },
@@ -460,7 +641,7 @@ function initNoteModal() {
         leather: {
             title: "Leather",
             description:
-                "Тёмная текстура кожи с чувственным, глубоким и уверенным характером.",
+                "Тёмная фактурная нота кожи с чувственным и уверенным оттенком.",
             mood:
                 "DARK · TEXTURED · MAGNETIC"
         },
@@ -468,7 +649,7 @@ function initNoteModal() {
         bergamot: {
             title: "Bergamot",
             description:
-                "Свежая цитрусовая нота, которая открывает композицию светло и энергично.",
+                "Свежий цитрусовый аккорд, который открывает композицию светло и чисто.",
             mood:
                 "FRESH · BRIGHT · CLEAN"
         },
@@ -476,7 +657,7 @@ function initNoteModal() {
         neroli: {
             title: "Neroli",
             description:
-                "Цветочно-цитрусовый аккорд с чистым и солнечным характером.",
+                "Солнечный цветочно-цитрусовый аккорд с чистым зелёным оттенком.",
             mood:
                 "SOLAR · GREEN · ELEGANT"
         },
@@ -484,18 +665,18 @@ function initNoteModal() {
         citrus: {
             title: "Citrus",
             description:
-                "Искристая свежесть, создающая ощущение чистоты и лёгкости.",
+                "Искристая свежесть, создающая лёгкое и чистое первое впечатление.",
             mood:
                 "BRIGHT · FRESH · AIRY"
         }
     };
 
     const open = (key) => {
-        const note = notes[key];
+        const data = notes[key];
 
-        if (!note) {
+        if (!data) {
             console.error(
-                "Unknown scent note:",
+                "Unknown note:",
                 key
             );
 
@@ -503,13 +684,13 @@ function initNoteModal() {
         }
 
         title.textContent =
-            note.title;
+            data.title;
 
         description.textContent =
-            note.description;
+            data.description;
 
         mood.textContent =
-            note.mood;
+            data.mood;
 
         modal.classList.add(
             "is-active"
@@ -520,8 +701,9 @@ function initNoteModal() {
             "false"
         );
 
-        document.body.style.overflow =
-            "hidden";
+        document.body.classList.add(
+            "lock-scroll"
+        );
     };
 
     const close = () => {
@@ -539,8 +721,9 @@ function initNoteModal() {
                 ".modal-overlay.is-active"
             )
         ) {
-            document.body.style.overflow =
-                "";
+            document.body.classList.remove(
+                "lock-scroll"
+            );
         }
     };
 
@@ -548,10 +731,9 @@ function initNoteModal() {
         button.addEventListener(
             "click",
             () => {
-                const key =
-                    button.dataset.note;
-
-                open(key);
+                open(
+                    button.dataset.note
+                );
             }
         );
     });
@@ -561,7 +743,7 @@ function initNoteModal() {
         close
     );
 
-    queryAll(
+    $$(
         "[data-close-note]",
         modal
     ).forEach((element) => {
@@ -588,37 +770,33 @@ function initNoteModal() {
 
 
 /* =========================================================
-   PRIVATE RITUAL MODAL
+   PRIVATE RITUAL
 ========================================================= */
 
 function initRitualModal() {
-    const modal = query(
-        "#ritualModal"
-    );
+    const modal =
+        $("#ritualModal");
 
-    const closeButton = query(
-        "#ritualClose"
-    );
+    const closeButton =
+        $("#ritualClose");
 
-    const product = query(
-        "#ritualProduct"
-    );
+    const product =
+        $("#ritualProduct");
 
-    const price = query(
-        "#ritualPrice"
-    );
+    const price =
+        $("#ritualPrice");
 
-    const form = query(
-        "#ritualForm"
-    );
+    const form =
+        $("#ritualForm");
 
-    const confirmation = query(
-        "#ritualConfirmation"
-    );
+    const confirmation =
+        $("#ritualConfirmation");
 
-    const doneButton = query(
-        "#ritualDone"
-    );
+    const doneButton =
+        $("#ritualDone");
+
+    const orderButtons =
+        $$(".order-button");
 
     if (
         !modal ||
@@ -632,47 +810,39 @@ function initRitualModal() {
         return;
     }
 
-    const orderButtons = queryAll(
-        ".order-button"
-    );
+    const steps =
+        $$(".ritual-step", modal);
 
-    const steps = queryAll(
-        ".ritual-step",
-        modal
-    );
-
-    const progressItems = queryAll(
-        ".ritual-progress-item",
-        modal
-    );
+    const progress =
+        $$(".ritual-progress", modal);
 
     let selectedProduct = "";
     let selectedPrice = "";
 
-    const setStep = (stepNumber) => {
+    const setStep = (number) => {
         if (
-            !Number.isInteger(stepNumber) ||
-            stepNumber < 1 ||
-            stepNumber > 3
+            number < 1 ||
+            number > 3
         ) {
             return;
         }
 
-        steps.forEach((step) => {
-            const current =
-                Number(step.dataset.step);
+        steps.forEach(
+            (step) => {
+                step.classList.toggle(
+                    "is-active",
+                    Number(
+                        step.dataset.step
+                    ) === number
+                );
+            }
+        );
 
-            step.classList.toggle(
-                "is-active",
-                current === stepNumber
-            );
-        });
-
-        progressItems.forEach(
+        progress.forEach(
             (item, index) => {
                 item.classList.toggle(
                     "active",
-                    index < stepNumber
+                    index < number
                 );
             }
         );
@@ -687,7 +857,7 @@ function initRitualModal() {
             productName.trim().length < 2
         ) {
             console.error(
-                "Invalid product."
+                "Invalid product name."
             );
 
             return;
@@ -718,8 +888,9 @@ function initRitualModal() {
             "false"
         );
 
-        document.body.style.overflow =
-            "hidden";
+        document.body.classList.add(
+            "lock-scroll"
+        );
     };
 
     const close = () => {
@@ -737,40 +908,44 @@ function initRitualModal() {
                 ".modal-overlay.is-active"
             )
         ) {
-            document.body.style.overflow =
-                "";
+            document.body.classList.remove(
+                "lock-scroll"
+            );
         }
     };
 
-    orderButtons.forEach((button) => {
-        button.addEventListener(
-            "click",
-            () => {
-                open(
-                    button.dataset.product,
-                    button.dataset.price
-                );
-            }
-        );
-    });
+    orderButtons.forEach(
+        (button) => {
+            button.addEventListener(
+                "click",
+                () => {
+                    open(
+                        button.dataset.product,
+                        button.dataset.price
+                    );
+                }
+            );
+        }
+    );
 
-    queryAll(
+    $$(
         "[data-ritual-next]",
         modal
-    ).forEach((button) => {
-        button.addEventListener(
-            "click",
-            () => {
-                const next =
-                    Number(
-                        button.dataset
-                            .ritualNext
+    ).forEach(
+        (button) => {
+            button.addEventListener(
+                "click",
+                () => {
+                    setStep(
+                        Number(
+                            button.dataset
+                                .ritualNext
+                        )
                     );
-
-                setStep(next);
-            }
-        );
-    });
+                }
+            );
+        }
+    );
 
     form.addEventListener(
         "submit",
@@ -779,17 +954,17 @@ function initRitualModal() {
 
             try {
                 const nameInput =
-                    query("#ritualName");
+                    $("#ritualName");
 
                 const phoneInput =
-                    query("#ritualPhone");
+                    $("#ritualPhone");
 
                 if (
                     !nameInput ||
                     !phoneInput
                 ) {
                     throw new Error(
-                        "Ritual inputs not found."
+                        "Form fields missing."
                     );
                 }
 
@@ -801,7 +976,7 @@ function initRitualModal() {
 
                 if (name.length < 2) {
                     alert(
-                        "Пожалуйста, введите имя."
+                        "Пожалуйста, введите корректное имя."
                     );
 
                     nameInput.focus();
@@ -811,7 +986,7 @@ function initRitualModal() {
 
                 if (phone.length < 7) {
                     alert(
-                        "Пожалуйста, введите корректный номер телефона."
+                        "Пожалуйста, введите корректный номер."
                     );
 
                     phoneInput.focus();
@@ -829,12 +1004,13 @@ function initRitualModal() {
                 setStep(3);
             } catch (error) {
                 console.error(
-                    "Ritual submit error:",
+                    "Ritual form error:",
                     error
                 );
 
                 alert(
-                    "Не удалось обработать заявку. Попробуйте ещё раз."
+                    "Не удалось обработать заявку. " +
+                    "Попробуйте ещё раз."
                 );
             }
         }
@@ -850,15 +1026,17 @@ function initRitualModal() {
         close
     );
 
-    queryAll(
+    $$(
         "[data-close-ritual]",
         modal
-    ).forEach((element) => {
-        element.addEventListener(
-            "click",
-            close
-        );
-    });
+    ).forEach(
+        (element) => {
+            element.addEventListener(
+                "click",
+                close
+            );
+        }
+    );
 
     document.addEventListener(
         "keydown",
@@ -881,38 +1059,42 @@ function initRitualModal() {
 ========================================================= */
 
 function initDiscoveryBuilder() {
-    const products = queryAll(
-        ".builder-product"
-    );
+    const products =
+        $$(".builder-product");
 
-    const slots = queryAll(
-        ".builder-slot"
-    );
+    const slots =
+        $$(".builder-slot");
 
-    const countElement =
-        query("#selectionCount");
+    const count =
+        $("#selectionCount");
 
-    const clearButton =
-        query("#clearSelection");
+    const clear =
+        $("#clearSelection");
 
-    const orderButton =
-        query("#discoveryOrder");
+    const order =
+        $("#discoveryOrder");
 
     if (
         !products.length ||
         !slots.length ||
-        !countElement ||
-        !clearButton ||
-        !orderButton
+        !count ||
+        !clear ||
+        !order
     ) {
         return;
     }
 
     const selection = [];
+
     let draggedScent = "";
 
-    const updateUI = () => {
-        countElement.textContent =
+    const isTouchDevice =
+        window.matchMedia(
+            "(pointer: coarse)"
+        ).matches;
+
+    const update = () => {
+        count.textContent =
             `${selection.length} / 3`;
 
         slots.forEach(
@@ -938,17 +1120,17 @@ function initDiscoveryBuilder() {
             }
         );
 
-        orderButton.disabled =
+        order.disabled =
             selection.length !== 3;
 
         if (
             selection.length === 3
         ) {
-            orderButton.classList.remove(
+            order.classList.remove(
                 "opacity-30"
             );
         } else {
-            orderButton.classList.add(
+            order.classList.add(
                 "opacity-30"
             );
         }
@@ -987,7 +1169,6 @@ function initDiscoveryBuilder() {
         );
     };
 
-
     const add = (scent) => {
         if (
             typeof scent !== "string" ||
@@ -996,23 +1177,17 @@ function initDiscoveryBuilder() {
             return false;
         }
 
-        const normalized =
+        const value =
             scent.trim();
 
-        /*
-         * Do not add duplicates.
-         */
         if (
             selection.includes(
-                normalized
+                value
             )
         ) {
             return false;
         }
 
-        /*
-         * Maximum 3.
-         */
         if (
             selection.length >= 3
         ) {
@@ -1020,14 +1195,13 @@ function initDiscoveryBuilder() {
         }
 
         selection.push(
-            normalized
+            value
         );
 
-        updateUI();
+        update();
 
         return true;
     };
-
 
     const remove = (index) => {
         if (
@@ -1043,192 +1217,207 @@ function initDiscoveryBuilder() {
             1
         );
 
-        updateUI();
+        update();
     };
 
 
     /*
-     * Mobile / desktop click interaction.
-     *
-     * Tap once  -> add.
-     * Tap again -> remove.
+     * Mobile:
+     * click = add/remove.
      */
-    products.forEach((button) => {
-        button.addEventListener(
-            "click",
-            () => {
-                const scent =
-                    button.dataset.scent;
+    products.forEach(
+        (button) => {
+            button.addEventListener(
+                "click",
+                () => {
+                    const scent =
+                        button.dataset.scent;
 
-                if (!scent) {
-                    return;
-                }
+                    if (!scent) {
+                        return;
+                    }
 
-                if (
-                    selection.includes(
-                        scent
-                    )
-                ) {
-                    const index =
-                        selection.indexOf(
+                    if (
+                        selection.includes(
                             scent
+                        )
+                    ) {
+                        remove(
+                            selection.indexOf(
+                                scent
+                            )
                         );
 
-                    remove(index);
+                        return;
+                    }
 
-                    return;
+                    add(scent);
                 }
-
-                add(scent);
-            }
-        );
-    });
-
-
-    /*
-     * Desktop drag-and-drop.
-     */
-    products.forEach((button) => {
-        button.addEventListener(
-            "dragstart",
-            (event) => {
-                const scent =
-                    button.dataset.scent;
-
-                if (!scent) {
-                    event.preventDefault();
-
-                    return;
-                }
-
-                draggedScent =
-                    scent;
-
-                button.style.opacity =
-                    "0.45";
-
-                if (
-                    event.dataTransfer
-                ) {
-                    event.dataTransfer.effectAllowed =
-                        "copy";
-
-                    event.dataTransfer.setData(
-                        "text/plain",
-                        scent
-                    );
-                }
-            }
-        );
-
-        button.addEventListener(
-            "dragend",
-            () => {
-                button.style.opacity =
-                    "";
-                draggedScent = "";
-            }
-        );
-    });
-
-
-    slots.forEach((slot) => {
-
-        slot.addEventListener(
-            "dragover",
-            (event) => {
-                event.preventDefault();
-
-                slot.classList.add(
-                    "is-over"
-                );
-            }
-        );
-
-
-        slot.addEventListener(
-            "dragleave",
-            () => {
-                slot.classList.remove(
-                    "is-over"
-                );
-            }
-        );
-
-
-        slot.addEventListener(
-            "drop",
-            (event) => {
-                event.preventDefault();
-
-                slot.classList.remove(
-                    "is-over"
-                );
-
-                let scent =
-                    draggedScent;
-
-                if (
-                    event.dataTransfer
-                ) {
-                    scent =
-                        event.dataTransfer.getData(
-                            "text/plain"
-                        ) || scent;
-                }
-
-                add(scent);
-
-                draggedScent = "";
-            }
-        );
-
-
-        /*
-         * Tap selected slot to remove.
-         */
-        slot.addEventListener(
-            "click",
-            () => {
-                const slotIndex =
-                    Number(
-                        slot.dataset.slot
-                    );
-
-                if (
-                    !Number.isInteger(
-                        slotIndex
-                    )
-                ) {
-                    return;
-                }
-
-                if (
-                    selection[slotIndex]
-                ) {
-                    remove(
-                        slotIndex
-                    );
-                }
-            }
-        );
-    });
-
-
-    clearButton.addEventListener(
-        "click",
-        () => {
-            selection.length = 0;
-
-            updateUI();
+            );
         }
     );
 
 
     /*
-     * Discovery Set order.
+     * Desktop:
+     * native drag-and-drop.
      */
-    orderButton.addEventListener(
+    products.forEach(
+        (button) => {
+            button.addEventListener(
+                "dragstart",
+                (event) => {
+                    if (isTouchDevice) {
+                        event.preventDefault();
+
+                        return;
+                    }
+
+                    const scent =
+                        button.dataset.scent;
+
+                    if (!scent) {
+                        event.preventDefault();
+
+                        return;
+                    }
+
+                    draggedScent =
+                        scent;
+
+                    button.style.opacity =
+                        "0.45";
+
+                    if (
+                        event.dataTransfer
+                    ) {
+                        event.dataTransfer.effectAllowed =
+                            "copy";
+
+                        event.dataTransfer.setData(
+                            "text/plain",
+                            scent
+                        );
+                    }
+                }
+            );
+
+            button.addEventListener(
+                "dragend",
+                () => {
+                    button.style.opacity =
+                        "";
+
+                    draggedScent = "";
+                }
+            );
+        }
+    );
+
+
+    slots.forEach(
+        (slot) => {
+
+            slot.addEventListener(
+                "dragover",
+                (event) => {
+                    if (isTouchDevice) {
+                        return;
+                    }
+
+                    event.preventDefault();
+
+                    slot.classList.add(
+                        "is-over"
+                    );
+                }
+            );
+
+            slot.addEventListener(
+                "dragleave",
+                () => {
+                    slot.classList.remove(
+                        "is-over"
+                    );
+                }
+            );
+
+            slot.addEventListener(
+                "drop",
+                (event) => {
+                    if (isTouchDevice) {
+                        return;
+                    }
+
+                    event.preventDefault();
+
+                    slot.classList.remove(
+                        "is-over"
+                    );
+
+                    let scent =
+                        draggedScent;
+
+                    if (
+                        event.dataTransfer
+                    ) {
+                        scent =
+                            event.dataTransfer.getData(
+                                "text/plain"
+                            ) ||
+                            scent;
+                    }
+
+                    add(scent);
+
+                    draggedScent = "";
+                }
+            );
+
+            /*
+             * Click a filled slot = remove.
+             */
+            slot.addEventListener(
+                "click",
+                () => {
+                    const index =
+                        Number(
+                            slot.dataset.slot
+                        );
+
+                    if (
+                        !Number.isInteger(
+                            index
+                        )
+                    ) {
+                        return;
+                    }
+
+                    if (
+                        selection[index]
+                    ) {
+                        remove(index);
+                    }
+                }
+            );
+        }
+    );
+
+
+    clear.addEventListener(
+        "click",
+        () => {
+            selection.length = 0;
+
+            update();
+        }
+    );
+
+
+    /*
+     * Open Ritual for Discovery Set.
+     */
+    order.addEventListener(
         "click",
         () => {
             if (
@@ -1237,41 +1426,35 @@ function initDiscoveryBuilder() {
                 return;
             }
 
-            const ritualModal =
-                query("#ritualModal");
+            const modal =
+                $("#ritualModal");
 
-            const ritualProduct =
-                query("#ritualProduct");
+            const product =
+                $("#ritualProduct");
 
-            const ritualPrice =
-                query("#ritualPrice");
+            const price =
+                $("#ritualPrice");
 
             const steps =
-                queryAll(
-                    ".ritual-step",
-                    ritualModal
-                );
+                $$(".ritual-step", modal);
 
             const progress =
-                queryAll(
-                    ".ritual-progress-item",
-                    ritualModal
-                );
+                $$(".ritual-progress", modal);
 
             if (
-                !ritualModal ||
-                !ritualProduct ||
-                !ritualPrice
+                !modal ||
+                !product ||
+                !price
             ) {
                 return;
             }
 
-            ritualProduct.textContent =
+            product.textContent =
                 selection.join(
                     " · "
                 );
 
-            ritualPrice.textContent =
+            price.textContent =
                 "DISCOVERY SET · 300 TJS";
 
             steps.forEach(
@@ -1293,78 +1476,79 @@ function initDiscoveryBuilder() {
                 }
             );
 
-            ritualModal.classList.add(
+            modal.classList.add(
                 "is-active"
             );
 
-            ritualModal.setAttribute(
+            modal.setAttribute(
                 "aria-hidden",
                 "false"
             );
 
-            document.body.style.overflow =
-                "hidden";
+            document.body.classList.add(
+                "lock-scroll"
+            );
         }
     );
 
-
-    updateUI();
+    update();
 }
 
 
 /* =========================================================
-   SMOOTH LINKS
+   SMOOTH ANCHOR SCROLL
 ========================================================= */
 
 function initSmoothLinks() {
-    const links = queryAll(
-        'a[href^="#"]'
-    );
+    const links =
+        $$('a[href^="#"]');
 
-    links.forEach((link) => {
-        link.addEventListener(
-            "click",
-            (event) => {
-                const targetId =
-                    link.getAttribute(
-                        "href"
-                    );
-
-                if (
-                    !targetId ||
-                    targetId === "#"
-                ) {
-                    return;
-                }
-
-                let target = null;
-
-                try {
-                    target =
-                        document.querySelector(
-                            targetId
+    links.forEach(
+        (link) => {
+            link.addEventListener(
+                "click",
+                (event) => {
+                    const targetId =
+                        link.getAttribute(
+                            "href"
                         );
-                } catch (error) {
-                    console.error(
-                        "Invalid anchor:",
-                        targetId,
-                        error
-                    );
 
-                    return;
+                    if (
+                        !targetId ||
+                        targetId === "#"
+                    ) {
+                        return;
+                    }
+
+                    let target = null;
+
+                    try {
+                        target =
+                            document.querySelector(
+                                targetId
+                            );
+                    } catch (error) {
+                        console.error(
+                            "Invalid target:",
+                            targetId,
+                            error
+                        );
+
+                        return;
+                    }
+
+                    if (!target) {
+                        return;
+                    }
+
+                    event.preventDefault();
+
+                    target.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
                 }
-
-                if (!target) {
-                    return;
-                }
-
-                event.preventDefault();
-
-                target.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start"
-                });
-            }
-        );
-    });
+            );
+        }
+    );
 }
