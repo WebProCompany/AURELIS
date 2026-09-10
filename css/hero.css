@@ -1,18 +1,19 @@
 /* ==================================================
    AURÉLIS
    PREMIUM CINEMATIC HERO
-   VERSION 2 — EDITORIAL LUXURY
+   VERSION 3 — LUXURY EDITORIAL
 ================================================== */
 
 
 /* ==================================================
-   HERO CORE
+   HERO
 ================================================== */
 
 .hero {
   position: relative;
 
   min-height: calc(100vh - 74px);
+  height: min(880px, calc(100vh - 74px));
 
   display: flex;
   align-items: center;
@@ -21,50 +22,56 @@
   overflow: hidden;
   isolation: isolate;
 
-  background: #242125;
+  background: #29252a;
+
   color: var(--color-white);
 }
 
 
 /* ==================================================
-   MAIN ANIMATED BACKGROUND
+   HERO BACKGROUND
 ================================================== */
 
 .hero-background {
   position: absolute;
-  inset: -18%;
+  inset: -12%;
 
-  z-index: -4;
+  z-index: -5;
 
   overflow: hidden;
 
   background:
     radial-gradient(
-      70% 80% at 18% 30%,
-      rgba(232, 220, 207, 0.12),
-      transparent 56%
+      55% 70% at 18% 26%,
+      rgba(236, 224, 213, 0.20),
+      transparent 62%
     ),
     radial-gradient(
-      60% 70% at 82% 62%,
-      rgba(211, 191, 175, 0.10),
-      transparent 58%
+      48% 58% at 82% 30%,
+      rgba(214, 194, 180, 0.15),
+      transparent 60%
+    ),
+    radial-gradient(
+      60% 65% at 52% 82%,
+      rgba(201, 180, 166, 0.10),
+      transparent 66%
     ),
     linear-gradient(
       135deg,
-      #121013 0%,
-      #282329 42%,
-      #1b181c 72%,
-      #0f0d10 100%
+      #171418 0%,
+      #302a30 40%,
+      #272229 64%,
+      #151216 100%
     );
 
-  transform: scale(1.02);
+  transform: scale(1.025);
 
   will-change: transform;
 }
 
 
 /* ==================================================
-   ATMOSPHERIC LIGHT 01
+   MOVING LIGHT — LEFT
 ================================================== */
 
 .hero-background::before {
@@ -75,24 +82,24 @@
   width: 72vw;
   height: 72vw;
 
-  min-width: 500px;
-  min-height: 500px;
+  min-width: 520px;
+  min-height: 520px;
 
-  top: -28%;
-  left: -17%;
+  top: -32%;
+  left: -18%;
 
   border-radius: 50%;
 
   background:
     radial-gradient(
       circle,
-      rgba(247, 236, 224, 0.22) 0%,
-      rgba(219, 200, 181, 0.11) 27%,
-      rgba(219, 200, 181, 0.035) 48%,
-      transparent 72%
+      rgba(250, 239, 227, 0.28) 0%,
+      rgba(228, 208, 190, 0.13) 24%,
+      rgba(228, 208, 190, 0.04) 46%,
+      transparent 70%
     );
 
-  filter: blur(70px);
+  filter: blur(72px);
 
   opacity: 0.72;
 
@@ -101,7 +108,7 @@
     opacity;
 
   animation:
-    heroAtmosphereOne
+    heroLightLeft
     18s
     cubic-bezier(0.45, 0, 0.55, 1)
     infinite alternate;
@@ -109,7 +116,7 @@
 
 
 /* ==================================================
-   ATMOSPHERIC LIGHT 02
+   MOVING LIGHT — RIGHT
 ================================================== */
 
 .hero-background::after {
@@ -117,35 +124,36 @@
 
   position: absolute;
 
-  width: 66vw;
-  height: 66vw;
+  width: 68vw;
+  height: 68vw;
 
-  min-width: 470px;
-  min-height: 470px;
+  min-width: 500px;
+  min-height: 500px;
 
-  right: -20%;
-  bottom: -28%;
+  right: -22%;
+  bottom: -30%;
 
   border-radius: 50%;
 
   background:
     radial-gradient(
       circle,
-      rgba(229, 210, 196, 0.16) 0%,
-      rgba(200, 181, 170, 0.06) 34%,
-      transparent 70%
+      rgba(234, 214, 198, 0.22) 0%,
+      rgba(211, 190, 173, 0.10) 27%,
+      rgba(211, 190, 173, 0.025) 47%,
+      transparent 72%
     );
 
-  filter: blur(75px);
+  filter: blur(80px);
 
-  opacity: 0.58;
+  opacity: 0.62;
 
   will-change:
     transform,
     opacity;
 
   animation:
-    heroAtmosphereTwo
+    heroLightRight
     21s
     cubic-bezier(0.45, 0, 0.55, 1)
     infinite alternate;
@@ -153,90 +161,60 @@
 
 
 /* ==================================================
-   THIRD LIGHT — VERY SUBTLE
-================================================== */
-
-.hero::after {
-  content: "";
-
-  position: absolute;
-  inset: 0;
-
-  z-index: -1;
-
-  pointer-events: none;
-
-  background:
-    radial-gradient(
-      ellipse at 50% 42%,
-      rgba(255, 248, 240, 0.055),
-      transparent 42%
-    );
-
-  animation:
-    heroCenterBreath
-    9s
-    ease-in-out
-    infinite alternate;
-}
-
-
-/* ==================================================
-   FLOWING SILK / LIGHT RIBBON
+   SILK / LIQUID LIGHT
 ================================================== */
 
 .hero-silk {
   position: absolute;
 
-  top: 48%;
+  top: 49%;
   left: 50%;
 
   z-index: -1;
 
-  width: 88vw;
-  height: 22vw;
+  width: 100vw;
+  height: 24vw;
 
-  min-height: 170px;
+  min-height: 160px;
 
   border-radius: 50%;
 
   transform:
     translate(-50%, -50%)
-    rotate(-11deg)
+    rotate(-10deg)
     skewX(-8deg);
 
   background:
     linear-gradient(
       90deg,
       transparent 0%,
-      rgba(255, 255, 255, 0.015) 15%,
-      rgba(255, 255, 255, 0.045) 32%,
-      rgba(248, 238, 228, 0.13) 49%,
-      rgba(255, 255, 255, 0.04) 66%,
-      rgba(255, 255, 255, 0.012) 80%,
+      rgba(255, 255, 255, 0.012) 12%,
+      rgba(255, 255, 255, 0.045) 28%,
+      rgba(250, 239, 227, 0.11) 47%,
+      rgba(255, 255, 255, 0.045) 64%,
+      rgba(255, 255, 255, 0.012) 82%,
       transparent 100%
     );
 
-  filter: blur(12px);
+  filter:
+    blur(12px);
 
-  opacity: 0.75;
+  opacity: 0.76;
 
   mix-blend-mode: screen;
 
-  will-change:
-    transform,
-    opacity;
+  will-change: transform;
 
   animation:
-    heroSilkMotion
-    15s
+    heroSilkFlow
+    14s
     cubic-bezier(0.45, 0, 0.55, 1)
     infinite alternate;
 }
 
 
 /* ==================================================
-   INNER SILK
+   SILK INNER LAYER
 ================================================== */
 
 .hero-silk::before {
@@ -244,40 +222,8 @@
 
   position: absolute;
 
-  inset: 18% -9%;
-
-  border-radius: 50%;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent 5%,
-      rgba(255, 255, 255, 0.035) 28%,
-      rgba(255, 255, 255, 0.12) 48%,
-      rgba(255, 255, 255, 0.03) 68%,
-      transparent 94%
-    );
-
-  filter: blur(18px);
-
-  transform:
-    rotate(5deg)
-    scaleY(0.72);
-
-  opacity: 0.74;
-}
-
-
-/* ==================================================
-   SECONDARY SILK
-================================================== */
-
-.hero-silk::after {
-  content: "";
-
-  position: absolute;
-
-  inset: 35% -12%;
+  inset:
+    20% -8%;
 
   border-radius: 50%;
 
@@ -285,17 +231,80 @@
     linear-gradient(
       90deg,
       transparent,
-      rgba(238, 222, 210, 0.08),
+      rgba(255, 255, 255, 0.035) 20%,
+      rgba(255, 255, 255, 0.14) 48%,
+      rgba(255, 255, 255, 0.045) 72%,
       transparent
     );
 
-  filter: blur(24px);
+  filter:
+    blur(17px);
 
   transform:
-    rotate(-8deg)
-    scaleY(0.58);
+    rotate(4deg)
+    scaleY(0.70);
+}
 
-  opacity: 0.58;
+
+/* ==================================================
+   SILK HIGHLIGHT
+================================================== */
+
+.hero-silk::after {
+  content: "";
+
+  position: absolute;
+
+  inset:
+    42% -10%;
+
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(243, 225, 210, 0.09),
+      transparent
+    );
+
+  filter:
+    blur(24px);
+
+  transform:
+    rotate(-7deg)
+    scaleY(0.54);
+
+  opacity: 0.72;
+}
+
+
+/* ==================================================
+   CENTER ATMOSPHERE
+================================================== */
+
+.hero::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  z-index: -2;
+
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      ellipse 40% 34% at 50% 45%,
+      rgba(255, 249, 240, 0.075),
+      transparent 72%
+    );
+
+  animation:
+    heroCenterGlow
+    8s
+    ease-in-out
+    infinite alternate;
 }
 
 
@@ -311,10 +320,10 @@
 
   pointer-events: none;
 
-  opacity: 0.035;
+  opacity: 0.028;
 
   background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='.5'/%3E%3C/svg%3E");
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
 
   background-size: 180px 180px;
 
@@ -335,17 +344,23 @@
   pointer-events: none;
 
   background:
+    linear-gradient(
+      180deg,
+      rgba(9, 8, 10, 0.04) 0%,
+      transparent 23%,
+      transparent 68%,
+      rgba(7, 6, 8, 0.24) 100%
+    ),
     radial-gradient(
       ellipse at center,
-      transparent 24%,
-      rgba(4, 3, 5, 0.08) 58%,
-      rgba(4, 3, 5, 0.42) 100%
+      transparent 30%,
+      rgba(5, 4, 6, 0.22) 100%
     );
 }
 
 
 /* ==================================================
-   CONTENT
+   HERO CONTENT
 ================================================== */
 
 .hero-content {
@@ -376,30 +391,26 @@
 
   gap: 13px;
 
-  margin-bottom: 25px;
+  margin-bottom: 24px;
 
   color:
-    rgba(255, 255, 255, 0.67);
+    rgba(255, 255, 255, 0.70);
 
   font-size: 9px;
 
   font-weight: 700;
 
-  letter-spacing: 4.5px;
+  letter-spacing: 4.8px;
 
   text-transform: uppercase;
 
   opacity: 0;
-
-  transform: translateY(12px);
-
-  animation:
-    heroReveal
-    0.85s
-    var(--ease-smooth)
-    0.25s
-    forwards;
 }
+
+
+/* ==================================================
+   EYEBROW LINES
+================================================== */
 
 .hero-eyebrow::before,
 .hero-eyebrow::after {
@@ -417,7 +428,8 @@
 }
 
 .hero-eyebrow::after {
-  transform: scaleX(-1);
+  transform:
+    scaleX(-1);
 }
 
 
@@ -426,7 +438,7 @@
 ================================================== */
 
 .hero-title {
-  margin: 0 0 25px;
+  margin: 0 0 22px;
 
   font-family:
     var(--font-display);
@@ -440,7 +452,7 @@
 
   font-weight: 400;
 
-  line-height: 0.82;
+  line-height: 0.86;
 
   letter-spacing:
     clamp(
@@ -450,24 +462,13 @@
     );
 
   color:
-    #f8f3ed;
+    #faf5ef;
 
   text-shadow:
-    0 12px 46px
-    rgba(0, 0, 0, 0.30);
+    0 11px 48px
+    rgba(0, 0, 0, 0.28);
 
   opacity: 0;
-
-  transform:
-    translateY(26px)
-    scale(0.985);
-
-  animation:
-    heroTitleReveal
-    1.05s
-    var(--ease-smooth)
-    0.42s
-    forwards;
 }
 
 
@@ -477,30 +478,24 @@
 
 .hero-description {
   width:
-    min(450px, 100%);
+    min(
+      450px,
+      100%
+    );
 
   margin:
-    0 auto 36px;
+    0 auto 32px;
 
   color:
-    rgba(255, 255, 255, 0.68);
+    rgba(255, 255, 255, 0.72);
 
   font-size: 14px;
 
-  line-height: 1.78;
+  line-height: 1.75;
 
-  letter-spacing: 0.18px;
+  letter-spacing: 0.14px;
 
   opacity: 0;
-
-  transform: translateY(16px);
-
-  animation:
-    heroReveal
-    0.85s
-    var(--ease-smooth)
-    0.70s
-    forwards;
 }
 
 
@@ -519,26 +514,17 @@
   flex-wrap: wrap;
 
   opacity: 0;
-
-  transform: translateY(15px);
-
-  animation:
-    heroReveal
-    0.85s
-    var(--ease-smooth)
-    0.92s
-    forwards;
 }
 
 
 /* ==================================================
-   BUTTON BASE
+   BUTTON
 ================================================== */
 
 .hero-button {
   position: relative;
 
-  min-width: 196px;
+  min-width: 198px;
   min-height: 52px;
 
   padding:
@@ -555,7 +541,7 @@
 
   border:
     1px solid
-    rgba(255, 255, 255, 0.18);
+    rgba(255, 255, 255, 0.20);
 
   border-radius:
     var(--radius-pill);
@@ -564,31 +550,33 @@
     #ffffff;
 
   background:
-    rgba(255, 255, 255, 0.055);
+    rgba(255, 255, 255, 0.075);
 
   backdrop-filter:
-    blur(14px);
+    blur(15px)
+    saturate(115%);
 
   -webkit-backdrop-filter:
-    blur(14px);
+    blur(15px)
+    saturate(115%);
 
   box-shadow:
     inset 0 1px 0
-    rgba(255, 255, 255, 0.10),
+    rgba(255, 255, 255, 0.09),
     0 12px 32px
-    rgba(0, 0, 0, 0.15);
+    rgba(0, 0, 0, 0.16);
 
   font-size: 10px;
 
   font-weight: 700;
 
-  letter-spacing: 0.55px;
+  letter-spacing: 0.50px;
 
   transition:
-    transform 0.4s var(--ease-smooth),
-    background 0.4s var(--ease-soft),
-    border-color 0.4s var(--ease-soft),
-    box-shadow 0.4s var(--ease-smooth);
+    transform 0.45s var(--ease-smooth),
+    background 0.45s var(--ease-soft),
+    border-color 0.45s var(--ease-soft),
+    box-shadow 0.45s var(--ease-smooth);
 }
 
 
@@ -602,7 +590,7 @@
   position: absolute;
 
   top: 0;
-  left: -125%;
+  left: -130%;
 
   width: 72%;
   height: 100%;
@@ -619,7 +607,7 @@
     skewX(-22deg);
 
   transition:
-    left 0.8s var(--ease-smooth);
+    left 0.82s var(--ease-smooth);
 
   pointer-events: none;
 }
@@ -630,71 +618,77 @@
 
 
 /* ==================================================
-   BUTTON HOVER
-================================================== */
-
-.hero-button:hover {
-  transform:
-    translateY(-5px);
-
-  border-color:
-    rgba(255, 255, 255, 0.40);
-
-  background:
-    rgba(255, 255, 255, 0.10);
-
-  box-shadow:
-    inset 0 1px 0
-    rgba(255, 255, 255, 0.14),
-    0 20px 46px
-    rgba(0, 0, 0, 0.24);
-}
-
-.hero-button:active {
-  transform:
-    translateY(-1px)
-    scale(0.985);
-}
-
-
-/* ==================================================
-   WOMEN
+   WOMEN BUTTON
 ================================================== */
 
 .women-button {
   background:
-    rgba(247, 240, 234, 0.90);
+    rgba(247, 240, 234, 0.92);
 
   color:
-    #201c20;
+    #211d20;
 
   border-color:
-    rgba(255, 255, 255, 0.32);
+    rgba(255, 255, 255, 0.36);
 
   box-shadow:
     0 14px 34px
-    rgba(0, 0, 0, 0.13);
+    rgba(0, 0, 0, 0.14),
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.80);
 }
 
 .women-button:hover {
   background:
     rgba(255, 250, 246, 0.98);
-
-  color:
-    #171417;
 }
 
 
 /* ==================================================
-   MEN
+   MEN BUTTON
 ================================================== */
 
 .men-button {
   background:
-    rgba(21, 18, 23, 0.54);
+    rgba(25, 21, 27, 0.58);
 
   color:
     #ffffff;
+}
+
+.men-button:hover {
+  background:
+    rgba(35, 29, 37, 0.78);
+}
+
+
+/* ==================================================
+   BUTTON HOVER
+================================================== */
+
+.hero-button:hover {
+  transform:
+    translateY(-4px);
+
+  border-color:
+    rgba(255, 255, 255, 0.42);
+
+  box-shadow:
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.15),
+    0 20px 48px
+    rgba(0, 0, 0, 0.22);
+}
+
+
+/* ==================================================
+   BUTTON ACTIVE
+================================================== */
+
+.hero-button:active {
+  transform:
+    translateY(-1px)
+    scale(0.985);
 }
 
 
@@ -725,13 +719,17 @@
   font-size: 12px;
 
   transition:
-    transform 0.4s var(--ease-smooth);
+    transform 0.45s var(--ease-smooth),
+    background 0.45s var(--ease-soft);
 }
 
 .hero-button:hover
 .hero-button-arrow {
   transform:
     translate(2px, -2px);
+
+  background:
+    rgba(255, 255, 255, 0.07);
 }
 
 
@@ -762,7 +760,7 @@
   justify-content: space-between;
 
   color:
-    rgba(255, 255, 255, 0.38);
+    rgba(255, 255, 255, 0.40);
 
   font-size: 7px;
 
@@ -773,18 +771,11 @@
   text-transform: uppercase;
 
   opacity: 0;
-
-  animation:
-    heroMetaReveal
-    0.9s
-    var(--ease-soft)
-    1.18s
-    forwards;
 }
 
 
 /* ==================================================
-   SCROLL LINE
+   META CENTER LINE
 ================================================== */
 
 .hero-meta::before {
@@ -799,7 +790,7 @@
   height: 1px;
 
   background:
-    rgba(255, 255, 255, 0.18);
+    rgba(255, 255, 255, 0.20);
 
   transform:
     translateX(-50%);
@@ -807,76 +798,78 @@
 
 
 /* ==================================================
-   ANIMATIONS
+   ANIMATION — LEFT LIGHT
 ================================================== */
 
-@keyframes heroAtmosphereOne {
+@keyframes heroLightLeft {
 
   0% {
     transform:
-      translate3d(-4%, -3%, 0)
+      translate3d(-5%, -3%, 0)
       scale(1);
-    opacity: 0.58;
   }
 
   50% {
     transform:
-      translate3d(7%, 8%, 0)
+      translate3d(8%, 9%, 0)
       scale(1.08);
-    opacity: 0.74;
   }
 
   100% {
     transform:
-      translate3d(17%, 16%, 0)
+      translate3d(19%, 17%, 0)
       scale(0.96);
-    opacity: 0.62;
   }
 }
 
 
-@keyframes heroAtmosphereTwo {
+/* ==================================================
+   ANIMATION — RIGHT LIGHT
+================================================== */
+
+@keyframes heroLightRight {
 
   0% {
     transform:
       translate3d(5%, 4%, 0)
       scale(1);
-    opacity: 0.46;
   }
 
   50% {
     transform:
-      translate3d(-9%, -7%, 0)
-      scale(1.11);
-    opacity: 0.64;
+      translate3d(-10%, -8%, 0)
+      scale(1.10);
   }
 
   100% {
     transform:
-      translate3d(-17%, -2%, 0)
-      scale(0.96);
-    opacity: 0.50;
+      translate3d(-19%, -2%, 0)
+      scale(0.95);
   }
 }
 
 
-@keyframes heroSilkMotion {
+/* ==================================================
+   ANIMATION — SILK
+================================================== */
+
+@keyframes heroSilkFlow {
 
   0% {
     transform:
       translate(-50%, -50%)
-      rotate(-11deg)
+      rotate(-10deg)
       skewX(-8deg)
-      translateY(-2%)
+      translateY(-3%)
       scale(0.98);
   }
 
   50% {
     transform:
       translate(-50%, -50%)
-      rotate(-7deg)
+      rotate(-6deg)
       skewX(-5deg)
-      translateY(4%)
+      translateY(5%)
       scale(1.08);
   }
 
@@ -885,68 +878,26 @@
       translate(-50%, -50%)
       rotate(-14deg)
       skewX(-10deg)
-      translateY(-3%)
+      translateY(-4%)
       scale(1.01);
   }
 }
 
 
-@keyframes heroCenterBreath {
+/* ==================================================
+   ANIMATION — CENTER
+================================================== */
+
+@keyframes heroCenterGlow {
 
   from {
-    opacity: 0.35;
+    opacity: 0.40;
     transform: scale(0.98);
   }
 
   to {
-    opacity: 0.72;
+    opacity: 0.80;
     transform: scale(1.04);
-  }
-}
-
-
-@keyframes heroReveal {
-
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-
-@keyframes heroTitleReveal {
-
-  from {
-    opacity: 0;
-    transform:
-      translateY(26px)
-      scale(0.985);
-  }
-
-  to {
-    opacity: 1;
-    transform:
-      translateY(0)
-      scale(1);
-  }
-}
-
-
-@keyframes heroMetaReveal {
-
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
   }
 }
 
@@ -959,6 +910,9 @@
 
   .hero {
     min-height:
+      calc(100vh - 70px);
+
+    height:
       calc(100vh - 70px);
   }
 
@@ -991,137 +945,106 @@
       calc(100svh - 64px);
 
     padding:
-      54px 0 72px;
+      32px 0 62px;
 
     align-items: center;
   }
 
 
-  /* ------------------------------
-     MOBILE ATMOSPHERE
-  ------------------------------ */
+  /* Background */
 
   .hero-background {
     inset: -12%;
-
-    background:
-      radial-gradient(
-        100% 80% at 15% 25%,
-        rgba(238, 224, 211, 0.13),
-        transparent 58%
-      ),
-      radial-gradient(
-        90% 80% at 90% 70%,
-        rgba(219, 198, 181, 0.10),
-        transparent 60%
-      ),
-      linear-gradient(
-        145deg,
-        #141215 0%,
-        #29242a 48%,
-        #191619 100%
-      );
   }
 
-
   .hero-background::before {
-    width: 125vw;
-    height: 125vw;
+    width: 130vw;
+    height: 130vw;
 
     min-width: 0;
     min-height: 0;
 
-    top: -28%;
-    left: -35%;
+    top: -29%;
+    left: -42%;
 
     filter:
       blur(58px);
 
-    opacity: 0.64;
+    opacity: 0.66;
   }
 
-
   .hero-background::after {
-    width: 115vw;
-    height: 115vw;
+    width: 120vw;
+    height: 120vw;
 
     min-width: 0;
     min-height: 0;
 
-    right: -36%;
+    right: -40%;
     bottom: -30%;
 
     filter:
-      blur(60px);
+      blur(62px);
 
-    opacity: 0.50;
+    opacity: 0.52;
   }
 
 
-  .hero::after {
-    background:
-      radial-gradient(
-        ellipse at center 42%,
-        rgba(255, 248, 240, 0.045),
-        transparent 48%
-      );
-  }
-
-
-  /* ------------------------------
-     SILK
-  ------------------------------ */
+  /* Silk */
 
   .hero-silk {
-    width: 150vw;
+    width: 155vw;
     height: 48vw;
 
-    min-height: 150px;
+    min-height: 145px;
 
     top: 43%;
 
     filter:
       blur(10px);
 
-    opacity: 0.62;
+    opacity: 0.63;
   }
 
 
-  /* ------------------------------
-     VIGNETTE
-  ------------------------------ */
+  /* Vignette */
 
   .hero-vignette {
     background:
+      linear-gradient(
+        180deg,
+        rgba(9, 8, 10, 0.03) 0%,
+        transparent 24%,
+        transparent 55%,
+        rgba(7, 6, 8, 0.33) 100%
+      ),
       radial-gradient(
         ellipse at center,
-        transparent 22%,
-        rgba(4, 3, 5, 0.08) 50%,
-        rgba(4, 3, 5, 0.56) 100%
+        transparent 23%,
+        rgba(5, 4, 6, 0.28) 100%
       );
   }
 
 
-  /* ------------------------------
-     CONTENT
-  ------------------------------ */
+  /* Content */
 
   .hero-content {
     width:
       calc(100% - 28px);
 
     max-width: 390px;
+
+    transform:
+      translateY(-6px);
   }
 
 
-  /* ------------------------------
-     EYEBROW
-  ------------------------------ */
+  /* Eyebrow */
 
   .hero-eyebrow {
     gap: 8px;
 
-    margin-bottom: 21px;
+    margin-bottom: 19px;
 
     font-size: 7px;
 
@@ -1134,21 +1057,19 @@
   }
 
 
-  /* ------------------------------
-     TITLE
-  ------------------------------ */
+  /* Title */
 
   .hero-title {
-    margin-bottom: 18px;
+    margin-bottom: 17px;
 
     font-size:
       clamp(
-        47px,
+        48px,
         15vw,
-        66px
+        67px
       );
 
-    line-height: 0.88;
+    line-height: 0.89;
 
     letter-spacing:
       clamp(
@@ -1159,24 +1080,27 @@
   }
 
 
-  /* ------------------------------
-     DESCRIPTION
-  ------------------------------ */
+  /* Description */
 
   .hero-description {
-    width: min(290px, 100%);
+    width:
+      min(
+        292px,
+        100%
+      );
 
-    margin-bottom: 27px;
+    margin-bottom: 25px;
 
     font-size: 12px;
 
-    line-height: 1.68;
+    line-height: 1.64;
+
+    color:
+      rgba(255, 255, 255, 0.74);
   }
 
 
-  /* ------------------------------
-     ACTIONS
-  ------------------------------ */
+  /* Buttons */
 
   .hero-actions {
     width: 100%;
@@ -1188,11 +1112,6 @@
 
     gap: 8px;
   }
-
-
-  /* ------------------------------
-     BUTTONS
-  ------------------------------ */
 
   .hero-button {
     width: 100%;
@@ -1208,38 +1127,30 @@
 
     font-size: 8.5px;
 
-    letter-spacing: 0.25px;
-
-    backdrop-filter:
-      blur(12px);
-
-    -webkit-backdrop-filter:
-      blur(12px);
+    letter-spacing: 0.2px;
   }
 
-
   .hero-button-arrow {
-    width: 20px;
-    height: 20px;
+    width: 21px;
+    height: 21px;
 
-    flex-basis: 20px;
+    flex-basis: 21px;
 
     font-size: 10px;
   }
 
 
-  /* ------------------------------
-     META
-  ------------------------------ */
+  /* Meta */
 
   .hero-meta {
     left: 15px;
     right: 15px;
-    bottom: 17px;
+
+    bottom: 16px;
 
     width: auto;
 
-    font-size: 6px;
+    font-size: 5.8px;
 
     letter-spacing: 2px;
   }
@@ -1269,30 +1180,30 @@
       calc(100svh - 61px);
 
     padding:
-      44px 0 68px;
+      28px 0 62px;
   }
-
 
   .hero-content {
     width:
       calc(100% - 22px);
+
+    transform:
+      translateY(-5px);
   }
 
+  .hero-eyebrow {
+    margin-bottom: 17px;
+  }
 
   .hero-title {
-    font-size: 43px;
+    font-size: 44px;
     letter-spacing: 5px;
   }
 
-
   .hero-description {
     width: 270px;
-
     font-size: 11.4px;
-
-    line-height: 1.62;
   }
-
 
   .hero-button {
     min-height: 46px;
@@ -1303,7 +1214,6 @@
     font-size: 7.7px;
   }
 
-
   .hero-button-arrow {
     width: 19px;
     height: 19px;
@@ -1313,9 +1223,8 @@
     font-size: 9px;
   }
 
-
   .hero-meta {
-    font-size: 5.5px;
+    font-size: 5.4px;
   }
 }
 
@@ -1330,21 +1239,26 @@
     transform: none;
 
     background:
-      rgba(255, 255, 255, 0.055);
+      rgba(255, 255, 255, 0.075);
 
     border-color:
-      rgba(255, 255, 255, 0.18);
+      rgba(255, 255, 255, 0.20);
 
     box-shadow:
       inset 0 1px 0
-      rgba(255, 255, 255, 0.10),
+      rgba(255, 255, 255, 0.09),
       0 12px 32px
-      rgba(0, 0, 0, 0.15);
+      rgba(0, 0, 0, 0.16);
   }
 
   .women-button:hover {
     background:
-      rgba(247, 240, 234, 0.90);
+      rgba(247, 240, 234, 0.92);
+  }
+
+  .men-button:hover {
+    background:
+      rgba(25, 21, 27, 0.58);
   }
 }
 
@@ -1359,12 +1273,7 @@
   .hero-background::before,
   .hero-background::after,
   .hero-silk,
-  .hero::after,
-  .hero-eyebrow,
-  .hero-title,
-  .hero-description,
-  .hero-actions,
-  .hero-meta {
+  .hero::before {
     animation: none;
   }
 
@@ -1378,6 +1287,7 @@
   }
 
   .hero-button,
+  .hero-button::before,
   .hero-button-arrow {
     transition: none;
   }
