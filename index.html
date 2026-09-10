@@ -2,16 +2,20 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <meta
         name="description"
-        content="AURÉLIS — современная коллекция премиальных ароматов."
+        content="AURÉLIS — Maison de Parfum. Авторская коллекция премиальных ароматов."
     >
+
+    <meta name="theme-color" content="#0a0a09">
 
     <title>AURÉLIS — Maison de Parfum</title>
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -25,32 +29,53 @@
 
 <body>
 
-    <!-- ==============================
+    <!-- =========================================
          PRELOADER
-    =============================== -->
+    ========================================== -->
     <div class="preloader" id="preloader">
-        <div class="preloader__brand">AURÉLIS</div>
-        <div class="preloader__line">
-            <span></span>
+        <div class="preloader__content">
+            <span class="preloader__brand">AURÉLIS</span>
+
+            <div class="preloader__bar">
+                <span></span>
+            </div>
+
+            <small>MAISON DE PARFUM</small>
         </div>
     </div>
 
 
-    <!-- ==============================
+    <!-- =========================================
          HEADER
-    =============================== -->
+    ========================================== -->
     <header class="header" id="header">
 
         <a href="#home" class="logo" aria-label="AURÉLIS">
             AURÉLIS
         </a>
 
-        <nav class="desktop-nav" aria-label="Основная навигация">
-            <a href="#home">Главная</a>
-            <a href="#collection">Коллекция</a>
-            <a href="#story">О бренде</a>
-            <a href="#reviews">Отзывы</a>
-            <a href="#contact">Контакты</a>
+        <nav class="desktop-nav" aria-label="Главная навигация">
+
+            <a href="#collection">
+                Коллекция
+            </a>
+
+            <a href="#discovery">
+                Discovery Set
+            </a>
+
+            <a href="#story">
+                О бренде
+            </a>
+
+            <a href="#reviews">
+                Отзывы
+            </a>
+
+            <a href="#contact">
+                Контакты
+            </a>
+
         </nav>
 
         <button
@@ -66,104 +91,163 @@
     </header>
 
 
-    <!-- ==============================
+    <!-- =========================================
          MOBILE MENU
-    =============================== -->
-    <div class="mobile-menu" id="mobileMenu">
+    ========================================== -->
+    <aside class="mobile-menu" id="mobileMenu">
 
         <div class="mobile-menu__inner">
 
-            <span class="mobile-menu__label">
+            <span class="mobile-menu__eyebrow">
                 NAVIGATION
             </span>
 
             <nav>
-                <a href="#home">Главная</a>
-                <a href="#collection">Коллекция</a>
-                <a href="#story">О бренде</a>
-                <a href="#reviews">Отзывы</a>
-                <a href="#contact">Контакты</a>
+
+                <a href="#home">
+                    Главная
+                </a>
+
+                <a href="#collection">
+                    Коллекция
+                </a>
+
+                <a href="#discovery">
+                    Discovery Set
+                </a>
+
+                <a href="#story">
+                    О бренде
+                </a>
+
+                <a href="#reviews">
+                    Отзывы
+                </a>
+
+                <a href="#contact">
+                    Контакты
+                </a>
+
             </nav>
 
             <div class="mobile-menu__footer">
                 <span>AURÉLIS</span>
-                <span>Maison de Parfum</span>
+                <span>2026</span>
             </div>
 
         </div>
 
-    </div>
+    </aside>
 
 
     <main>
 
-        <!-- ==============================
+        <!-- =========================================
              HERO
-        =============================== -->
+        ========================================== -->
         <section class="hero" id="home">
 
-            <div class="hero__background"></div>
+            <!-- Optional local video:
+                 assets/aurelis-smoke.mp4
+            -->
+            <video
+                class="hero__video"
+                id="heroVideo"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                aria-hidden="true"
+            ></video>
 
-            <div class="hero__noise"></div>
+            <div class="hero__cinematic"></div>
+            <div class="hero__smoke hero__smoke--one"></div>
+            <div class="hero__smoke hero__smoke--two"></div>
+            <div class="hero__smoke hero__smoke--three"></div>
+            <div class="hero__grain"></div>
+
+            <div class="hero__light hero__light--left"></div>
+            <div class="hero__light hero__light--right"></div>
 
             <div class="hero__content">
 
                 <div class="hero__eyebrow">
+
                     <span></span>
+
                     MAISON DE PARFUM
+                    ·
+                    DUSHANBE
+
                     <span></span>
+
                 </div>
 
                 <h1 class="hero__title">
-                    Искусство
+
+                    <span>Искусство</span>
+
                     <em>аромата.</em>
+
                 </h1>
 
                 <p class="hero__description">
-                    Коллекция ароматов, созданная для тех,
-                    кто не стремится быть похожим на других.
+                    Ароматы с характером,
+                    созданные не для всех.
                 </p>
 
                 <div class="hero__actions">
 
-                    <a href="#collection" class="button button--light">
+                    <a
+                        href="#collection"
+                        class="button button--light"
+                    >
                         <span>Открыть коллекцию</span>
                         <i>↗</i>
                     </a>
 
-                    <a href="#story" class="button button--ghost">
-                        Узнать больше
+                    <a
+                        href="#discovery"
+                        class="button button--ghost"
+                    >
+                        Discovery Set
                     </a>
 
                 </div>
 
             </div>
 
-
-            <div class="hero__side-text">
+            <div class="hero__vertical">
                 ESSENCE · IDENTITY · MEMORY
             </div>
 
-
             <div class="hero__bottom">
 
-                <span>COLLECTION 2026</span>
+                <span>
+                    COLLECTION 2026
+                </span>
 
                 <div class="hero__scroll">
-                    <span>SCROLL</span>
-                    <i></i>
+
+                    <small>SCROLL</small>
+
+                    <span></span>
+
                 </div>
 
-                <span>01 — 05</span>
+                <span>
+                    01 — 05
+                </span>
 
             </div>
 
         </section>
 
 
-        <!-- ==============================
+        <!-- =========================================
              INTRO
-        =============================== -->
+        ========================================== -->
         <section class="intro section">
 
             <div class="container">
@@ -173,24 +257,31 @@
                     THE AURÉLIS PHILOSOPHY
                 </div>
 
-                <div class="intro__content">
+                <div class="intro__grid">
 
-                    <h2>
+                    <h2 class="reveal">
                         Аромат —
                         <em>это память,</em>
                         которую невозможно увидеть.
                     </h2>
 
-                    <div class="intro__text">
+                    <div class="intro__copy reveal">
+
                         <p>
-                            AURÉLIS создаёт ароматы не ради
-                            трендов. Мы создаём ощущения.
+                            AURÉLIS создаёт композиции,
+                            которые раскрываются медленно.
                         </p>
 
                         <p>
-                            Минимализм, глубина и характер —
-                            три принципа каждой композиции.
+                            Каждый аромат становится частью
+                            образа, а не просто ещё одним
+                            аксессуаром.
                         </p>
+
+                        <div class="intro__signature">
+                            AURÉLIS
+                        </div>
+
                     </div>
 
                 </div>
@@ -200,28 +291,31 @@
         </section>
 
 
-        <!-- ==============================
+        <!-- =========================================
              COLLECTION
-        =============================== -->
-        <section class="collection section" id="collection">
+        ========================================== -->
+        <section
+            class="collection section"
+            id="collection"
+        >
 
             <div class="container">
 
-                <div class="section-heading">
+                <div class="section-heading reveal">
 
                     <div class="section-label">
                         <span>02</span>
-                        THE COLLECTION
+                        SIGNATURE ESSENCES
                     </div>
 
                     <h2>
-                        Signature
-                        <em>Essences</em>
+                        The
+                        <em>Collection</em>
                     </h2>
 
                     <p>
-                        Четыре характера. Одно настроение —
-                        абсолютная индивидуальность.
+                        Четыре композиции.
+                        Четыре разных состояния.
                     </p>
 
                 </div>
@@ -229,160 +323,356 @@
 
                 <div class="products-grid">
 
-                    <!-- PRODUCT 1 -->
-                    <article class="product-card product-card--dark">
+                    <!-- PRODUCT 01 -->
+                    <article
+                        class="product-card product-card--noir reveal"
+                        data-product-theme="noir"
+                    >
 
-                        <div class="product-card__number">
+                        <div class="product-card__ambient"></div>
+                        <div class="product-card__smoke"></div>
+
+                        <span class="product-card__number">
                             01
-                        </div>
+                        </span>
+
+                        <span class="product-card__category">
+                            EDP · 50 ML
+                        </span>
 
                         <div class="bottle bottle--black">
 
                             <div class="bottle__cap"></div>
 
+                            <div class="bottle__neck"></div>
+
                             <div class="bottle__body">
+
                                 <span>AURÉLIS</span>
                                 <small>NOIR</small>
+
                             </div>
 
                         </div>
 
                         <div class="product-card__info">
+
                             <div>
-                                <h3>Noir Élégance</h3>
-                                <p>Древесный · Амбровый</p>
+
+                                <h3>
+                                    Noir Élégance
+                                </h3>
+
+                                <div class="notes-row">
+
+                                    <button
+                                        class="note-badge"
+                                        type="button"
+                                        data-note="oud"
+                                    >
+                                        Oud
+                                    </button>
+
+                                    <button
+                                        class="note-badge"
+                                        type="button"
+                                        data-note="amber"
+                                    >
+                                        Amber
+                                    </button>
+
+                                    <button
+                                        class="note-badge"
+                                        type="button"
+                                        data-note="wood"
+                                    >
+                                        Woods
+                                    </button>
+
+                                </div>
+
                             </div>
 
                             <span class="product-card__price">
                                 1 200 TJS
                             </span>
+
                         </div>
 
                         <button
                             class="order-button"
+                            type="button"
                             data-product="Noir Élégance"
+                            data-price="1 200 TJS"
                         >
-                            <span>Заказать</span>
+                            <span>Выбрать аромат</span>
                             <i>↗</i>
                         </button>
 
                     </article>
 
 
-                    <!-- PRODUCT 2 -->
-                    <article class="product-card product-card--ivory">
+                    <!-- PRODUCT 02 -->
+                    <article
+                        class="product-card product-card--ivory reveal"
+                        data-product-theme="ivory"
+                    >
 
-                        <div class="product-card__number">
+                        <div class="product-card__ambient"></div>
+                        <div class="product-card__smoke"></div>
+
+                        <span class="product-card__number">
                             02
-                        </div>
+                        </span>
+
+                        <span class="product-card__category">
+                            EDP · 50 ML
+                        </span>
 
                         <div class="bottle bottle--ivory">
 
                             <div class="bottle__cap"></div>
 
+                            <div class="bottle__neck"></div>
+
                             <div class="bottle__body">
+
                                 <span>AURÉLIS</span>
                                 <small>IVORY</small>
+
                             </div>
 
                         </div>
 
                         <div class="product-card__info">
+
                             <div>
-                                <h3>Ivory Skin</h3>
-                                <p>Мускусный · Цветочный</p>
+
+                                <h3>
+                                    Ivory Skin
+                                </h3>
+
+                                <div class="notes-row">
+
+                                    <button
+                                        class="note-badge"
+                                        type="button"
+                                        data-note="musk"
+                                    >
+                                        Musk
+                                    </button>
+
+                                    <button
+                                        class="note-badge"
+                                        type="button"
+                                        data-note="jasmine"
+                                    >
+                                        Jasmine
+                                    </button>
+
+                                    <button
+                                        class="note-badge"
+                                        type="button"
+                                        data-note="iris"
+                                    >
+                                        Iris
+                                    </button>
+
+                                </div>
+
                             </div>
 
                             <span class="product-card__price">
                                 1 200 TJS
                             </span>
+
                         </div>
 
                         <button
                             class="order-button"
+                            type="button"
                             data-product="Ivory Skin"
+                            data-price="1 200 TJS"
                         >
-                            <span>Заказать</span>
+                            <span>Выбрать аромат</span>
                             <i>↗</i>
                         </button>
 
                     </article>
 
 
-                    <!-- PRODUCT 3 -->
-                    <article class="product-card product-card--graphite">
+                    <!-- PRODUCT 03 -->
+                    <article
+                        class="product-card product-card--ombre reveal"
+                        data-product-theme="ombre"
+                    >
 
-                        <div class="product-card__number">
+                        <div class="product-card__ambient"></div>
+                        <div class="product-card__smoke"></div>
+
+                        <span class="product-card__number">
                             03
-                        </div>
+                        </span>
+
+                        <span class="product-card__category">
+                            EDP · 50 ML
+                        </span>
 
                         <div class="bottle bottle--graphite">
 
                             <div class="bottle__cap"></div>
 
+                            <div class="bottle__neck"></div>
+
                             <div class="bottle__body">
+
                                 <span>AURÉLIS</span>
                                 <small>OMBRE</small>
+
                             </div>
 
                         </div>
 
                         <div class="product-card__info">
+
                             <div>
-                                <h3>Ombre Noire</h3>
-                                <p>Пряный · Древесный</p>
+
+                                <h3>
+                                    Ombre Noire
+                                </h3>
+
+                                <div class="notes-row">
+
+                                    <button
+                                        class="note-badge"
+                                        type="button"
+                                        data-note="spice"
+                                    >
+                                        Spice
+                                    </button>
+
+                                    <button
+                                        class="note-badge"
+                                        type="button"
+                                        data-note="cedar"
+                                    >
+                                        Cedar
+                                    </button>
+
+                                    <button
+                                        class="note-badge"
+                                        type="button"
+                                        data-note="leather"
+                                    >
+                                        Leather
+                                    </button>
+
+                                </div>
+
                             </div>
 
                             <span class="product-card__price">
                                 1 500 TJS
                             </span>
+
                         </div>
 
                         <button
                             class="order-button"
+                            type="button"
                             data-product="Ombre Noire"
+                            data-price="1 500 TJS"
                         >
-                            <span>Заказать</span>
+                            <span>Выбрать аромат</span>
                             <i>↗</i>
                         </button>
 
                     </article>
 
 
-                    <!-- PRODUCT 4 -->
-                    <article class="product-card product-card--sand">
+                    <!-- PRODUCT 04 -->
+                    <article
+                        class="product-card product-card--eclat reveal"
+                        data-product-theme="eclat"
+                    >
 
-                        <div class="product-card__number">
+                        <div class="product-card__ambient"></div>
+                        <div class="product-card__smoke"></div>
+
+                        <span class="product-card__number">
                             04
-                        </div>
+                        </span>
+
+                        <span class="product-card__category">
+                            EDP · 50 ML
+                        </span>
 
                         <div class="bottle bottle--sand">
 
                             <div class="bottle__cap"></div>
 
+                            <div class="bottle__neck"></div>
+
                             <div class="bottle__body">
+
                                 <span>AURÉLIS</span>
                                 <small>ÉCLAT</small>
+
                             </div>
 
                         </div>
 
                         <div class="product-card__info">
+
                             <div>
-                                <h3>Éclat Blanc</h3>
-                                <p>Цитрусовый · Свежий</p>
+
+                                <h3>
+                                    Éclat Blanc
+                                </h3>
+
+                                <div class="notes-row">
+
+                                    <button
+                                        class="note-badge"
+                                        type="button"
+                                        data-note="bergamot"
+                                    >
+                                        Bergamot
+                                    </button>
+
+                                    <button
+                                        class="note-badge"
+                                        type="button"
+                                        data-note="neroli"
+                                    >
+                                        Neroli
+                                    </button>
+
+                                    <button
+                                        class="note-badge"
+                                        type="button"
+                                        data-note="citrus"
+                                    >
+                                        Citrus
+                                    </button>
+
+                                </div>
+
                             </div>
 
                             <span class="product-card__price">
                                 1 100 TJS
                             </span>
+
                         </div>
 
                         <button
                             class="order-button"
+                            type="button"
                             data-product="Éclat Blanc"
+                            data-price="1 100 TJS"
                         >
-                            <span>Заказать</span>
+                            <span>Выбрать аромат</span>
                             <i>↗</i>
                         </button>
 
@@ -395,17 +685,222 @@
         </section>
 
 
-        <!-- ==============================
+        <!-- =========================================
+             DISCOVERY SET
+        ========================================== -->
+        <section
+            class="discovery section"
+            id="discovery"
+        >
+
+            <div class="container">
+
+                <div class="discovery__top reveal">
+
+                    <div class="section-label">
+                        <span>02.5</span>
+                        DISCOVERY SET
+                    </div>
+
+                    <span class="discovery__availability">
+                        3 × 3 ML
+                    </span>
+
+                </div>
+
+
+                <div class="discovery__grid">
+
+                    <div class="discovery__copy reveal">
+
+                        <h2>
+                            Познакомьтесь
+                            <em>с ароматом</em>
+                            прежде чем выбрать флакон.
+                        </h2>
+
+                        <p>
+                            Соберите собственный Discovery Set
+                            из трёх мини-композиций по 3 мл.
+                        </p>
+
+                        <div class="discovery__steps">
+
+                            <div>
+                                <span>01</span>
+                                Выберите аромат
+                            </div>
+
+                            <div>
+                                <span>02</span>
+                                Соберите три
+                            </div>
+
+                            <div>
+                                <span>03</span>
+                                Оформите Set
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="discovery__builder reveal">
+
+                        <div class="builder__header">
+
+                            <div>
+                                <span>
+                                    YOUR SELECTION
+                                </span>
+
+                                <strong id="selectionCount">
+                                    0 / 3
+                                </strong>
+                            </div>
+
+                            <button
+                                type="button"
+                                id="clearSelection"
+                            >
+                                Очистить
+                            </button>
+
+                        </div>
+
+
+                        <div
+                            class="builder__slots"
+                            id="builderSlots"
+                        >
+
+                            <div
+                                class="builder-slot"
+                                data-slot="0"
+                            >
+                                <span>01</span>
+                                <small>Перетащите аромат</small>
+                            </div>
+
+                            <div
+                                class="builder-slot"
+                                data-slot="1"
+                            >
+                                <span>02</span>
+                                <small>Перетащите аромат</small>
+                            </div>
+
+                            <div
+                                class="builder-slot"
+                                data-slot="2"
+                            >
+                                <span>03</span>
+                                <small>Перетащите аромат</small>
+                            </div>
+
+                        </div>
+
+
+                        <div class="builder__products">
+
+                            <button
+                                class="builder-product"
+                                type="button"
+                                draggable="true"
+                                data-scent="Noir Élégance"
+                                data-short="NOIR"
+                            >
+                                <span>01</span>
+                                <strong>Noir</strong>
+                                <small>Oud · Amber</small>
+                                <i>+</i>
+                            </button>
+
+                            <button
+                                class="builder-product"
+                                type="button"
+                                draggable="true"
+                                data-scent="Ivory Skin"
+                                data-short="IVORY"
+                            >
+                                <span>02</span>
+                                <strong>Ivory</strong>
+                                <small>Musk · Jasmine</small>
+                                <i>+</i>
+                            </button>
+
+                            <button
+                                class="builder-product"
+                                type="button"
+                                draggable="true"
+                                data-scent="Ombre Noire"
+                                data-short="OMBRE"
+                            >
+                                <span>03</span>
+                                <strong>Ombre</strong>
+                                <small>Cedar · Spice</small>
+                                <i>+</i>
+                            </button>
+
+                            <button
+                                class="builder-product"
+                                type="button"
+                                draggable="true"
+                                data-scent="Éclat Blanc"
+                                data-short="ÉCLAT"
+                            >
+                                <span>04</span>
+                                <strong>Éclat</strong>
+                                <small>Bergamot · Neroli</small>
+                                <i>+</i>
+                            </button>
+
+                        </div>
+
+
+                        <div class="builder__summary">
+
+                            <div>
+                                <span>DISCOVERY SET</span>
+                                <strong>300 TJS</strong>
+                            </div>
+
+                            <button
+                                type="button"
+                                class="button button--light"
+                                id="discoveryOrder"
+                                disabled
+                            >
+                                <span>Заказать Set</span>
+                                <i>↗</i>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================
              STATEMENT
-        =============================== -->
+        ========================================== -->
         <section class="statement">
 
-            <div class="statement__background"></div>
+            <div class="statement__backdrop"></div>
 
-            <div class="statement__content">
+            <div class="statement__mist statement__mist--one"></div>
+            <div class="statement__mist statement__mist--two"></div>
+
+            <div class="statement__content reveal">
 
                 <span>
-                    AURÉLIS · 2026
+                    AURÉLIS · COLLECTION 2026
                 </span>
 
                 <h2>
@@ -419,25 +914,32 @@
         </section>
 
 
-        <!-- ==============================
+        <!-- =========================================
              STORY
-        =============================== -->
-        <section class="story section" id="story">
+        ========================================== -->
+        <section
+            class="story section"
+            id="story"
+        >
 
             <div class="container">
 
                 <div class="story__grid">
 
-                    <div class="story__visual">
+                    <div class="story__visual reveal">
 
                         <div class="story__frame">
 
+                            <div class="story__halo"></div>
+
                             <div class="story__bottle">
+
                                 <div class="story__cap"></div>
 
                                 <div class="story__glass">
                                     <span>A</span>
                                 </div>
+
                             </div>
 
                         </div>
@@ -449,7 +951,7 @@
                     </div>
 
 
-                    <div class="story__content">
+                    <div class="story__content reveal">
 
                         <div class="section-label">
                             <span>03</span>
@@ -463,19 +965,22 @@
                         </h2>
 
                         <p>
-                            AURÉLIS родился из идеи создавать
-                            парфюмерию без лишнего шума.
+                            AURÉLIS создан вокруг простой идеи:
+                            роскошь не должна быть громкой.
                         </p>
 
                         <p>
-                            Чистые формы. Глубокие ноты.
-                            Продуманные детали. Каждый аромат
-                            раскрывается постепенно, оставляя
-                            после себя индивидуальный след.
+                            Чистые формы, глубокие композиции
+                            и внимание к каждой детали создают
+                            аромат, который становится частью
+                            вашего присутствия.
                         </p>
 
-                        <a href="#contact" class="text-link">
-                            Узнать историю бренда
+                        <a
+                            href="#contact"
+                            class="text-link"
+                        >
+                            Познакомиться с AURÉLIS
                             <span>↗</span>
                         </a>
 
@@ -488,14 +993,17 @@
         </section>
 
 
-        <!-- ==============================
+        <!-- =========================================
              REVIEWS
-        =============================== -->
-        <section class="reviews section" id="reviews">
+        ========================================== -->
+        <section
+            class="reviews section"
+            id="reviews"
+        >
 
             <div class="container">
 
-                <div class="section-heading section-heading--center">
+                <div class="section-heading section-heading--center reveal">
 
                     <div class="section-label">
                         <span>04</span>
@@ -512,20 +1020,21 @@
 
                 <div class="reviews-grid">
 
-                    <article class="review-card">
+                    <article class="review-card reveal">
 
-                        <div class="review-card__stars">
-                            ★★★★★
+                        <div class="review-card__top">
+                            <span>01</span>
+                            <div>★★★★★</div>
                         </div>
 
                         <blockquote>
                             «Очень чистый и дорогой аромат.
-                            Именно тот случай, когда одного
-                            нанесения достаточно.»
+                            В нём нет ничего лишнего.»
                         </blockquote>
 
                         <div class="review-card__author">
-                            <span>А.</span>
+                            <span>А</span>
+
                             <div>
                                 <strong>Алина</strong>
                                 <small>Душанбе</small>
@@ -535,20 +1044,21 @@
                     </article>
 
 
-                    <article class="review-card">
+                    <article class="review-card reveal">
 
-                        <div class="review-card__stars">
-                            ★★★★★
+                        <div class="review-card__top">
+                            <span>02</span>
+                            <div>★★★★★</div>
                         </div>
 
                         <blockquote>
                             «Ombre Noire стал моим ежедневным
-                            ароматом. Глубокий, спокойный
-                            и совершенно не банальный.»
+                            ароматом. Глубокий и уверенный.»
                         </blockquote>
 
                         <div class="review-card__author">
-                            <span>М.</span>
+                            <span>М</span>
+
                             <div>
                                 <strong>Мухаммад</strong>
                                 <small>Душанбе</small>
@@ -558,20 +1068,21 @@
                     </article>
 
 
-                    <article class="review-card">
+                    <article class="review-card reveal">
 
-                        <div class="review-card__stars">
-                            ★★★★★
+                        <div class="review-card__top">
+                            <span>03</span>
+                            <div>★★★★★</div>
                         </div>
 
                         <blockquote>
-                            «Понравилось всё — от упаковки
-                            до самого аромата. Очень красивый
-                            минималистичный стиль.»
+                            «Понравилось ощущение бренда —
+                            спокойно, дорого и очень современно.»
                         </blockquote>
 
                         <div class="review-card__author">
-                            <span>С.</span>
+                            <span>С</span>
+
                             <div>
                                 <strong>София</strong>
                                 <small>Душанбе</small>
@@ -587,12 +1098,15 @@
         </section>
 
 
-        <!-- ==============================
+        <!-- =========================================
              CTA
-        =============================== -->
-        <section class="cta" id="contact">
+        ========================================== -->
+        <section
+            class="cta"
+            id="contact"
+        >
 
-            <div class="cta__inner">
+            <div class="cta__inner reveal">
 
                 <div class="section-label">
                     <span>05</span>
@@ -605,12 +1119,12 @@
                 </h2>
 
                 <p>
-                    Свяжитесь с нами, чтобы подобрать
-                    композицию или оформить заказ.
+                    Напишите нам, чтобы подобрать композицию
+                    или оформить персональный заказ.
                 </p>
 
                 <a
-                    href="https://wa.me/"
+                    href="https://wa.me/992974008118"
                     target="_blank"
                     rel="noopener noreferrer"
                     class="button button--dark"
@@ -626,16 +1140,19 @@
     </main>
 
 
-    <!-- ==============================
+    <!-- =========================================
          FOOTER
-    =============================== -->
+    ========================================== -->
     <footer class="footer">
 
         <div class="footer__top">
 
             <div class="footer__brand">
 
-                <a href="#home" class="logo">
+                <a
+                    href="#home"
+                    class="logo"
+                >
                     AURÉLIS
                 </a>
 
@@ -649,16 +1166,44 @@
             <div class="footer__links">
 
                 <div>
+
                     <span>EXPLORE</span>
-                    <a href="#collection">Коллекция</a>
-                    <a href="#story">О бренде</a>
-                    <a href="#reviews">Отзывы</a>
+
+                    <a href="#collection">
+                        Коллекция
+                    </a>
+
+                    <a href="#discovery">
+                        Discovery Set
+                    </a>
+
+                    <a href="#story">
+                        О бренде
+                    </a>
+
                 </div>
 
+
                 <div>
+
                     <span>CONTACT</span>
-                    <a href="#contact">WhatsApp</a>
-                    <a href="#contact">Telegram</a>
+
+                    <a
+                        href="https://wa.me/992974008118"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        WhatsApp
+                    </a>
+
+                    <a
+                        href="https://t.me/WebProCompany"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Telegram
+                    </a>
+
                 </div>
 
             </div>
@@ -673,7 +1218,7 @@
             </span>
 
             <span>
-                MAISON DE PARFUM
+                DUSHANBE · TAJIKISTAN
             </span>
 
             <a href="#home">
@@ -685,67 +1230,239 @@
     </footer>
 
 
-    <!-- ==============================
-         ORDER MODAL
-    =============================== -->
-    <div class="modal" id="orderModal">
+    <!-- =========================================
+         NOTE MODAL
+    ========================================== -->
+    <div
+        class="note-modal"
+        id="noteModal"
+        aria-hidden="true"
+    >
 
-        <div class="modal__backdrop"></div>
+        <div class="note-modal__backdrop"></div>
 
-        <div class="modal__window">
+        <div
+            class="note-modal__window"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="noteTitle"
+        >
 
             <button
-                class="modal__close"
-                id="modalClose"
+                type="button"
+                class="modal-close"
+                id="noteModalClose"
                 aria-label="Закрыть"
             >
                 ×
             </button>
 
-            <span class="modal__label">
-                PRIVATE ORDER
+            <span class="modal-eyebrow">
+                SCENT NOTE
             </span>
 
-            <h2>
-                Ваш выбор
+            <h2 id="noteTitle">
+                Note
             </h2>
 
-            <p class="modal__product" id="modalProduct">
-                Product
+            <p id="noteDescription">
+                Description
             </p>
 
-            <form id="orderForm">
+            <div class="note-modal__meta">
 
-                <label>
-                    Ваше имя
-                    <input
-                        type="text"
-                        id="customerName"
-                        name="name"
-                        placeholder="Введите имя"
-                        required
-                        minlength="2"
-                    >
-                </label>
+                <span>
+                    OLFACTIVE PROFILE
+                </span>
 
-                <label>
-                    Телефон
-                    <input
-                        type="tel"
-                        id="customerPhone"
-                        name="phone"
-                        placeholder="+992 ..."
-                        required
-                        minlength="7"
-                    >
-                </label>
+                <strong id="noteMood">
+                    —
+                </strong>
 
-                <button type="submit" class="button button--dark">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         ORDER / RITUAL MODAL
+    ========================================== -->
+    <div
+        class="ritual-modal"
+        id="ritualModal"
+        aria-hidden="true"
+    >
+
+        <div class="ritual-modal__backdrop"></div>
+
+        <div
+            class="ritual"
+            role="dialog"
+            aria-modal="true"
+        >
+
+            <button
+                class="modal-close"
+                id="ritualClose"
+                type="button"
+                aria-label="Закрыть"
+            >
+                ×
+            </button>
+
+
+            <div class="ritual__head">
+
+                <span class="modal-eyebrow">
+                    PRIVATE RITUAL
+                </span>
+
+                <div class="ritual__progress">
+                    <span class="is-active"></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+            </div>
+
+
+            <!-- STEP 1 -->
+            <div
+                class="ritual-step is-active"
+                data-step="1"
+            >
+
+                <p class="ritual__kicker">
+                    YOUR SELECTION
+                </p>
+
+                <h2>
+                    Ваш аромат
+                    <em>выбран.</em>
+                </h2>
+
+                <div class="ritual__selected">
+
+                    <span>
+                        SELECTED ESSENCE
+                    </span>
+
+                    <strong id="ritualProduct">
+                        —
+                    </strong>
+
+                    <small id="ritualPrice">
+                        —
+                    </small>
+
+                </div>
+
+                <button
+                    type="button"
+                    class="button button--dark ritual-next"
+                    data-next="2"
+                >
                     <span>Продолжить</span>
                     <i>↗</i>
                 </button>
 
-            </form>
+            </div>
+
+
+            <!-- STEP 2 -->
+            <div
+                class="ritual-step"
+                data-step="2"
+            >
+
+                <p class="ritual__kicker">
+                    PERSONAL DETAILS
+                </p>
+
+                <h2>
+                    Оставьте
+                    <em>контакт.</em>
+                </h2>
+
+                <form
+                    class="ritual-form"
+                    id="ritualForm"
+                >
+
+                    <label>
+                        Имя
+                        <input
+                            type="text"
+                            id="ritualName"
+                            required
+                            minlength="2"
+                            placeholder="Ваше имя"
+                        >
+                    </label>
+
+                    <label>
+                        Телефон
+                        <input
+                            type="tel"
+                            id="ritualPhone"
+                            required
+                            minlength="7"
+                            placeholder="+992 ..."
+                        >
+                    </label>
+
+                    <button
+                        type="submit"
+                        class="button button--dark"
+                    >
+                        <span>Подтвердить выбор</span>
+                        <i>↗</i>
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <!-- STEP 3 -->
+            <div
+                class="ritual-step"
+                data-step="3"
+            >
+
+                <p class="ritual__kicker">
+                    AURÉLIS
+                </p>
+
+                <h2>
+                    Ваш выбор
+                    <em>принят.</em>
+                </h2>
+
+                <div class="ritual__confirmation">
+
+                    <span class="confirmation__mark">
+                        ✓
+                    </span>
+
+                    <p id="ritualConfirmation">
+                        Спасибо.
+                    </p>
+
+                </div>
+
+                <button
+                    type="button"
+                    class="button button--light"
+                    id="ritualDone"
+                >
+                    <span>Закрыть</span>
+                    <i>×</i>
+                </button>
+
+            </div>
 
         </div>
 
