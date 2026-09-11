@@ -165,3 +165,80 @@
 
 </body>
 </html>
+
+
+    <!-- БЛОК НАСТРОЕНИЙ И ВИТРИНА ТОВАРОВ -->
+    <section id="catalog" style="padding: 60px 20px; max-width: 1200px; margin: 0 auto;">
+        
+        <h2 style="text-align: center; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px;">
+            Выбирите своё настроение
+        </h2>
+        <p style="text-align: center; color: var(--text-gray); margin-bottom: 40px;">
+            ИИ подберет идеальные парфюмерные ноты под ваше состояние
+        </p>
+
+        <!-- Кнопки переключения настроения -->
+        <div class="mood-container">
+            <button class="mood-btn active" onclick="filterMood('all')">✨ Все ароматы</button>
+            <button class="mood-btn" onclick="filterMood('energy')">⚡ Энергия</button>
+            <button class="mood-btn" onclick="filterMood('romance')">❤️ Романтика</button>
+            <button class="mood-btn" onclick="filterMood('business')">💼 Статус</button>
+            <button class="mood-btn" onclick="filterMood('relax')">🧘 Релакс</button>
+        </div>
+
+        <!-- Сетка товаров, которая будет заполняться через JavaScript -->
+        <div class="products-grid" id="shop-grid"></div>
+    </section>
+
+    <!-- Скрипт логики магазина (JavaScript) -->
+    <script>
+        // Имитация базы данных товаров
+        const products = [
+            { id: 1, name: "Neon Citrus", mood: "energy", notes: "Лайм, Бергамот, Зеленый чай", price: "750 сомони", icon: "🍋" },
+            { id: 2, name: "Midnight Rose", mood: "romance", notes: "Дамасская роза, Мускус, Ваниль", price: "920 сомони", icon: "🌹" },
+            { id: 3, name: "Oud Amber", mood: "business", notes: "Уд, Кожа, Шафран, Сандал", price: "1200 сомони", icon: "🪵" },
+            { id: 4, name: "Velvet Lavender", mood: "relax", notes: "Лаванда, Ромашка, Белый мускус", price: "680 сомони", icon: "🪻" },
+            { id: 5, name: "Solar Mint", mood: "energy", notes: "Мята, Грейпфрут, Морская соль", price: "710 сомони", icon: "🌿" },
+            { id: 6, name: "Amour Intense", mood: "romance", notes: "Жасмин, Пачули, Черная смородина", price: "890 сомони", icon: "🍒" }
+        ];
+
+        // Функция вывода товаров на экран
+        function renderProducts(filter) {
+            const grid = document.getElementById('shop-grid');
+            grid.innerHTML = '';
+
+            const filtered = filter === 'all' ? products : products.filter(p => p.mood === filter);
+
+            filtered.forEach(p => {
+                grid.innerHTML += `
+                    <div class="product-card">
+                        <div class="product-image">${p.icon}</div>
+                        <div class="product-info">
+                            <h3 class="product-name">${p.name}</h3>
+                            <div class="product-notes"><b>Ноты:</b> ${p.notes}</div>
+                            <div class="product-footer">
+                                <span class="product-price">${p.price}</span>
+                                <button class="buy-btn" onclick="alert('Товар ${p.name} добавлен в корзину!')">В корзину</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Функция переключения вкладок
+        function filterMood(mood) {
+            const buttons = document.querySelectorAll('.mood-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Защита от багов при клике
+            if(event) {
+                event.target.classList.add('active');
+            }
+
+            renderProducts(mood);
+        }
+
+        // Запуск при загрузке страницы
+        renderProducts('all');
+    </script>
